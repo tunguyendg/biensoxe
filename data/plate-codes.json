@@ -1,0 +1,1035 @@
+{
+  "meta": {
+    "dataVersion": "2025-07-01",
+    "lastReviewed": "2026-11-08",
+    "legalBasis": [
+      {
+        "id": "tt51-2025",
+        "title": "Thông tư 51/2025/TT-BCA (sửa đổi TT 79/2024/TT-BCA), Phụ lục 02",
+        "issued": "2025-06-30",
+        "effective": "2025-07-01"
+      },
+      {
+        "id": "nq202-2025",
+        "title": "Nghị quyết 202/2025/QH15 về sắp xếp đơn vị hành chính cấp tỉnh",
+        "issued": "2025-06-12",
+        "effective": "2025-06-12"
+      }
+    ],
+    "status": "DRAFT — compiled from secondary sources (LuatVietnam). Must be checked line-by-line against the official Phụ lục 02 before any record is set verified:true."
+  },
+  "provinces": [
+    {
+      "slug": "ha-noi",
+      "name": "Hà Nội",
+      "region": "bac",
+      "codes": [
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "40"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "hai-phong",
+      "name": "Hải Phòng",
+      "region": "bac",
+      "codes": [
+        "15",
+        "16",
+        "34"
+      ],
+      "formerProvinces": [
+        "Hải Dương"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "quang-ninh",
+      "name": "Quảng Ninh",
+      "region": "bac",
+      "codes": [
+        "14"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "bac-ninh",
+      "name": "Bắc Ninh",
+      "region": "bac",
+      "codes": [
+        "99",
+        "98"
+      ],
+      "formerProvinces": [
+        "Bắc Giang"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "hung-yen",
+      "name": "Hưng Yên",
+      "region": "bac",
+      "codes": [
+        "89",
+        "17"
+      ],
+      "formerProvinces": [
+        "Thái Bình"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "ninh-binh",
+      "name": "Ninh Bình",
+      "region": "bac",
+      "codes": [
+        "35",
+        "18",
+        "90"
+      ],
+      "formerProvinces": [
+        "Hà Nam",
+        "Nam Định"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "phu-tho",
+      "name": "Phú Thọ",
+      "region": "bac",
+      "codes": [
+        "19",
+        "28",
+        "88"
+      ],
+      "formerProvinces": [
+        "Hòa Bình",
+        "Vĩnh Phúc"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "thai-nguyen",
+      "name": "Thái Nguyên",
+      "region": "bac",
+      "codes": [
+        "20",
+        "97"
+      ],
+      "formerProvinces": [
+        "Bắc Kạn"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "tuyen-quang",
+      "name": "Tuyên Quang",
+      "region": "bac",
+      "codes": [
+        "22",
+        "23"
+      ],
+      "formerProvinces": [
+        "Hà Giang"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "lao-cai",
+      "name": "Lào Cai",
+      "region": "bac",
+      "codes": [
+        "24",
+        "21"
+      ],
+      "formerProvinces": [
+        "Yên Bái"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "cao-bang",
+      "name": "Cao Bằng",
+      "region": "bac",
+      "codes": [
+        "11"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "lang-son",
+      "name": "Lạng Sơn",
+      "region": "bac",
+      "codes": [
+        "12"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "dien-bien",
+      "name": "Điện Biên",
+      "region": "bac",
+      "codes": [
+        "27"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "lai-chau",
+      "name": "Lai Châu",
+      "region": "bac",
+      "codes": [
+        "25"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "son-la",
+      "name": "Sơn La",
+      "region": "bac",
+      "codes": [
+        "26"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "thanh-hoa",
+      "name": "Thanh Hóa",
+      "region": "trung",
+      "codes": [
+        "36"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "nghe-an",
+      "name": "Nghệ An",
+      "region": "trung",
+      "codes": [
+        "37"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "ha-tinh",
+      "name": "Hà Tĩnh",
+      "region": "trung",
+      "codes": [
+        "38"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "quang-tri",
+      "name": "Quảng Trị",
+      "region": "trung",
+      "codes": [
+        "74",
+        "73"
+      ],
+      "formerProvinces": [
+        "Quảng Bình"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "hue",
+      "name": "Huế",
+      "region": "trung",
+      "codes": [
+        "75"
+      ],
+      "formerProvinces": [],
+      "verified": false
+    },
+    {
+      "slug": "da-nang",
+      "name": "Đà Nẵng",
+      "region": "trung",
+      "codes": [
+        "43",
+        "92"
+      ],
+      "formerProvinces": [
+        "Quảng Nam"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "quang-ngai",
+      "name": "Quảng Ngãi",
+      "region": "trung",
+      "codes": [
+        "76",
+        "82"
+      ],
+      "formerProvinces": [
+        "Kon Tum"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "gia-lai",
+      "name": "Gia Lai",
+      "region": "trung",
+      "codes": [
+        "81",
+        "77"
+      ],
+      "formerProvinces": [
+        "Bình Định"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "dak-lak",
+      "name": "Đắk Lắk",
+      "region": "trung",
+      "codes": [
+        "47",
+        "78"
+      ],
+      "formerProvinces": [
+        "Phú Yên"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "khanh-hoa",
+      "name": "Khánh Hòa",
+      "region": "trung",
+      "codes": [
+        "79",
+        "85"
+      ],
+      "formerProvinces": [
+        "Ninh Thuận"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "lam-dong",
+      "name": "Lâm Đồng",
+      "region": "trung",
+      "codes": [
+        "49",
+        "48",
+        "86"
+      ],
+      "formerProvinces": [
+        "Bình Thuận",
+        "Đắk Nông"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "ho-chi-minh",
+      "name": "TP. Hồ Chí Minh",
+      "region": "nam",
+      "codes": [
+        "41",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "61",
+        "72"
+      ],
+      "formerProvinces": [
+        "Bà Rịa – Vũng Tàu",
+        "Bình Dương"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "dong-nai",
+      "name": "Đồng Nai",
+      "region": "nam",
+      "codes": [
+        "60",
+        "39",
+        "93"
+      ],
+      "formerProvinces": [
+        "Bình Phước"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "tay-ninh",
+      "name": "Tây Ninh",
+      "region": "nam",
+      "codes": [
+        "70",
+        "62"
+      ],
+      "formerProvinces": [
+        "Long An"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "can-tho",
+      "name": "Cần Thơ",
+      "region": "nam",
+      "codes": [
+        "65",
+        "83",
+        "95"
+      ],
+      "formerProvinces": [
+        "Hậu Giang",
+        "Sóc Trăng"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "vinh-long",
+      "name": "Vĩnh Long",
+      "region": "nam",
+      "codes": [
+        "64",
+        "71",
+        "84"
+      ],
+      "formerProvinces": [
+        "Bến Tre",
+        "Trà Vinh"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "dong-thap",
+      "name": "Đồng Tháp",
+      "region": "nam",
+      "codes": [
+        "66",
+        "63"
+      ],
+      "formerProvinces": [
+        "Tiền Giang"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "an-giang",
+      "name": "An Giang",
+      "region": "nam",
+      "codes": [
+        "68",
+        "67"
+      ],
+      "formerProvinces": [
+        "Kiên Giang"
+      ],
+      "verified": false
+    },
+    {
+      "slug": "ca-mau",
+      "name": "Cà Mau",
+      "region": "nam",
+      "codes": [
+        "69",
+        "94"
+      ],
+      "formerProvinces": [
+        "Bạc Liêu"
+      ],
+      "verified": false
+    }
+  ],
+  "codes": [
+    {
+      "code": "11",
+      "type": "province",
+      "currentProvince": "cao-bang",
+      "formerProvince": "Cao Bằng",
+      "verified": false
+    },
+    {
+      "code": "12",
+      "type": "province",
+      "currentProvince": "lang-son",
+      "formerProvince": "Lạng Sơn",
+      "verified": false
+    },
+    {
+      "code": "14",
+      "type": "province",
+      "currentProvince": "quang-ninh",
+      "formerProvince": "Quảng Ninh",
+      "verified": false
+    },
+    {
+      "code": "15",
+      "type": "province",
+      "currentProvince": "hai-phong",
+      "formerProvince": "Hải Phòng",
+      "verified": false
+    },
+    {
+      "code": "16",
+      "type": "province",
+      "currentProvince": "hai-phong",
+      "formerProvince": "Hải Phòng",
+      "verified": false
+    },
+    {
+      "code": "17",
+      "type": "province",
+      "currentProvince": "hung-yen",
+      "formerProvince": "Thái Bình",
+      "verified": false
+    },
+    {
+      "code": "18",
+      "type": "province",
+      "currentProvince": "ninh-binh",
+      "formerProvince": "Nam Định",
+      "verified": false
+    },
+    {
+      "code": "19",
+      "type": "province",
+      "currentProvince": "phu-tho",
+      "formerProvince": "Phú Thọ",
+      "verified": false
+    },
+    {
+      "code": "20",
+      "type": "province",
+      "currentProvince": "thai-nguyen",
+      "formerProvince": "Thái Nguyên",
+      "verified": false
+    },
+    {
+      "code": "21",
+      "type": "province",
+      "currentProvince": "lao-cai",
+      "formerProvince": "Yên Bái",
+      "verified": false
+    },
+    {
+      "code": "22",
+      "type": "province",
+      "currentProvince": "tuyen-quang",
+      "formerProvince": "Tuyên Quang",
+      "verified": false
+    },
+    {
+      "code": "23",
+      "type": "province",
+      "currentProvince": "tuyen-quang",
+      "formerProvince": "Hà Giang",
+      "verified": false
+    },
+    {
+      "code": "24",
+      "type": "province",
+      "currentProvince": "lao-cai",
+      "formerProvince": "Lào Cai",
+      "verified": false
+    },
+    {
+      "code": "25",
+      "type": "province",
+      "currentProvince": "lai-chau",
+      "formerProvince": "Lai Châu",
+      "verified": false
+    },
+    {
+      "code": "26",
+      "type": "province",
+      "currentProvince": "son-la",
+      "formerProvince": "Sơn La",
+      "verified": false
+    },
+    {
+      "code": "27",
+      "type": "province",
+      "currentProvince": "dien-bien",
+      "formerProvince": "Điện Biên",
+      "verified": false
+    },
+    {
+      "code": "28",
+      "type": "province",
+      "currentProvince": "phu-tho",
+      "formerProvince": "Hòa Bình",
+      "verified": false
+    },
+    {
+      "code": "29",
+      "type": "province",
+      "currentProvince": "ha-noi",
+      "formerProvince": "Hà Nội",
+      "verified": false
+    },
+    {
+      "code": "30",
+      "type": "province",
+      "currentProvince": "ha-noi",
+      "formerProvince": "Hà Nội",
+      "verified": false
+    },
+    {
+      "code": "31",
+      "type": "province",
+      "currentProvince": "ha-noi",
+      "formerProvince": "Hà Nội",
+      "verified": false
+    },
+    {
+      "code": "32",
+      "type": "province",
+      "currentProvince": "ha-noi",
+      "formerProvince": "Hà Nội",
+      "verified": false
+    },
+    {
+      "code": "33",
+      "type": "province",
+      "currentProvince": "ha-noi",
+      "formerProvince": "Hà Nội",
+      "verified": false
+    },
+    {
+      "code": "34",
+      "type": "province",
+      "currentProvince": "hai-phong",
+      "formerProvince": "Hải Dương",
+      "verified": false
+    },
+    {
+      "code": "35",
+      "type": "province",
+      "currentProvince": "ninh-binh",
+      "formerProvince": "Ninh Bình",
+      "verified": false
+    },
+    {
+      "code": "36",
+      "type": "province",
+      "currentProvince": "thanh-hoa",
+      "formerProvince": "Thanh Hóa",
+      "verified": false
+    },
+    {
+      "code": "37",
+      "type": "province",
+      "currentProvince": "nghe-an",
+      "formerProvince": "Nghệ An",
+      "verified": false
+    },
+    {
+      "code": "38",
+      "type": "province",
+      "currentProvince": "ha-tinh",
+      "formerProvince": "Hà Tĩnh",
+      "verified": false
+    },
+    {
+      "code": "39",
+      "type": "province",
+      "currentProvince": "dong-nai",
+      "formerProvince": "Đồng Nai",
+      "verified": false,
+      "note": "Mã 39 được bổ sung cho Đồng Nai trước 2025 (không phải mã của tỉnh cũ khác)."
+    },
+    {
+      "code": "40",
+      "type": "province",
+      "currentProvince": "ha-noi",
+      "formerProvince": "Hà Nội",
+      "verified": false
+    },
+    {
+      "code": "41",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "43",
+      "type": "province",
+      "currentProvince": "da-nang",
+      "formerProvince": "Đà Nẵng",
+      "verified": false
+    },
+    {
+      "code": "47",
+      "type": "province",
+      "currentProvince": "dak-lak",
+      "formerProvince": "Đắk Lắk",
+      "verified": false
+    },
+    {
+      "code": "48",
+      "type": "province",
+      "currentProvince": "lam-dong",
+      "formerProvince": "Đắk Nông",
+      "verified": false
+    },
+    {
+      "code": "49",
+      "type": "province",
+      "currentProvince": "lam-dong",
+      "formerProvince": "Lâm Đồng",
+      "verified": false
+    },
+    {
+      "code": "50",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "51",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "52",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "53",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "54",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "55",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "56",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "57",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "58",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "59",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "TP. Hồ Chí Minh",
+      "verified": false
+    },
+    {
+      "code": "60",
+      "type": "province",
+      "currentProvince": "dong-nai",
+      "formerProvince": "Đồng Nai",
+      "verified": false
+    },
+    {
+      "code": "61",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "Bình Dương",
+      "verified": false
+    },
+    {
+      "code": "62",
+      "type": "province",
+      "currentProvince": "tay-ninh",
+      "formerProvince": "Long An",
+      "verified": false
+    },
+    {
+      "code": "63",
+      "type": "province",
+      "currentProvince": "dong-thap",
+      "formerProvince": "Tiền Giang",
+      "verified": false
+    },
+    {
+      "code": "64",
+      "type": "province",
+      "currentProvince": "vinh-long",
+      "formerProvince": "Vĩnh Long",
+      "verified": false
+    },
+    {
+      "code": "65",
+      "type": "province",
+      "currentProvince": "can-tho",
+      "formerProvince": "Cần Thơ",
+      "verified": false
+    },
+    {
+      "code": "66",
+      "type": "province",
+      "currentProvince": "dong-thap",
+      "formerProvince": "Đồng Tháp",
+      "verified": false
+    },
+    {
+      "code": "67",
+      "type": "province",
+      "currentProvince": "an-giang",
+      "formerProvince": "An Giang",
+      "verified": false
+    },
+    {
+      "code": "68",
+      "type": "province",
+      "currentProvince": "an-giang",
+      "formerProvince": "Kiên Giang",
+      "verified": false,
+      "note": "Tỉnh An Giang mới hợp nhất An Giang và Kiên Giang; Phụ lục ghi 68 trước 67."
+    },
+    {
+      "code": "69",
+      "type": "province",
+      "currentProvince": "ca-mau",
+      "formerProvince": "Cà Mau",
+      "verified": false
+    },
+    {
+      "code": "70",
+      "type": "province",
+      "currentProvince": "tay-ninh",
+      "formerProvince": "Tây Ninh",
+      "verified": false
+    },
+    {
+      "code": "71",
+      "type": "province",
+      "currentProvince": "vinh-long",
+      "formerProvince": "Bến Tre",
+      "verified": false
+    },
+    {
+      "code": "72",
+      "type": "province",
+      "currentProvince": "ho-chi-minh",
+      "formerProvince": "Bà Rịa – Vũng Tàu",
+      "verified": false
+    },
+    {
+      "code": "73",
+      "type": "province",
+      "currentProvince": "quang-tri",
+      "formerProvince": "Quảng Bình",
+      "verified": false
+    },
+    {
+      "code": "74",
+      "type": "province",
+      "currentProvince": "quang-tri",
+      "formerProvince": "Quảng Trị",
+      "verified": false
+    },
+    {
+      "code": "75",
+      "type": "province",
+      "currentProvince": "hue",
+      "formerProvince": "Huế",
+      "verified": false,
+      "note": "Thành phố Huế trực thuộc TW từ 01/01/2025 (trước đó: tỉnh Thừa Thiên Huế). Kiểm tra tên ghi trong Phụ lục 02 TT51/2025."
+    },
+    {
+      "code": "76",
+      "type": "province",
+      "currentProvince": "quang-ngai",
+      "formerProvince": "Quảng Ngãi",
+      "verified": false
+    },
+    {
+      "code": "77",
+      "type": "province",
+      "currentProvince": "gia-lai",
+      "formerProvince": "Bình Định",
+      "verified": false
+    },
+    {
+      "code": "78",
+      "type": "province",
+      "currentProvince": "dak-lak",
+      "formerProvince": "Phú Yên",
+      "verified": false
+    },
+    {
+      "code": "79",
+      "type": "province",
+      "currentProvince": "khanh-hoa",
+      "formerProvince": "Khánh Hòa",
+      "verified": false
+    },
+    {
+      "code": "80",
+      "type": "special",
+      "currentProvince": null,
+      "formerProvince": null,
+      "label": "Cục Cảnh sát giao thông (Bộ Công an)",
+      "verified": false,
+      "note": "Mã đăng ký tại Cục CSGT, không gắn với tỉnh/thành nào."
+    },
+    {
+      "code": "81",
+      "type": "province",
+      "currentProvince": "gia-lai",
+      "formerProvince": "Gia Lai",
+      "verified": false
+    },
+    {
+      "code": "82",
+      "type": "province",
+      "currentProvince": "quang-ngai",
+      "formerProvince": "Kon Tum",
+      "verified": false
+    },
+    {
+      "code": "83",
+      "type": "province",
+      "currentProvince": "can-tho",
+      "formerProvince": "Sóc Trăng",
+      "verified": false
+    },
+    {
+      "code": "84",
+      "type": "province",
+      "currentProvince": "vinh-long",
+      "formerProvince": "Trà Vinh",
+      "verified": false
+    },
+    {
+      "code": "85",
+      "type": "province",
+      "currentProvince": "khanh-hoa",
+      "formerProvince": "Ninh Thuận",
+      "verified": false
+    },
+    {
+      "code": "86",
+      "type": "province",
+      "currentProvince": "lam-dong",
+      "formerProvince": "Bình Thuận",
+      "verified": false
+    },
+    {
+      "code": "88",
+      "type": "province",
+      "currentProvince": "phu-tho",
+      "formerProvince": "Vĩnh Phúc",
+      "verified": false
+    },
+    {
+      "code": "89",
+      "type": "province",
+      "currentProvince": "hung-yen",
+      "formerProvince": "Hưng Yên",
+      "verified": false
+    },
+    {
+      "code": "90",
+      "type": "province",
+      "currentProvince": "ninh-binh",
+      "formerProvince": "Hà Nam",
+      "verified": false
+    },
+    {
+      "code": "92",
+      "type": "province",
+      "currentProvince": "da-nang",
+      "formerProvince": "Quảng Nam",
+      "verified": false
+    },
+    {
+      "code": "93",
+      "type": "province",
+      "currentProvince": "dong-nai",
+      "formerProvince": "Bình Phước",
+      "verified": false
+    },
+    {
+      "code": "94",
+      "type": "province",
+      "currentProvince": "ca-mau",
+      "formerProvince": "Bạc Liêu",
+      "verified": false
+    },
+    {
+      "code": "95",
+      "type": "province",
+      "currentProvince": "can-tho",
+      "formerProvince": "Hậu Giang",
+      "verified": false
+    },
+    {
+      "code": "97",
+      "type": "province",
+      "currentProvince": "thai-nguyen",
+      "formerProvince": "Bắc Kạn",
+      "verified": false
+    },
+    {
+      "code": "98",
+      "type": "province",
+      "currentProvince": "bac-ninh",
+      "formerProvince": "Bắc Giang",
+      "verified": false
+    },
+    {
+      "code": "99",
+      "type": "province",
+      "currentProvince": "bac-ninh",
+      "formerProvince": "Bắc Ninh",
+      "verified": false
+    }
+  ]
+}

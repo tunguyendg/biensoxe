@@ -1,0 +1,27 @@
+{
+  "name": "bien-so",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "build": "astro build",
+    "verify": "npm run check && npm run lint && npm test && npm run build"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.12",
+    "astro": "^7.3.8",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.6",
+    "eslint": "^10.14.0",
+    "eslint-plugin-astro": "^1.7.0",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.1.0"
+  }
+}
