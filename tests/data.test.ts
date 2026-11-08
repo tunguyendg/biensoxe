@@ -93,6 +93,10 @@ describe('province facts (NQ 202/2025/QH15)', () => {
     expect(provinces.filter((p) => p.mergedFrom.length === 0)).toHaveLength(11);
   });
 
+  it('adminCenter is null for all 34 provinces (dropped from the MVP, field kept)', () => {
+    for (const p of provinces) expect(p.adminCenter, p.slug).toBeNull();
+  });
+
   it('area and population are present exactly for merged provinces; records stay unverified', () => {
     for (const p of provinces) {
       const merged = p.mergedFrom.length > 0;

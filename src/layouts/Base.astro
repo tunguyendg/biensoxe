@@ -1,7 +1,12 @@
 ---
 import { data, isDraft } from '../lib/data';
 import { formatDate } from '../lib/format';
+import { analyticsScript } from '../lib/analytics';
 import { ldString, type JsonLd } from '../lib/jsonld';
+import latin700 from '../assets/fonts/be-vietnam-pro-latin-700-normal.woff2?url';
+import vietnamese700 from '../assets/fonts/be-vietnam-pro-vietnamese-700-normal.woff2?url';
+import '../styles/fonts.css';
+import '../styles/theme.css';
 
 interface Props {
   title: string;
@@ -20,6 +25,7 @@ const {
   jsonLd = [],
 } = Astro.props;
 const draft = isDraft();
+const analytics = analyticsScript(import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN);
 const canonical = new URL(path, Astro.site).href;
 const image = new URL(ogImage, Astro.site).href;
 ---
@@ -31,6 +37,15 @@ const image = new URL(ogImage, Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    {/* Only the weight used for province names (700), latin + vietnamese subsets. */}
+    <link rel="preload" href={latin700} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={vietnamese700} as="font" type="font/woff2" crossorigin />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={draft ? 'noindex,follow' : 'index,follow'} />
     <meta property="og:type" content="website" />
@@ -66,52 +81,6 @@ const image = new URL(ogImage, Astro.site).href;
       <p>Bảng mã hiệu lực từ {formatDate(data.meta.dataVersion)}</p>
       <p>Kiểm tra lần cuối {formatDate(data.meta.lastReviewed)}</p>
     </footer>
+    {analytics && <script is:inline defer src={analytics.src} data-cf-beacon={analytics.beacon} />}
   </body>
 </html>
-
-<style is:global>
-  :root {
-    --bg: #f4f6fa;
-    --card: #fff;
-    --fg: #14213d;
-    --muted: #4d5870;
-    --accent: #0b57d0;
-    --border: #d5dae4;
-    --border-strong: #8b95ab;
-    --info-bg: #e8effb;
-    --offer-bg: #efeee9;
-    --warn-bg: #b00020;
-    --warn-fg: #fff;
-  }
-  body {
-    margin: 0;
-    font-family: system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--fg);
-  }
-  .draft-banner {
-    background: var(--warn-bg);
-    color: var(--warn-fg);
-    font-weight: 700;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    text-align: center;
-  }
-  footer {
-    max-width: 40rem;
-    margin: 0 auto;
-    padding: 1rem;
-    font-size: 0.875rem;
-    color: var(--muted);
-  }
-  footer p {
-    margin: 0.25rem 0;
-  }
-  footer nav a {
-    display: inline-block;
-    min-height: 2.75rem;
-    line-height: 2.75rem;
-    color: var(--accent);
-    font-weight: 600;
-  }
-</style>

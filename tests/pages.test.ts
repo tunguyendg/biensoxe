@@ -74,10 +74,24 @@ describe('strict build also needs the real https SITE_URL', () => {
   const verified = structuredClone(data);
   verified.provinces.forEach((p) => (p.verified = true));
   verified.codes.forEach((c) => (c.verified = true));
+  it('fails only for unverified records and/or SITE_URL, and says both when both apply', () => {
+    expect(() => assertStrictBuild(data, '1')).toThrow(/verified:false[\s\S]*SITE_URL/);
+    expect(() => assertStrictBuild(data, '1', 'https://x.example')).toThrow(/verified:false/);
+    expect(() => assertStrictBuild(data, '1', 'https://x.example')).not.toThrow(/SITE_URL/);
+  });
   it('fails without https SITE_URL, passes with it', () => {
     expect(() => assertStrictBuild(verified, '1')).toThrow(/SITE_URL/);
     expect(() => assertStrictBuild(verified, '1', 'http://x.test')).toThrow(/SITE_URL/);
     expect(() => assertStrictBuild(verified, '1', 'https://bienso.example')).not.toThrow();
     expect(() => assertStrictBuild(verified, undefined)).not.toThrow();
+  });
+});
+
+describe('analytics snippet', () => {
+  it('no token (or blank) → no script; token → Cloudflare beacon only', async () => {
+    const { analyticsScript } = await import('../src/lib/analytics');
+    expect(analyticsScript(undefined)).toBeNull();
+    expect(analyticsScript('  ')).toBeNull();
+    expect(analyticsScript(' abc123 ')).toEqual({ src: 'https://static.cloudflareinsights.com/beacon.min.js', beacon: '{"token":"abc123"}' });
   });
 });

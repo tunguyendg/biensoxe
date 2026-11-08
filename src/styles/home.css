@@ -63,7 +63,7 @@
 .share { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
 .btn {
   min-height: 2.75rem; padding: 0 1.25rem; font: inherit; font-weight: 700; cursor: pointer;
-  color: #fff; background: var(--accent); border: 0; border-radius: 0.5rem;
+  color: var(--on-accent); background: var(--accent); border: 0; border-radius: 0.5rem;
 }
 .share-status { font-size: 0.875rem; color: var(--muted); }
 

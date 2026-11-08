@@ -57,3 +57,11 @@
 - Offers (M4c) mounted under the card on `/[code]`, under content on `/tinh`; absent from /nguon, /bang-ma, /404 (tested).
 - Home JS ≈ 6.1 KB gzip total (4 chunks). 258 unit + 133 dist smoke tests; coverage 100%. Build 119 pages in ~2 s.
 - Open: final domain for `SITE_URL`; first `offers:links` run; old open data questions unchanged.
+
+## 2026-11-08 — M5 Polish + launch readiness (Claude Code)
+- Founder decisions applied: admin-centre line removed from display (`adminCenter` stays null in JSON); "Đọc hiểu biển số" dropped from MVP.
+- Done: dark mode (system; AA contrast tested, light+dark), self-hosted Be Vietnam Pro (vietnamese+latin × 400/600/700, swap, only 700 preloaded), favicon SVG + PNG 32/180/192/512 + manifest (`scripts/make-icons.ts`), `PUBLIC_CF_ANALYTICS_TOKEN` (no token → no script), `public/_headers`, `.node-version`=22, `docs/LAUNCH.md`.
+- Strict build fails only for `verified:false` and/or missing https `SITE_URL` (both listed together); proven: no SITE_URL, SITE_URL only, and all-verified+SITE_URL → 119 pages OK (temp data change reverted).
+- Not verified locally: Cloudflare Pages serving `/83` from `83.html` and `_headers` detach rules → LAUNCH.md §2 has the curl checks to run after the first Preview deploy.
+- Note: `data/offers.json` now holds Founder-generated real links (status ok); left uncommitted for the Founder to review/commit. Its old "must be []" test became a structural-safety test.
+- Next: Founder reviews, then data verification → strict build → deploy.

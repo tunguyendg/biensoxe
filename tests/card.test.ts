@@ -14,9 +14,9 @@ describe('card helpers', () => {
   it('merged province lists all former units, including the one that kept the name', () => {
     expect(mergeBadge(by('can-tho'))).toEqual({ merged: true, text: 'Hợp nhất từ: Cần Thơ, Sóc Trăng, Hậu Giang' });
   });
-  it('metaLine hides the admin centre when null, shows it when present', () => {
+  it('metaLine shows only the region: the admin centre is not part of the MVP, even if a value exists', () => {
     expect(metaLine(by('can-tho'))).toBe('Miền Nam');
-    expect(metaLine({ ...by('can-tho'), adminCenter: 'X' })).toBe('Trung tâm hành chính: X · Miền Nam');
+    expect(metaLine({ ...by('can-tho'), adminCenter: 'X' })).toBe('Miền Nam');
     expect(metaLine(by('ha-noi'))).toBe('Miền Bắc');
     expect(metaLine(by('lam-dong'))).toBe('Miền Trung & Tây Nguyên');
   });

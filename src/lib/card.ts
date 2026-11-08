@@ -14,10 +14,12 @@ export function mergeBadge(p: Province): { merged: boolean; text: string } {
     : { merged: true, text: `Hợp nhất từ: ${p.mergedFrom.join(', ')}` };
 }
 
-/** "Trung tâm hành chính: … · Miền …"; the admin-centre part is dropped when null. */
+/**
+ * The small line under the badge. The administrative centre is NOT shown in the MVP
+ * (Founder decision 2026-11-08; `adminCenter` stays null in the data), so this is just the region.
+ */
 export function metaLine(p: Province): string {
-  const region = REGION_LABEL[p.region];
-  return p.adminCenter === null ? region : `Trung tâm hành chính: ${p.adminCenter} · ${region}`;
+  return REGION_LABEL[p.region];
 }
 
 /**

@@ -101,7 +101,9 @@ Does **not** block launch: with no valid offer the whole affiliate area is hidde
 ## M5 — Polish + launch readiness (no deploy)
 - Dark mode (system); Vietnamese font with full diacritics (self-hosted, subset); favicon + manifest icons.
 - Cloudflare Web Analytics snippet behind an env var (off locally).
-- Optional, only if time and sources are verified: a "Đọc hiểu biển số" section (series letters, plate colours) **citing Điều 37 TT 79/2024/TT-BCA**. Skip it rather than guess.
+- ~~Optional "Đọc hiểu biển số" section~~ — **dropped from the MVP** (Founder decision 2026-11-08).
+- Founder decision 2026-11-08: no administrative-centre line in the MVP (`adminCenter` stays `null` in the data, not displayed).
+- Also in M5: `public/_headers` (cache + security headers), favicon/manifest, self-hosted Be Vietnam Pro (vietnamese + latin, swap, 700 preloaded), `PUBLIC_CF_ANALYTICS_TOKEN`, `.node-version`.
 - Write `docs/LAUNCH.md`: exact Cloudflare Pages settings (build cmd, output dir, env vars), Search Console steps, and the Founder data-verification procedure.
 
 **Done when:** strict build is the only failing gate (blocked solely on `verified:false`), and the launch checklist in PRODUCT_BRIEF §7 is reproduced as a to-do list in `docs/LAUNCH.md`.
