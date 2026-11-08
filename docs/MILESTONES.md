@@ -87,6 +87,17 @@ Implementation details are Claude Code's call. The criteria below are what "done
 
 **Done when:** `npm run verify` passes; lookup JS ≤ 15 KB gzip.
 
+## M4c — Shopee category cards (ACCESSTRADE), replaces M4b offers
+Does **not** block launch: with no valid offer the whole affiliate area is hidden and the site builds/runs normally.
+- `data/offers.config.json` (Founder-editable): 4 categories `{id,title,blurb ≤ 60 chars,keyword,active}`; placements fixed: `result` (home + `/[code]`) and `tinh` (`/tinh/[slug]`).
+- `npm run offers:links` (Founder's machine only, token in `.env`): creates `aff_link`s via ACCESSTRADE `product_link/create`, writes `data/offers.json`; any failure keeps the old file, exit ≠ 0. `npm run offers:check` (no token): follows redirects, confirms final host is Shopee, stamps `checkedAt` + `status`.
+- Render only offers that are `ok`, `active`, `checkedAt` ≤ 30 days at build; ≤ 2 cards/page chosen deterministically per page; static HTML, no JS, no prices/images/vouchers; never on `/nguon`, `/bang-ma`, `/404`.
+- Privacy: after a lookup the home URL becomes `/{code}` (no `?q=` with a full plate); no plate/code in any sub/utm.
+- Tests use a mocked fetch; no real API, no real `.env`; `dist/` and `data/` never contain the token or "Authorization".
+- `docs/AFFILIATE.md` (≤ 40 lines).
+
+**Done when:** `npm run verify` passes; lookup JS grows ≤ 0.5 KB gzip; `data/offers.json` is `[]` in the commit.
+
 ## M5 — Polish + launch readiness (no deploy)
 - Dark mode (system); Vietnamese font with full diacritics (self-hosted, subset); favicon + manifest icons.
 - Cloudflare Web Analytics snippet behind an env var (off locally).

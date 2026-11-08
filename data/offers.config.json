@@ -1,0 +1,30 @@
+[
+  {
+    "id": "camera-hanh-trinh",
+    "title": "Camera hành trình",
+    "blurb": "Ghi lại hình ảnh trên đường đi.",
+    "keyword": "camera hành trình ô tô",
+    "active": true
+  },
+  {
+    "id": "bom-lop-mini",
+    "title": "Bơm lốp mini",
+    "blurb": "Bơm thêm hơi khi lốp xe bị non.",
+    "keyword": "bơm lốp ô tô mini",
+    "active": true
+  },
+  {
+    "id": "gia-do-dien-thoai-xe-may",
+    "title": "Giá đỡ điện thoại xe máy",
+    "blurb": "Gắn điện thoại lên xe để xem bản đồ.",
+    "keyword": "giá đỡ điện thoại xe máy",
+    "active": true
+  },
+  {
+    "id": "cam-bien-ap-suat-lop",
+    "title": "Cảm biến áp suất lốp",
+    "blurb": "Theo dõi áp suất lốp khi đang lái.",
+    "keyword": "cảm biến áp suất lốp",
+    "active": true
+  }
+]

@@ -1,81 +1,105 @@
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { MAX_IMAGE_BYTES, offers, selectOffers, validateOffers, type Offer } from '../src/lib/offers';
+import config from '../data/offers.config.json';
+import stored from '../data/offers.json';
+import {
+  BLURB_MAX, eligibleOffers, hashKey, isFresh, pickOffers, validateConfig, validateOffers,
+  type Offer, type OfferConfigItem,
+} from '../src/lib/offers';
 
-const o = (over: Partial<Offer>): Offer => ({
-  id: 'x', title: 'Mũ bảo hiểm', description: 'd', url: 'https://example.com/a',
-  placements: ['result', 'tinh', 'code'], active: true, ...over,
+const NOW = new Date('2026-11-08T00:00:00Z');
+const days = (n: number) => new Date(NOW.getTime() - n * 86_400_000).toISOString();
+const cfg = (id: string, over: Partial<OfferConfigItem> = {}): OfferConfigItem => ({
+  id, title: id, blurb: 'Mô tả công dụng.', keyword: id, active: true, ...over,
+});
+const offer = (id: string, over: Partial<Offer> = {}): Offer => ({
+  id, title: id, blurb: 'b', links: { result: `https://go.isclix.com/${id}/r`, tinh: `https://go.isclix.com/${id}/t` },
+  generatedAt: days(1), checkedAt: days(1), status: 'ok', ...over,
 });
 
-describe('shipped offers.json', () => {
-  it('has the 4 sample offers, all inactive with url TODO (Founder fills in links)', () => {
-    expect(offers.map((x) => x.id)).toEqual(['camera-hanh-trinh', 'bom-lop-mini', 'gia-do-dien-thoai-xe-may', 'bao-hiem-tnds']);
-    for (const x of offers) expect([x.active, x.url]).toEqual([false, 'TODO']);
+describe('shipped data', () => {
+  it('config has the 4 categories, valid, with fixed ids', () => {
+    expect(() => validateConfig(config as OfferConfigItem[])).not.toThrow();
+    expect(config.map((c) => c.id)).toEqual(['camera-hanh-trinh', 'bom-lop-mini', 'gia-do-dien-thoai-xe-may', 'cam-bien-ap-suat-lop']);
+    expect(config.map((c) => c.keyword)).toEqual(['camera hành trình ô tô', 'bơm lốp ô tô mini', 'giá đỡ điện thoại xe máy', 'cảm biến áp suất lốp']);
+    for (const c of config) expect(c.blurb.length).toBeLessThanOrEqual(BLURB_MAX);
   });
-  it('passes validation, and nothing renders while all are inactive', () => {
-    expect(() => validateOffers(offers)).not.toThrow();
-    for (const pl of ['result', 'tinh', 'code'] as const) expect(selectOffers(offers, pl)).toEqual([]);
-  });
-  it('images exist, are webp and ≤ 40 KB', () => {
-    for (const x of offers) {
-      if (!x.image) continue;
-      const f = join('public', x.image);
-      expect(existsSync(f), f).toBe(true);
-      expect(statSync(f).size).toBeLessThanOrEqual(MAX_IMAGE_BYTES);
-    }
-    for (const f of readdirSync('public/offers').filter((n) => n !== '.gitkeep')) {
-      expect(f).toMatch(/\.webp$/);
-      expect(statSync(join('public/offers', f)).size).toBeLessThanOrEqual(MAX_IMAGE_BYTES);
-    }
+  it('offers.json is [] in the repo (Founder generates links)', () => {
+    expect(stored).toEqual([]);
   });
 });
 
-describe('selectOffers', () => {
-  it('never returns inactive or non-https offers (incl. "TODO")', () => {
-    const list = [o({ id: 'a', active: false }), o({ id: 'b', url: 'TODO' }), o({ id: 'c', url: 'http://x.com' }), o({ id: 'd' })];
-    expect(selectOffers(list, 'result').map((x) => x.id)).toEqual(['d']);
-  });
-  it('returns at most 2, in file order, filtered by placement', () => {
-    const list = [o({ id: '1' }), o({ id: '2', placements: ['tinh'] }), o({ id: '3' }), o({ id: '4' })];
-    expect(selectOffers(list, 'result').map((x) => x.id)).toEqual(['1', '3']);
-    expect(selectOffers(list, 'tinh').map((x) => x.id)).toEqual(['1', '2']);
+describe('validateConfig', () => {
+  it('rejects duplicates, empty fields, long or price-y blurbs', () => {
+    expect(() => validateConfig([cfg('a'), cfg('a')])).toThrow(/duplicate/);
+    expect(() => validateConfig([cfg('a', { title: ' ' })])).toThrow(/title/);
+    expect(() => validateConfig([cfg('a', { keyword: '' })])).toThrow(/keyword/);
+    expect(() => validateConfig([cfg('a', { blurb: '' })])).toThrow(/blurb/);
+    expect(() => validateConfig([cfg('a', { blurb: 'x'.repeat(BLURB_MAX + 1) })])).toThrow(/blurb/);
+    for (const b of ['Giảm 50% hôm nay', 'Giá rẻ nhất', 'Có voucher', 'Chỉ 99k', 'Hàng chính hãng', 'Tốt nhất thị trường'])
+      expect(() => validateConfig([cfg('a', { blurb: b })]), b).toThrow(/price/);
+    expect(() => validateConfig([cfg('a', { blurb: 'x'.repeat(BLURB_MAX) })])).not.toThrow();
   });
 });
 
 describe('validateOffers (build gate)', () => {
-  it('fails an active offer whose url is not https', () => {
-    expect(() => validateOffers([o({ url: 'TODO' })])).toThrow(/https/);
-    expect(() => validateOffers([o({ url: 'http://x.com' })])).toThrow(/https/);
-  });
-  it('allows inactive placeholders and https active offers', () => {
-    expect(() => validateOffers([o({ active: false, url: 'TODO' }), o({ id: 'y' })])).not.toThrow();
-  });
-  it('rejects duplicate ids, unknown placements, bad image paths', () => {
-    expect(() => validateOffers([o({}), o({})])).toThrow(/duplicate/);
-    expect(() => validateOffers([o({ placements: ['nguon' as never] })])).toThrow(/placement/);
-    expect(() => validateOffers([o({ image: 'https://cdn/x.png' })])).toThrow(/image/);
-    expect(() => validateOffers([o({ image: '/offers/a.webp' })])).not.toThrow();
-  });
-  it('rejects license-plate frames / covers, even when inactive', () => {
-    expect(() => validateOffers([o({ active: false, url: 'TODO', title: 'Khung biển số inox' })])).toThrow(/frames/);
-    expect(() => validateOffers([o({ description: 'ốp biển số xe máy' })])).toThrow(/frames/);
+  it('fails when any stored link is not https', () => {
+    expect(() => validateOffers([offer('a', { links: { result: 'TODO', tinh: 'https://x' } })])).toThrow(/result/);
+    expect(() => validateOffers([offer('a', { links: { result: 'https://x', tinh: 'http://x' } })])).toThrow(/tinh/);
+    expect(() => validateOffers([offer('a')])).not.toThrow();
+    expect(() => validateOffers([])).not.toThrow();
   });
 });
 
-describe('placement rules', () => {
-  const pagesDir = 'src/pages';
-  const pages = readdirSync(pagesDir, { recursive: true, encoding: 'utf8' }).filter((f) => /\.(astro|ts)$/.test(f));
+describe('freshness and eligibility', () => {
+  it('isFresh: ≤ 30 days ok; older, null or garbage not', () => {
+    expect(isFresh(offer('a', { checkedAt: days(30) }), NOW)).toBe(true);
+    expect(isFresh(offer('a', { checkedAt: days(31) }), NOW)).toBe(false);
+    expect(isFresh(offer('a', { checkedAt: null }), NOW)).toBe(false);
+    expect(isFresh(offer('a', { checkedAt: 'nope' }), NOW)).toBe(false);
+  });
+  it('inactive, failed, unchecked, expired, missing and non-https offers never show', () => {
+    const c = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'ok'].map((id) => cfg(id, { active: id !== 'a' }));
+    const list = [
+      offer('a'), offer('b', { status: 'failed' }), offer('c', { status: 'unchecked' }),
+      offer('d', { checkedAt: days(45) }), offer('f', { links: { result: 'http://x', tinh: 'https://x' } }),
+      offer('ok'),
+    ];
+    // 'e' and 'g' have a config entry but no stored offer
+    expect(eligibleOffers(list, c, 'result', NOW).map((o) => o.id)).toEqual(['ok']);
+  });
+  it('uses the link of the requested placement', () => {
+    const list = [offer('a', { links: { result: 'https://x', tinh: 'http://bad' } })];
+    expect(eligibleOffers(list, [cfg('a')], 'result', NOW)).toHaveLength(1);
+    expect(eligibleOffers(list, [cfg('a')], 'tinh', NOW)).toHaveLength(0);
+  });
+});
 
-  it('/nguon and /404 never use OfferCards', () => {
-    for (const f of pages.filter((p) => /(^|\/)(nguon|404)\b/.test(p))) {
-      expect(readFileSync(join(pagesDir, f), 'utf8'), f).not.toMatch(/OfferCards/);
+describe('pickOffers', () => {
+  const ids = ['a', 'b', 'c', 'd'];
+  const c = ids.map((i) => cfg(i));
+  const list = ids.map((i) => offer(i));
+
+  it('returns nothing when there is no valid offer', () => {
+    expect(pickOffers([], c, 'result', 'home', NOW)).toEqual([]);
+  });
+  it('at most 2, consecutive in config order, deterministic per page key', () => {
+    for (const key of ['home', '83', '61', 'ha-noi', 'can-tho']) {
+      const a = pickOffers(list, c, 'result', key, NOW);
+      expect(a).toHaveLength(2);
+      expect(pickOffers(list, c, 'result', key, NOW)).toEqual(a);
+      const i = ids.indexOf(a[0]?.id as string);
+      expect(a[1]?.id).toBe(ids[(i + 1) % 4]);
     }
   });
-  it('OfferCards is only used with an allowed placement', () => {
-    for (const f of pages) {
-      const src = readFileSync(join(pagesDir, f), 'utf8');
-      for (const m of src.matchAll(/<OfferCards[^>]*placement="([^"]+)"/g)) expect(['result', 'tinh', 'code']).toContain(m[1]);
-    }
+  it('different pages rotate through the categories', () => {
+    const firsts = new Set(Array.from({ length: 81 }, (_, n) => pickOffers(list, c, 'result', String(n + 11), NOW)[0]?.id));
+    expect(firsts.size).toBe(4);
+  });
+  it('a single valid offer yields one card', () => {
+    expect(pickOffers([offer('a')], c, 'tinh', 'x', NOW)).toHaveLength(1);
+  });
+  it('hashKey is stable', () => {
+    expect(hashKey('83')).toBe(hashKey('83'));
+    expect(hashKey('83')).not.toBe(hashKey('84'));
   });
 });

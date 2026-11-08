@@ -120,6 +120,8 @@ if (input && plate && plateEl && out && form) {
     const key = stateKey(state);
     if (key === lastKey) return;
     lastKey = key;
+    // Privacy: never keep the typed plate in the address bar. Show only the 2-digit code of a known result.
+    history.replaceState(null, '', state.kind === 'result' && state.result.kind !== 'unknown' ? `/${state.result.code}` : '/');
     out.replaceChildren(...render(state).filter((c): c is Node | string => !!c));
     out.classList.remove('is-entering');
     void out.offsetWidth; // restart the fade-in
@@ -133,7 +135,10 @@ if (input && plate && plateEl && out && form) {
   });
 
   const q = new URLSearchParams(location.search).get('q');
-  if (q) input.value = q.slice(0, 20);
+  if (q !== null) {
+    input.value = q.slice(0, 20);
+    history.replaceState(null, '', '/'); // drop ?q= right away, even if it turns out to be junk
+  }
   update();
 
   // Desktop only: on phones the keyboard would cover the screen the moment the page opens.

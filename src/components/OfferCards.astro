@@ -1,13 +1,20 @@
 ---
-import { DISCLOSURE, offers, selectOffers, type Placement } from '../lib/offers';
+import { DISCLOSURE, pickOffers, type Offer, type OfferConfigItem, type Placement } from '../lib/offers';
+import { offerConfig, offers as stored } from '../lib/offers-data';
 
-// Only pages that may carry offers can import this component: home, /[code], /tinh/[slug].
-// Never /nguon or /404.
+// Allowed only on: home + /[code] (placement="result") and /tinh/[slug] (placement="tinh").
+// Never on /nguon, /bang-ma or /404. Renders nothing when there is no valid offer.
 interface Props {
   placement: Placement;
+  /** Stable per-page key (e.g. code or slug) → deterministic rotation. */
+  pageKey: string;
+  // Test hooks; production uses the data files and the build time.
+  offers?: Offer[];
+  config?: OfferConfigItem[];
+  now?: Date;
 }
-const { placement } = Astro.props;
-const shown = selectOffers(offers, placement);
+const { placement, pageKey, offers = stored, config = offerConfig, now = new Date() } = Astro.props;
+const shown = pickOffers(offers, config, placement, pageKey, now);
 ---
 
 {
@@ -17,14 +24,25 @@ const shown = selectOffers(offers, placement);
       <ul>
         {shown.map((o) => (
           <li>
-            <a class="offer" href={o.url} target="_blank" rel="sponsored noopener">
-              {o.image && (
-                <img src={o.image} alt="" width="72" height="72" loading="lazy" decoding="async" />
-              )}
+            <a
+              class="offer"
+              href={o.links[placement]}
+              target="_blank"
+              rel="sponsored noopener noreferrer"
+              referrerpolicy="no-referrer"
+            >
+              <svg class="offer__icon" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                {o.id === 'camera-hanh-trinh' && (<><rect x="3" y="7" width="18" height="12" rx="2" /><circle cx="12" cy="13" r="3.5" /><path d="M8 7l1.5-2h5L16 7" /></>)}
+                {o.id === 'bom-lop-mini' && (<><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.5" /><path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21" /></>)}
+                {o.id === 'gia-do-dien-thoai-xe-may' && (<><rect x="7" y="3" width="10" height="18" rx="2" /><path d="M11 18h2" /></>)}
+                {o.id === 'cam-bien-ap-suat-lop' && (<><path d="M4 16a8 8 0 1 1 16 0" /><path d="M12 16l4-5" /><path d="M4 20h16" /></>)}
+                {!['camera-hanh-trinh', 'bom-lop-mini', 'gia-do-dien-thoai-xe-may', 'cam-bien-ap-suat-lop'].includes(o.id) && <circle cx="12" cy="12" r="8" />}
+              </svg>
               <span class="offer__text">
                 <strong>{o.title}</strong>
-                <span>{o.description}</span>
+                <span>{o.blurb}</span>
               </span>
+              <span class="offer__cta">Xem trên Shopee</span>
             </a>
           </li>
         ))}
@@ -34,16 +52,21 @@ const shown = selectOffers(offers, placement);
 }
 
 <style is:global>
-  .offers { margin: 1rem 0; }
+  .offers { margin: 1rem 0; padding: 0.75rem; background: var(--offer-bg); border-radius: 1rem; }
   .offers__label { margin: 0 0 0.5rem; font-size: 0.8125rem; color: var(--muted); }
   .offers ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
   .offer {
     display: flex; align-items: center; gap: 0.75rem; min-height: 3.5rem; padding: 0.5rem 0.75rem;
     color: var(--fg); text-decoration: none; background: var(--card);
-    border: 1px dashed var(--border-strong); border-radius: 0.75rem;
+    border: 1px solid var(--border-strong); border-radius: 0.75rem;
   }
-  .offer img { flex: none; width: 72px; height: 72px; object-fit: cover; border-radius: 0.5rem; }
-  .offer__text { display: grid; gap: 0.125rem; }
+  .offer__icon { flex: none; color: var(--muted); }
+  .offer__text { display: grid; gap: 0.125rem; flex: 1; min-width: 0; }
   .offer__text span { font-size: 0.875rem; color: var(--muted); }
-  .offer:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .offer__cta {
+    flex: none; box-sizing: border-box; display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.875rem;
+    font-size: 0.875rem; font-weight: 700; color: var(--card); background: var(--fg); border-radius: 0.5rem;
+  }
+  .offer:focus-visible { outline: 3px solid var(--fg); outline-offset: 2px; }
+  @media (max-width: 26rem) { .offer { flex-wrap: wrap; } .offer__cta { width: 100%; justify-content: center; } }
 </style>

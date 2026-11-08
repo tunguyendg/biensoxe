@@ -1,50 +1,98 @@
-import raw from '../../data/offers.json';
+// Pure logic for affiliate category cards. No JSON/fs imports so scripts and Astro can share it.
 
-export type Placement = 'result' | 'tinh' | 'code';
-export const PLACEMENTS: readonly Placement[] = ['result', 'tinh', 'code'];
+export type Placement = 'result' | 'tinh';
+export const PLACEMENTS: readonly Placement[] = ['result', 'tinh'];
+export type OfferStatus = 'unchecked' | 'ok' | 'failed';
+
 export const MAX_OFFERS_PER_PAGE = 2;
-export const MAX_IMAGE_BYTES = 40 * 1024;
+export const MAX_AGE_DAYS = 30;
+export const BLURB_MAX = 60;
 export const DISCLOSURE = 'Liên kết tiếp thị — BIEN SO có thể nhận hoa hồng.';
+
+export interface OfferConfigItem {
+  id: string;
+  title: string;
+  blurb: string;
+  keyword: string;
+  active: boolean;
+}
 
 export interface Offer {
   id: string;
   title: string;
-  description: string;
-  url: string;
-  image?: string;
-  placements: Placement[];
-  active: boolean;
+  blurb: string;
+  links: Record<Placement, string>;
+  generatedAt: string;
+  checkedAt: string | null;
+  status: OfferStatus;
 }
 
-export const offers = raw as Offer[];
+// No price / discount / quality promises in blurbs.
+const PRICE_WORDS = /(₫|\d\s?(k|đ|%)\b|giảm|voucher|khuyến mãi|rẻ|tốt nhất|chính hãng|miễn phí|giá rẻ)/i;
 
-// Policy: no license-plate frames or covers.
-const FORBIDDEN = /(khung|ốp|op)\s*(biển|bien)/i;
-
-/** Build-time gate. Throws on any active offer that is not safe to publish. */
-export function validateOffers(list: Offer[]): void {
+export function validateConfig(list: OfferConfigItem[]): void {
   const ids = new Set<string>();
-  for (const o of list) {
-    if (ids.has(o.id)) throw new Error(`offers.json: duplicate id "${o.id}"`);
-    ids.add(o.id);
-    for (const pl of o.placements) {
-      if (!PLACEMENTS.includes(pl)) throw new Error(`offers.json: "${o.id}" has unknown placement "${pl}"`);
+  for (const c of list) {
+    if (ids.has(c.id)) throw new Error(`offers.config.json: duplicate id "${c.id}"`);
+    ids.add(c.id);
+    if (c.title.trim() === '' || c.keyword.trim() === '') {
+      throw new Error(`offers.config.json: "${c.id}" needs a title and a keyword`);
     }
-    if (FORBIDDEN.test(`${o.title} ${o.description}`)) {
-      throw new Error(`offers.json: "${o.id}" promotes plate frames/covers, which is not allowed`);
+    if (c.blurb.trim() === '' || c.blurb.length > BLURB_MAX) {
+      throw new Error(`offers.config.json: "${c.id}" blurb must be 1–${BLURB_MAX} characters`);
     }
-    if (o.image !== undefined && !/^\/offers\/[\w.-]+\.webp$/.test(o.image)) {
-      throw new Error(`offers.json: "${o.id}" image must be /offers/<name>.webp`);
-    }
-    if (o.active && !o.url.startsWith('https://')) {
-      throw new Error(`offers.json: active offer "${o.id}" must have an https:// url (got "${o.url}")`);
+    if (PRICE_WORDS.test(c.blurb)) {
+      throw new Error(`offers.config.json: "${c.id}" blurb must not mention price/discount/quality`);
     }
   }
 }
 
-/** Offers that may be rendered on a page: active + https only, at most 2, in file order. */
-export function selectOffers(list: Offer[], placement: Placement): Offer[] {
-  return list
-    .filter((o) => o.active && o.url.startsWith('https://') && o.placements.includes(placement))
-    .slice(0, MAX_OFFERS_PER_PAGE);
+/** Build gate: every stored link must be https. */
+export function validateOffers(list: Offer[]): void {
+  for (const o of list) {
+    for (const pl of PLACEMENTS) {
+      if (!o.links[pl].startsWith('https://')) {
+        throw new Error(`offers.json: "${o.id}".links.${pl} must be an https:// url`);
+      }
+    }
+  }
+}
+
+export function isFresh(o: Offer, now: Date): boolean {
+  if (o.checkedAt === null) return false;
+  const t = Date.parse(o.checkedAt);
+  if (Number.isNaN(t)) return false;
+  const age = now.getTime() - t;
+  return age <= MAX_AGE_DAYS * 86_400_000;
+}
+
+/** Offers allowed on a page, in config order: active + status ok + fresh check + https link. */
+export function eligibleOffers(offers: Offer[], config: OfferConfigItem[], placement: Placement, now: Date): Offer[] {
+  return config.flatMap((c) => {
+    const o = offers.find((x) => x.id === c.id);
+    const ok =
+      c.active && o !== undefined && o.status === 'ok' && isFresh(o, now) && o.links[placement].startsWith('https://');
+    return ok ? [o] : [];
+  });
+}
+
+export function hashKey(s: string): number {
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = (Math.imul(h, 33) + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+/** At most 2 offers, rotating deterministically by page key so static pages stay stable across builds. */
+export function pickOffers(
+  offers: Offer[],
+  config: OfferConfigItem[],
+  placement: Placement,
+  pageKey: string,
+  now: Date,
+): Offer[] {
+  const list = eligibleOffers(offers, config, placement, now);
+  if (list.length === 0) return [];
+  const start = hashKey(pageKey) % list.length;
+  const n = Math.min(MAX_OFFERS_PER_PAGE, list.length);
+  return Array.from({ length: n }, (_, i) => list[(start + i) % list.length] as Offer);
 }

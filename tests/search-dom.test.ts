@@ -55,6 +55,32 @@ describe('search UI', () => {
     expect(out.querySelector('.former')).toBeNull();
   });
 
+  it('privacy: the full plate never stays in the URL; a known result shows only /{code}', async () => {
+    const { type } = await boot({ desktop: true });
+    type('83A-123.45');
+    expect(location.pathname).toBe('/83');
+    expect(location.search).toBe('');
+    expect(location.href).not.toContain('123');
+    type('83A-12345');
+    expect(location.pathname).toBe('/83');
+    type('13'); // unknown code has no page
+    expect(location.pathname).toBe('/');
+    type('NG 1234');
+    expect(location.pathname + location.search).toBe('/');
+    type('');
+    expect(location.pathname).toBe('/');
+  });
+
+  it('a shared ?q= link is still accepted, then removed from the URL', async () => {
+    const { out } = await boot({ desktop: false, search: '?q=83A-123.45' });
+    expect(out.querySelector('h2')?.textContent).toBe('Cần Thơ');
+    expect(location.pathname).toBe('/83');
+    expect(location.search).toBe('');
+    const j = await boot({ desktop: false, search: '?q=%F0%9F%98%80junk' });
+    expect(j.out.textContent).toContain('Chưa nhận ra mã biển');
+    expect(location.search).toBe('');
+  });
+
   it('does not re-render while typing more of the same plate (no flicker)', async () => {
     const { out, type } = await boot({ desktop: true });
     type('83');

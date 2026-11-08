@@ -41,3 +41,10 @@
 - Offers: `data/offers.json` (4 samples inactive, url TODO), `OfferCards.astro` (≤2, disclosure label, sponsored+noopener, lazy fixed-size img), build gate for active non-https (proven), plate frame/cover ban. Only on home for now; /[code] and /tinh arrive with M4.
 - Lookup JS: 5.4 KB gzip (was 4.6). 202 tests, coverage 100% on lib modules.
 - Open: adminCenter source (Vietnamese NQ 202 text? other doc); area/pop for the 11 unchanged; Huế/75 name; re-plating rule.
+
+## 2026-11-08 — M4c Shopee category cards (Claude Code)
+- Replaced M4b offers: `data/offers.config.json` (4 categories) → `npm run offers:links` (ACCESSTRADE, Founder machine only) → `offers:check` → `data/offers.json` (`[]` in this commit). Agent never ran links/check against the real API or read `.env`.
+- Render: `OfferCards.astro` static, only ok+active+checkedAt ≤ 30 d, ≤ 2/page, rotation by page key, hides entirely when empty; neutral colours; rel `sponsored noopener noreferrer` + `referrerpolicy`. Home only for now (`/[code]`, `/tinh` arrive with M4).
+- Privacy: `history.replaceState` → `/{code}` (or `/`); `?q=` still accepted then removed. Share link still `/?q=<code>` (2 digits only).
+- verify now ends with `npm run test:dist` (dist/ scans: no "Authorization"/token, no offers on nguon/bang-ma/404). 240 + 5 tests; coverage 100%. JS 5.43 KB gzip (+0.05 KB).
+- Open: first real `offers:links` run is the Founder's; /{code} URLs 404 until M4.
