@@ -1,12 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import { NOTFOUND_DESC, NOTFOUND_TITLE } from '../lib/pages';
 import '../styles/home.css';
 import '../styles/pages.css';
 
 // No offers on this page, by design.
 ---
 
-<Base title="Không tìm thấy trang — BIEN SO" description="Trang không tồn tại. Tra cứu mã biển số xe theo 2 số đầu." path="/404">
+<Base title={NOTFOUND_TITLE} description={NOTFOUND_DESC} path="/404" noindex>
   <main class="home page">
     <h1>Không tìm thấy trang này</h1>
     <div id="nf-result" class="result" aria-live="polite"></div>

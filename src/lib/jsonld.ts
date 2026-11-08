@@ -22,3 +22,8 @@ export function faqLd(faq: Faq[]): JsonLd {
 export function ldString(ld: JsonLd): string {
   return JSON.stringify(ld).replace(/</g, '\\u003c');
 }
+
+/** WebSite markup for the home page (no SearchAction on purpose). */
+export function websiteLd(site: URL): JsonLd {
+  return { '@context': 'https://schema.org', '@type': 'WebSite', name: 'BIEN SO', url: new URL('/', site).href, inLanguage: 'vi' };
+}

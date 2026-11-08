@@ -1,5 +1,7 @@
 ---
+import Breadcrumb from '../components/Breadcrumb.astro';
 import Base from '../layouts/Base.astro';
+import { NGUON_DESC, NGUON_TITLE } from '../lib/pages';
 import { LIMITS } from '../lib/copy';
 import { data, isDraft } from '../lib/data';
 import { FAQ } from '../lib/faq';
@@ -13,14 +15,14 @@ const { legalBasis, dataVersion, lastReviewed } = data.meta;
 ---
 
 <Base
-  title="Nguồn và giới hạn của dữ liệu biển số xe"
-  description="Căn cứ pháp lý, biển số cho biết và không cho biết gì, câu hỏi thường gặp và ngày kiểm tra dữ liệu."
+  title={NGUON_TITLE}
+  description={NGUON_DESC}
   path="/nguon"
   jsonLd={[faqLd(FAQ)]}
 >
   <main class="home page prose">
-    <nav class="crumbs" aria-label="Đường dẫn"><a href="/">Trang chủ</a> › <span>Nguồn &amp; giới hạn</span></nav>
-    <h1>Nguồn và giới hạn</h1>
+    <Breadcrumb crumbs={[{ name: 'Trang chủ', path: '/' }, { name: 'Nguồn và giới hạn', path: '/nguon' }]} />
+    <h1>Nguồn và giới hạn của dữ liệu biển số xe</h1>
 
     <section aria-labelledby="independent-h">
       <h2 id="independent-h">Trang web độc lập</h2>
@@ -53,6 +55,11 @@ const { legalBasis, dataVersion, lastReviewed } = data.meta;
           </details>
         ))
       }
+    </section>
+
+    <section aria-labelledby="ads-h">
+      <h2 id="ads-h">Quảng cáo trên BIEN SO</h2>
+      <p>Khu có nhãn "Quảng cáo" là liên kết tiếp thị: BIEN SO có thể nhận hoa hồng khi bạn mua hàng qua liên kết đó, bạn không phải trả thêm phí. Quảng cáo không ảnh hưởng đến dữ liệu tra cứu: kết quả chỉ lấy từ bảng mã trong mục nguồn ở trên.</p>
     </section>
 
     <section aria-labelledby="data-h">

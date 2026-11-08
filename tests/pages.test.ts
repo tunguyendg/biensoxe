@@ -6,7 +6,7 @@ import { data } from '../src/lib/data';
 import { FAQ } from '../src/lib/faq';
 import { breadcrumbLd, faqLd, ldString } from '../src/lib/jsonld';
 import { lookup } from '../src/lib/lookup';
-import { codeDescription, codeExplanation, codeTitle, mergerSentence, provinceTitle } from '../src/lib/pages';
+import { DESC_MAX, DESC_MIN, TITLE_MAX, codeDescription, codeExplanation, codeTitle, fitText, mergerSentence, provinceDescription, provinceTitle } from '../src/lib/pages';
 import { foldText, joinVi } from '../src/lib/format';
 import { assertStrictBuild } from '../src/lib/strict';
 
@@ -49,6 +49,31 @@ describe('titles & copy', () => {
       if (readFileSync(join('src', f), 'utf8').includes('chỉ cho biết nơi cấp biển')) hits.push(f);
     }
     expect(hits).toEqual(['lib/copy.ts']);
+  });
+});
+
+describe('title / description fitting', () => {
+  it('fitText adds optional sentences only while they fit and until the minimum is reached', () => {
+    expect(fitText('a'.repeat(130), ['b'])).toBe('a'.repeat(130)); // already ≥ min: untouched
+    expect(fitText('a'.repeat(100), ['b'.repeat(30), 'c'.repeat(10)])).toBe(`${'a'.repeat(100)} ${'b'.repeat(30)}`);
+    expect(fitText('a'.repeat(100), ['b'.repeat(80), 'c'.repeat(10)])).toBe(`${'a'.repeat(100)} ${'c'.repeat(10)}`); // too long one skipped
+  });
+  it('every code and province title is ≤ 60 chars and every description is 120–160 chars', () => {
+    for (const c of data.codes) {
+      const r = found(c.code);
+      expect(codeTitle(r).length, c.code).toBeLessThanOrEqual(TITLE_MAX);
+      expect(codeDescription(r).length, c.code).toBeGreaterThanOrEqual(DESC_MIN);
+      expect(codeDescription(r).length, c.code).toBeLessThanOrEqual(DESC_MAX);
+    }
+    for (const p of data.provinces) {
+      expect(provinceTitle(p).length, p.slug).toBeLessThanOrEqual(TITLE_MAX);
+      expect(provinceDescription(p).length, p.slug).toBeGreaterThanOrEqual(DESC_MIN);
+      expect(provinceDescription(p).length, p.slug).toBeLessThanOrEqual(DESC_MAX);
+    }
+  });
+  it('long names fall back to a shorter title that still names code and province', () => {
+    expect(codeTitle(found('72'))).toBe('Biển số 72 là TP. Hồ Chí Minh (trước là Bà Rịa – Vũng Tàu)');
+    expect(provinceTitle(data.provinces.find((p) => p.slug === 'ho-chi-minh') as never)).toBe('Biển số xe TP. Hồ Chí Minh (13 mã biển)');
   });
 });
 

@@ -5,17 +5,51 @@ import type { LookupResult } from './lookup';
 
 type Found = Extract<LookupResult, { kind: 'province' | 'special' }>;
 
-/** <title> for /[code]. */
+export const TITLE_MAX = 60;
+export const DESC_MIN = 120;
+export const DESC_MAX = 160;
+
+/** Start from the mandatory sentence, then append optional ones (in order) while they still fit in `max`, until `min` is reached. */
+export function fitText(mandatory: string, extras: string[], min = DESC_MIN, max = DESC_MAX): string {
+  let out = mandatory;
+  for (const e of extras) {
+    if (out.length >= min) break;
+    const next = `${out} ${e}`;
+    if (next.length <= max) out = next;
+  }
+  return out;
+}
+
+const firstFitting = (options: string[]): string => options.find((o) => o.length <= TITLE_MAX) ?? (options[options.length - 1] as string);
+const codeList = (codes: string[]) => (codes.length <= 5 ? `${codes.length} mã biển: ${codes.join(', ')}.` : `${codes.length} mã biển.`);
+
+/** <title> for /[code]; shortens gracefully so it stays ≤ 60 characters. */
 export function codeTitle(r: Found): string {
   if (r.kind === 'special') return `Biển số ${r.code}: ${r.label}`;
-  const base = `Biển số ${r.code} là tỉnh nào? ${r.province.name}`;
-  return r.changed ? `${base} (trước là ${r.former})` : base;
+  const n = r.province.name;
+  if (!r.changed) return firstFitting([`Biển số ${r.code} là tỉnh nào? ${n}`, `Biển số ${r.code} là ${n}`]);
+  return firstFitting([
+    `Biển số ${r.code} là tỉnh nào? ${n} (trước là ${r.former})`,
+    `Biển số ${r.code} là ${n} (trước là ${r.former})`,
+    `Biển số ${r.code}: ${n} (trước ${r.former})`,
+    `Biển số ${r.code} là ${n}`,
+  ]);
 }
 
 export function codeDescription(r: Found): string {
-  if (r.kind === 'special') return `Mã biển số ${r.code} không gắn với tỉnh hay thành phố nào: ${r.label}.`;
+  if (r.kind === 'special') {
+    return fitText(`Mã biển số ${r.code} không gắn với tỉnh hay thành phố nào: ${r.label}.`, [
+      'Xem bảng mã đầy đủ theo tỉnh, thành, nguồn và giới hạn của mã biển.',
+      `Bảng mã hiệu lực từ ${formatDate(data.meta.dataVersion)}.`,
+    ]);
+  }
   const former = r.changed ? `, trước ${formatDate(data.meta.dataVersion)} là ${r.former}` : '';
-  return `Biển số ${r.code} là xe đăng ký tại ${r.province.name}${former}. Xem các mã khác cùng tỉnh và nguồn.`;
+  return fitText(`Biển số ${r.code} là xe đăng ký tại ${r.province.name}${former}.`, [
+    `${r.province.name} có ${codeList(r.province.codes)}`,
+    'Xem các mã khác cùng tỉnh, nguồn và giới hạn của mã biển.',
+    `Bảng mã hiệu lực từ ${formatDate(data.meta.dataVersion)}.`,
+    'Tra cứu ngay trên trình duyệt, không lưu biển số của bạn.',
+  ]);
 }
 
 /** One plain sentence about the merger (NQ 202/2025/QH15). */
@@ -35,9 +69,27 @@ export function codeExplanation(r: Found): string {
 }
 
 export function provinceTitle(p: Province): string {
-  return `Biển số xe ${p.name}: các mã ${p.codes.join(', ')}`;
+  return firstFitting([`Biển số xe ${p.name}: các mã ${p.codes.join(', ')}`, `Biển số xe ${p.name} (${p.codes.length} mã biển)`]);
 }
 
 export function provinceDescription(p: Province): string {
-  return `${p.name} dùng ${p.codes.length} mã biển số: ${p.codes.join(', ')}. ${mergerSentence(p)}`;
+  const list = p.codes.length <= 5 ? `${p.codes.length} mã: ${p.codes.join(', ')}.` : `${p.codes.length} mã biển.`;
+  return fitText(`Biển số xe ${p.name} gồm ${list}`, [
+    mergerSentence(p),
+    'Mỗi mã có trang riêng, kèm tỉnh trước sáp nhập, nguồn và giới hạn.',
+    `Bảng mã hiệu lực từ ${formatDate(data.meta.dataVersion)}.`,
+  ]);
 }
+
+export const HOME_TITLE = 'Biển số xe là tỉnh nào? Tra cứu mã biển số sau sáp nhập';
+export const HOME_DESC =
+  'Gõ 2 số đầu của biển để biết xe đăng ký ở tỉnh, thành nào sau sáp nhập 01/07/2025 và tỉnh trước đây. Có nguồn, có nói rõ giới hạn.';
+export const BANGMA_TITLE = 'Bảng tra cứu biển số xe 34 tỉnh thành (từ 01/07/2025)';
+export const BANGMA_DESC =
+  'Bảng đầy đủ mã biển số xe theo 34 tỉnh, thành sau sáp nhập 01/07/2025, chia theo vùng, kèm tỉnh trước đây. Lọc nhanh theo mã hoặc tên tỉnh.';
+export const NGUON_TITLE = 'Nguồn và giới hạn của dữ liệu biển số xe';
+export const NGUON_DESC =
+  'Căn cứ pháp lý của bảng mã biển số xe, biển số cho biết và không cho biết gì, câu hỏi thường gặp, ngày kiểm tra dữ liệu và thông tin về quảng cáo.';
+export const NOTFOUND_TITLE = 'Không tìm thấy trang — BIEN SO';
+export const NOTFOUND_DESC =
+  'Trang bạn tìm không tồn tại hoặc mã biển chưa được cấp cho tỉnh nào. Nhập 2 số đầu của biển để tra lại hoặc xem bảng mã biển số xe đầy đủ.';

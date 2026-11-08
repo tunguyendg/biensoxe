@@ -71,3 +71,8 @@
 - Offers label is now a small "Quảng cáo" (12px, `--muted`, AA in light+dark); rel/referrerpolicy unchanged.
 - Red draft banner removed. While any record is `verified:false`: " · đang đối chiếu bản gốc" at the end of the source line (result card on home after a lookup, `/[code]`, `/tinh/[slug]`, `/bang-ma`) + `noindex`; both vanish when all are verified (unit tests + one temp all-verified strict build, reverted). Strict gate unchanged.
 - Committed Founder-generated `data/offers.json` (4 offers, https aff_link only).
+
+## 2026-11-08 — SEO audit (Claude Code)
+- `tests-dist/seo.test.ts` (137 checks over all 119 pages): headings, title/description, internal links + orphans, JSON-LD, robots/sitemap, technical, /nguon ad section. Run against the pre-fix build: 8 groups failed (listed in the report), now all green.
+- Fixed: titles ≤ 60 / descriptions 120–160 with graceful fallbacks (`fitText` in `src/lib/pages.ts`); h1 `/bang-ma` + `/nguon` + `/80`; visible breadcrumb Trang chủ › Tỉnh › Mã sharing one `crumbs` source with the JSON-LD; chip `aria-label`; WebSite JSON-LD; sitemap `lastmod`; 404 = noindex, no canonical; `/nguon` "Quảng cáo trên BIEN SO" section.
+- Already fine: one h1 / no skipped levels, no orphans, robots, lang, OG/Twitter, canonical = sitemap URL.

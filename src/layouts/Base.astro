@@ -16,6 +16,8 @@ interface Props {
   /** Path of the OG image; defaults to the generic one. */
   ogImage?: string;
   jsonLd?: JsonLd[];
+  /** Utility pages (404) are never indexed and have no canonical. */
+  noindex?: boolean;
 }
 const {
   title,
@@ -23,6 +25,7 @@ const {
   path = Astro.url.pathname,
   ogImage = '/og/default.png',
   jsonLd = [],
+  noindex = false,
 } = Astro.props;
 const draft = isDraft();
 const analytics = analyticsScript(import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN);
@@ -46,14 +49,14 @@ const image = new URL(ogImage, Astro.site).href;
     {/* Only the weight used for province names (700), latin + vietnamese subsets. */}
     <link rel="preload" href={latin700} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={vietnamese700} as="font" type="font/woff2" crossorigin />
-    <link rel="canonical" href={canonical} />
-    <meta name="robots" content={robotsContent(draft)} />
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <meta name="robots" content={noindex ? 'noindex,follow' : robotsContent(draft)} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="BIEN SO" />
     <meta property="og:locale" content="vi_VN" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={image} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />

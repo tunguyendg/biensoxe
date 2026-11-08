@@ -48,7 +48,7 @@ export function renderResult(s: ViewState): string {
       const siblings =
         r.siblings.length > 0
           ? `<div class="siblings"><p class="siblings__label">Các mã khác của ${esc(name)}:</p><ul class="chips">${r.siblings
-              .map((c) => `<li><a class="chip" href="/${esc(c)}">${esc(c)}</a></li>`)
+              .map((c) => `<li><a class="chip" href="/${esc(c)}" aria-label="Biển số ${esc(c)}, ${esc(name)}">${esc(c)}</a></li>`)
               .join('')}</ul></div>`
           : '';
       return (

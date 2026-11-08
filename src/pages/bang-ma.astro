@@ -1,5 +1,7 @@
 ---
+import Breadcrumb from '../components/Breadcrumb.astro';
 import Base from '../layouts/Base.astro';
+import { BANGMA_DESC, BANGMA_TITLE } from '../lib/pages';
 import { data } from '../lib/data';
 import { foldText } from '../lib/format';
 import { footerHtml } from '../lib/result-html';
@@ -30,14 +32,10 @@ const groups = [
   .filter((g) => g.rows.length > 0);
 ---
 
-<Base
-  title="Bảng mã biển số xe 34 tỉnh thành (sau 01/07/2025)"
-  description="Bảng đầy đủ mã biển số xe theo tỉnh, thành sau sáp nhập 01/07/2025, chia theo vùng, có tỉnh trước đây."
-  path="/bang-ma"
->
+<Base title={BANGMA_TITLE} description={BANGMA_DESC} path="/bang-ma">
   <main class="home page">
-    <nav class="crumbs" aria-label="Đường dẫn"><a href="/">Trang chủ</a> › <span>Bảng mã</span></nav>
-    <h1>Bảng mã biển số xe</h1>
+    <Breadcrumb crumbs={[{ name: 'Trang chủ', path: '/' }, { name: 'Bảng mã', path: '/bang-ma' }]} />
+    <h1>Bảng tra cứu biển số xe {data.provinces.length} tỉnh thành</h1>
     <p class="intro">{data.codes.length} mã cho {data.provinces.length} tỉnh, thành, theo bảng mã hiệu lực từ 01/07/2025. Bấm một mã để xem chi tiết.</p>
 
     <form class="filter search" role="search" onsubmit="return false">

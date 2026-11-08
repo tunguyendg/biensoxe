@@ -4,7 +4,8 @@ import OfferCards from '../../components/OfferCards.astro';
 import Base from '../../layouts/Base.astro';
 import { SHOW_AREA_POPULATION, areaPopulationLine, mergeBadge, metaLine } from '../../lib/card';
 import { data } from '../../lib/data';
-import { breadcrumbLd } from '../../lib/jsonld';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { crumbsLd, type Crumb } from '../../lib/crumbs';
 import { lookup } from '../../lib/lookup';
 import { mergerSentence, provinceDescription, provinceTitle } from '../../lib/pages';
 import { footerHtml } from '../../lib/result-html';
@@ -21,15 +22,15 @@ const rows = p.codes.flatMap((c) => {
   return r.kind === 'province' ? [{ code: c, former: r.former, changed: r.changed }] : [];
 });
 const areaPop = SHOW_AREA_POPULATION ? areaPopulationLine(p) : null;
-const crumbs = [
-  { name: 'Trang chủ', url: new URL('/', site).href },
-  { name: p.name, url: new URL(`/tinh/${p.slug}`, site).href },
+const crumbs: Crumb[] = [
+  { name: 'Trang chủ', path: '/' },
+  { name: p.name, path: `/tinh/${p.slug}` },
 ];
 ---
 
-<Base title={provinceTitle(p)} description={provinceDescription(p)} path={`/tinh/${p.slug}`} jsonLd={[breadcrumbLd(crumbs)]}>
+<Base title={provinceTitle(p)} description={provinceDescription(p)} path={`/tinh/${p.slug}`} jsonLd={[crumbsLd(crumbs, site)]}>
   <main class="home page">
-    <nav class="crumbs" aria-label="Đường dẫn"><a href="/">Trang chủ</a> › <span>{p.name}</span></nav>
+    <Breadcrumb crumbs={crumbs} />
     <h1>Biển số xe {p.name}</h1>
     <p class="merger">{mergerSentence(p)}</p>
     <p class={badge.merged ? 'badge badge--merged' : 'badge'}>{badge.text}</p>

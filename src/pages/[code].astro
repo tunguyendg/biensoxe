@@ -4,7 +4,8 @@ import OfferCards from '../components/OfferCards.astro';
 import ResultCard from '../components/ResultCard.astro';
 import Base from '../layouts/Base.astro';
 import { data } from '../lib/data';
-import { breadcrumbLd } from '../lib/jsonld';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { crumbsLd, type Crumb } from '../lib/crumbs';
 import { lookup } from '../lib/lookup';
 import { codeDescription, codeExplanation, codeTitle } from '../lib/pages';
 import '../styles/home.css';
@@ -16,9 +17,10 @@ const { code } = Astro.params;
 const r = lookup(code as string);
 if (r.kind === 'unknown') throw new Error(`No page for unknown code ${code}`); // never generated
 const site = Astro.site as URL;
-const crumbs = [
-  { name: 'Trang chủ', url: new URL('/', site).href },
-  { name: `Biển số ${r.code}`, url: new URL(`/${r.code}`, site).href },
+const crumbs: Crumb[] = [
+  { name: 'Trang chủ', path: '/' },
+  ...(r.kind === 'province' ? [{ name: r.province.name, path: `/tinh/${r.province.slug}` }] : []),
+  { name: `Biển số ${r.code}`, path: `/${r.code}` },
 ];
 ---
 
@@ -27,11 +29,11 @@ const crumbs = [
   description={codeDescription(r)}
   path={`/${r.code}`}
   ogImage={`/og/${r.code}.png`}
-  jsonLd={[breadcrumbLd(crumbs)]}
+  jsonLd={[crumbsLd(crumbs, site)]}
 >
   <main class="home page">
-    <nav class="crumbs" aria-label="Đường dẫn"><a href="/">Trang chủ</a> › <span>Biển số {r.code}</span></nav>
-    <h1>Biển số {r.code} là tỉnh nào?</h1>
+    <Breadcrumb crumbs={crumbs} />
+    <h1>{r.kind === 'province' ? `Biển số ${r.code} là tỉnh nào?` : `Biển số ${r.code} là mã gì?`}</h1>
 
     <ResultCard state={{ kind: 'result', result: r }} plate={r.code} />
 

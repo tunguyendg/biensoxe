@@ -20,7 +20,7 @@ describe('renderResult (the single result-card renderer)', () => {
     expect(h).toContain('<p class="former">Trước 01/07/2025: Sóc Trăng</p>');
     expect(h).toContain('badge badge--merged">Hợp nhất từ: Cần Thơ, Sóc Trăng, Hậu Giang');
     expect(h).toContain('<p class="meta">Miền Nam</p>');
-    expect(h).toContain('<a class="chip" href="/65">65</a>');
+    expect(h).toContain('<a class="chip" href="/65" aria-label="Biển số 65, Cần Thơ">65</a>');
     expect(h).toContain(LIMITS);
     expect(h).toContain('Nguồn: Phụ lục 02 TT 51/2025/TT-BCA');
     expect(h).toContain('data-share data-code="83"');
