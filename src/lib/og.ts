@@ -46,7 +46,7 @@ export async function renderOgPng({ plate, title, former }: OgInput): Promise<Ui
   const size = former ? (long ? 44 : 56) : title.length > 18 ? 60 : 84;
   const tree = el('div', { width: 1200, height: 630, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0B1F4D', backgroundImage: 'linear-gradient(150deg, #0B1F4D 40%, #1D4ED8 130%)', fontFamily: FAMILY, color: '#ffffff' }, [
     img(LOGO, 180, 60, { position: 'absolute', top: 40, left: 56 }),
-    el('div', { alignItems: 'center', justifyContent: 'center', width: 520, height: 210, background: '#ffffff', border: '12px solid #0B1F4D', borderRadius: 28, fontSize: 150, fontWeight: 800, color: '#0B1F4D', letterSpacing: 6 }, plate),
+    el('div', { alignItems: 'center', justifyContent: 'center', width: 520, height: 210, background: '#ffffff', border: '12px solid #0B1F4D', borderRadius: 28, boxShadow: '0 0 0 3px rgba(219,234,254,0.5), 0 12px 16px rgba(0,0,0,0.35)', fontSize: 150, fontWeight: 800, color: '#0B1F4D', letterSpacing: 6 }, plate),
     el('div', { marginTop: 52, maxWidth: 1100, alignItems: 'center', justifyContent: 'center' }, [
       ...(former
         ? [

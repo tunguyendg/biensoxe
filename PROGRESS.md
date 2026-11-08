@@ -94,3 +94,6 @@
 - Removed `scripts/make-icons.ts` and `src/pages/og/default.png.ts`. Manifest, `<head>` icon links and theme-color (#1D4ED8 / #0B1F4D) per brief. Per-code OG redone in brand colours (navy→blue gradient, white plate, yellow arrow former → current, logo top-left); PNGs palette-quantised via sharp (devDependency, already an Astro dep) so each ≤ 60 KB (max 30 KB).
 - Tests: dist icons byte-equal brand/, manifest content/files, all pages have icon tags + logo, og:image of static pages = /og/default.png and byte-equal brand file, OG ≤ 60 KB. facebook-cover.png is not served (tested).
 - Open: logo is an <img> so it is not part of the JS budget; old "BIEN SO" text wordmark did not exist in the header, so the logo is new there.
+
+## OG plate polish
+- Per-code OG plate now has drop shadow (dy 12, blur 16, black 35%) + thin light ring (#DBEAFE @50%); max PNG 33 KB. Skipped dist test explained: `it.runIf(!!token)` in launch.test.ts only runs when PUBLIC_CF_ANALYTICS_TOKEN is set at build; unit tests cover analyticsScript.
