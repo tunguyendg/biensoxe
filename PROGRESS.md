@@ -20,3 +20,10 @@
 - Decisions: no UI framework; telemetry off; placeholder home page only (search comes in M3).
 - Open: code 75 name (Huế vs Thừa Thiên Huế); re-plating rule; Founder data verification.
 - Next: M2 (parser + lookup).
+
+## 2026-11-08 — M2 Parser + lookup core (Claude Code)
+- Done: `parsePlate` (`src/lib/parse.ts`) and `lookup` (`src/lib/lookup.ts`, `createLookup(data)`); 148 tests; 100% branch/line/function/statement coverage enforced by `npm test` (vitest thresholds).
+- Footer fix: two dates from meta via `formatDate` (`src/lib/format.ts`): "Bảng mã hiệu lực từ 01/07/2025", "Kiểm tra lần cuối 08/11/2026".
+- Decisions: full-width digits normalised (NFKC) → valid; single digit → `invalid`; letters-first → `letters` (no guess); lookup returns `province|special|unknown` + `changed` flag + `siblings`.
+- Open: dates render as 01/07/2025 (dd/mm/yyyy), not "01/7/2025" — confirm; old M1 questions (code 75, re-plating) unchanged.
+- Next: M3 (home search UI).

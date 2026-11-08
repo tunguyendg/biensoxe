@@ -1,5 +1,6 @@
 ---
 import { data, isDraft } from '../lib/data';
+import { formatDate } from '../lib/format';
 
 interface Props {
   title: string;
@@ -27,7 +28,8 @@ const draft = isDraft();
     <slot />
     <footer>
       <p>Trang web độc lập, không phải trang của cơ quan nhà nước.</p>
-      <p>Dữ liệu cập nhật: {data.meta.lastReviewed.split('-').reverse().join('/')}</p>
+      <p>Bảng mã hiệu lực từ {formatDate(data.meta.dataVersion)}</p>
+      <p>Kiểm tra lần cuối {formatDate(data.meta.lastReviewed)}</p>
     </footer>
   </body>
 </html>
