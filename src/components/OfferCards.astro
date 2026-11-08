@@ -19,7 +19,7 @@ const shown = pickOffers(offers, config, placement, pageKey, now);
 
 {
   shown.length > 0 && (
-    <aside class="offers" aria-label="Liên kết tiếp thị">
+    <aside class="offers" aria-label="Quảng cáo">
       <p class="offers__label">{DISCLOSURE}</p>
       <ul>
         {shown.map((o) => (
@@ -53,7 +53,7 @@ const shown = pickOffers(offers, config, placement, pageKey, now);
 
 <style is:global>
   .offers { margin: 1rem 0; padding: 0.75rem; background: var(--offer-bg); border-radius: 1rem; }
-  .offers__label { margin: 0 0 0.5rem; font-size: 0.8125rem; color: var(--muted); }
+  .offers__label { margin: 0 0 0.375rem; font-size: 0.75rem; line-height: 1; letter-spacing: 0.02em; color: var(--muted); }
   .offers ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
   .offer {
     display: flex; align-items: center; gap: 0.75rem; min-height: 3.5rem; padding: 0.5rem 0.75rem;

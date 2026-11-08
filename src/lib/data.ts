@@ -67,7 +67,12 @@ export function countUnverified(d: PlateData = data): number {
   );
 }
 
-/** True while any record is still unverified → site shows the "DỮ LIỆU NHÁP" banner. */
+/** True while any record is still unverified → noindex + the small "đang đối chiếu bản gốc" source note. */
 export function isDraft(d: PlateData = data): boolean {
   return countUnverified(d) > 0;
+}
+
+/** <meta name="robots"> value: drafts are never indexed. */
+export function robotsContent(draft: boolean = isDraft()): string {
+  return draft ? 'noindex,follow' : 'index,follow';
 }

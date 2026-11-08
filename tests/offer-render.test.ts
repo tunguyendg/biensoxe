@@ -37,7 +37,8 @@ describe('<OfferCards>', () => {
   it('shows at most 2 cards, with the disclosure label, full rel + referrerpolicy, and the placement link', async () => {
     const html = await render({ placement: 'tinh', pageKey: 'ha-noi', offers: IDS.map((i) => offer(i)), config: config() });
     expect(html.match(/class="offer"/g)).toHaveLength(2);
-    expect(html).toContain('Liên kết tiếp thị — BIEN SO có thể nhận hoa hồng.');
+    expect(html).toContain('<p class="offers__label">Quảng cáo</p>');
+    expect(html).not.toMatch(/hoa hồng|Liên kết tiếp thị/);
     expect(html.match(/rel="sponsored noopener noreferrer"/g)).toHaveLength(2);
     expect(html.match(/referrerpolicy="no-referrer"/g)).toHaveLength(2);
     expect(html.match(/target="_blank"/g)).toHaveLength(2);

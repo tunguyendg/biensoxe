@@ -22,7 +22,7 @@ const ratio = (a: string, b: string) => {
 const PAIRS: [string, string][] = [
   ['fg', 'bg'], ['fg', 'card'], ['muted', 'bg'], ['muted', 'card'], ['muted', 'info-bg'], ['muted', 'offer-bg'],
   ['fg', 'info-bg'], ['accent', 'bg'], ['accent', 'card'], ['accent', 'info-bg'], ['on-accent', 'accent'],
-  ['card', 'fg'], ['warn-fg', 'warn-bg'],
+  ['card', 'fg'],
 ];
 
 describe.each([['light', light], ['dark', dark]] as const)('WCAG AA text contrast (%s)', (_name, v) => {

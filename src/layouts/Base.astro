@@ -1,5 +1,5 @@
 ---
-import { data, isDraft } from '../lib/data';
+import { data, isDraft, robotsContent } from '../lib/data';
 import { formatDate } from '../lib/format';
 import { analyticsScript } from '../lib/analytics';
 import { ldString, type JsonLd } from '../lib/jsonld';
@@ -47,7 +47,7 @@ const image = new URL(ogImage, Astro.site).href;
     <link rel="preload" href={latin700} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={vietnamese700} as="font" type="font/woff2" crossorigin />
     <link rel="canonical" href={canonical} />
-    <meta name="robots" content={draft ? 'noindex,follow' : 'index,follow'} />
+    <meta name="robots" content={robotsContent(draft)} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="BIEN SO" />
     <meta property="og:locale" content="vi_VN" />
@@ -65,13 +65,6 @@ const image = new URL(ogImage, Astro.site).href;
     <noscript><style>.share, .filter { display: none; }</style></noscript>
   </head>
   <body>
-    {
-      draft && (
-        <div class="draft-banner" role="status">
-          DỮ LIỆU NHÁP — chưa được kiểm chứng với văn bản chính thức.
-        </div>
-      )
-    }
     <slot />
     <footer>
       <nav aria-label="Liên kết chân trang">

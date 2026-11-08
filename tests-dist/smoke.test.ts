@@ -49,7 +49,8 @@ describe('every code page', () => {
     expect(h).toContain('twitter:card');
     expect(h).toContain('BreadcrumbList');
     expect(h).toContain('noindex'); // draft data
-    expect(h).toContain('DỮ LIỆU NHÁP');
+    expect(h).toContain('đang đối chiếu bản gốc'); // draft note on the source line
+    expect(h).not.toContain('DỮ LIỆU NHÁP'); // the red banner is gone
   });
   it('shows the same card pieces as the home search (badge + meta line)', () => {
     const h = read('83.html');

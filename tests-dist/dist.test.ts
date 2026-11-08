@@ -31,7 +31,7 @@ describe('dist/', () => {
   it('the affiliate area is absent while offers.json is empty', () => {
     const offers = JSON.parse(readFileSync('data/offers.json', 'utf8')) as unknown[];
     if (offers.length > 0) return;
-    for (const f of html) expect(readFileSync(join('dist', f), 'utf8'), f).not.toMatch(/class="offers"|Liên kết tiếp thị/);
+    for (const f of html) expect(readFileSync(join('dist', f), 'utf8'), f).not.toMatch(/class="offers"|Quảng cáo/);
   });
 
   it('every offer link in dist is https and carries the full rel/referrerpolicy', () => {

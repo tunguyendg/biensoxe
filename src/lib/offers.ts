@@ -7,7 +7,8 @@ export type OfferStatus = 'unchecked' | 'ok' | 'failed';
 export const MAX_OFFERS_PER_PAGE = 2;
 export const MAX_AGE_DAYS = 30;
 export const BLURB_MAX = 60;
-export const DISCLOSURE = 'Liên kết tiếp thị — BIEN SO có thể nhận hoa hồng.';
+/** Small label in the top corner of the offers block. */
+export const DISCLOSURE = 'Quảng cáo';
 
 export interface OfferConfigItem {
   id: string;

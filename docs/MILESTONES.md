@@ -11,7 +11,7 @@ Implementation details are Claude Code's call. The criteria below are what "done
   - each province code exists and points back to its province;
   - 63 distinct former units;
   - no empty names.
-- `BIEN_SO_STRICT=1 npm run build` fails while any record has `verified:false`. A normal build passes and shows a visible "DỮ LIỆU NHÁP" banner.
+- `BIEN_SO_STRICT=1 npm run build` fails while any record has `verified:false`. A normal build passes and marks pages as draft (`noindex` + a small " · đang đối chiếu bản gốc" note on the source line; the red banner was removed 2026-11-08).
 
 **Done when:** `npm run verify` passes, integrity tests fail if you corrupt one record (prove it once, then revert), and the strict build fails as intended.
 

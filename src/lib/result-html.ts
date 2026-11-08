@@ -1,7 +1,7 @@
 import { mergeBadge, metaLine } from './card';
-import { LIMITS, sourceText } from './copy';
+import { DRAFT_NOTE, LIMITS, sourceText } from './copy';
 import { formatDate } from './format';
-import { data } from './data';
+import { data, isDraft } from './data';
 import type { ViewState } from './view';
 
 /**
@@ -12,8 +12,9 @@ export function esc(s: string): string {
   return s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 }
 
-export function footerHtml(): string {
-  return `<p class="limits">${esc(LIMITS)}</p><p class="source">${esc(sourceText())} <a href="/nguon">Nguồn &amp; giới hạn</a></p>`;
+export function footerHtml(draft: boolean = isDraft()): string {
+  const note = draft ? `<span class="draft-note">${esc(DRAFT_NOTE)}</span>` : '';
+  return `<p class="limits">${esc(LIMITS)}</p><p class="source">${esc(sourceText())} <a href="/nguon">Nguồn &amp; giới hạn</a>${note}</p>`;
 }
 
 function shareHtml(title: string, code: string): string {

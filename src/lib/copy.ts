@@ -13,3 +13,6 @@ export function sourceText(): string {
   const { dataVersion, lastReviewed } = data.meta;
   return `Nguồn: ${SOURCE_NAME} · bảng mã hiệu lực từ ${formatDate(dataVersion)} · kiểm tra lần cuối ${formatDate(lastReviewed)}.`;
 }
+
+/** Small grey note appended to the source line while any record is unverified. */
+export const DRAFT_NOTE = ' · đang đối chiếu bản gốc';

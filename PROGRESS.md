@@ -65,3 +65,9 @@
 - Not verified locally: Cloudflare Pages serving `/83` from `83.html` and `_headers` detach rules → LAUNCH.md §2 has the curl checks to run after the first Preview deploy.
 - Note: `data/offers.json` now holds Founder-generated real links (status ok); left uncommitted for the Founder to review/commit. Its old "must be []" test became a structural-safety test.
 - Next: Founder reviews, then data verification → strict build → deploy.
+
+## 2026-11-08 — Post-M5 tweaks (Claude Code)
+- Git: authors/committers of all local commits rewritten to the GitHub noreply email (tree contents unchanged) so the first push passes GH007.
+- Offers label is now a small "Quảng cáo" (12px, `--muted`, AA in light+dark); rel/referrerpolicy unchanged.
+- Red draft banner removed. While any record is `verified:false`: " · đang đối chiếu bản gốc" at the end of the source line (result card on home after a lookup, `/[code]`, `/tinh/[slug]`, `/bang-ma`) + `noindex`; both vanish when all are verified (unit tests + one temp all-verified strict build, reverted). Strict gate unchanged.
+- Committed Founder-generated `data/offers.json` (4 offers, https aff_link only).

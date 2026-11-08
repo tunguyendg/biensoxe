@@ -11,8 +11,6 @@
   --border-strong: #8b95ab;
   --info-bg: #e8effb;
   --offer-bg: #efeee9;
-  --warn-bg: #b00020;
-  --warn-fg: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,8 +25,6 @@
     --border-strong: #66728f;
     --info-bg: #1b2a4a;
     --offer-bg: #1c2130;
-    --warn-bg: #b00020;
-    --warn-fg: #ffffff;
   }
 }
 
@@ -37,14 +33,6 @@ body {
   font-family: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   background: var(--bg);
   color: var(--fg);
-}
-.draft-banner {
-  background: var(--warn-bg);
-  color: var(--warn-fg);
-  font-weight: 700;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  text-align: center;
 }
 footer {
   max-width: 40rem;
