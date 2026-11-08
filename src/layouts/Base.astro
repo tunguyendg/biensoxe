@@ -40,10 +40,12 @@ const image = new URL(ogImage, Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f4f6fa" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#1D4ED8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0B1F4D" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     {/* Only the weight used for province names (700), latin + vietnamese subsets. */}
@@ -68,6 +70,14 @@ const image = new URL(ogImage, Astro.site).href;
     <noscript><style>.share, .filter { display: none; }</style></noscript>
   </head>
   <body>
+    <header class="site-head">
+      <a href="/" aria-label="Biển Số — trang chủ">
+        <picture>
+          <source srcset="/brand/logo-horizontal-dark.svg" media="(prefers-color-scheme: dark)" />
+          <img src="/brand/logo-horizontal.svg" alt="Biển Số" width="96" height="32" />
+        </picture>
+      </a>
+    </header>
     <slot />
     <footer>
       <nav aria-label="Liên kết chân trang">

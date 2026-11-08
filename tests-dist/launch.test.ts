@@ -36,13 +36,15 @@ describe('fonts: self-hosted, subset, swap, only 700 preloaded', () => {
 });
 
 describe('icons & manifest', () => {
-  it('files exist and every page links them', () => {
-    for (const f of ['favicon.svg', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'site.webmanifest']) {
+  const files = ['favicon.svg', 'favicon.ico', 'favicon-16.png', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'site.webmanifest'];
+  it('files exist, match brand/ exactly, and every page links them', () => {
+    for (const f of files.filter((x) => x !== 'site.webmanifest')) {
       expect(existsSync(`dist/${f}`), f).toBe(true);
+      expect(readFileSync(`dist/${f}`).equals(readFileSync(`brand/${f}`)), `${f} differs from brand/`).toBe(true);
     }
     for (const f of htmlFiles) {
       const h = read(f);
-      for (const k of ['rel="icon" href="/favicon.svg"', 'href="/favicon-32.png"', 'rel="apple-touch-icon" href="/apple-touch-icon.png"', 'rel="manifest" href="/site.webmanifest"']) {
+      for (const k of ['rel="icon" href="/favicon.svg"', 'href="/favicon-32.png"', 'href="/favicon-16.png"', 'rel="icon" href="/favicon.ico"', 'rel="apple-touch-icon" href="/apple-touch-icon.png"', 'rel="manifest" href="/site.webmanifest"', 'content="#1D4ED8" media="(prefers-color-scheme: light)"', 'content="#0B1F4D" media="(prefers-color-scheme: dark)"']) {
         expect(h, `${f} ${k}`).toContain(k);
       }
     }
@@ -52,13 +54,38 @@ describe('icons & manifest', () => {
       const b = readFileSync(`dist/${f}`);
       return [b.readUInt32BE(16), b.readUInt32BE(20)];
     };
+    expect(dim('favicon-16.png')).toEqual([16, 16]);
     expect(dim('favicon-32.png')).toEqual([32, 32]);
     expect(dim('apple-touch-icon.png')).toEqual([180, 180]);
     expect(dim('icon-192.png')).toEqual([192, 192]);
     expect(dim('icon-512.png')).toEqual([512, 512]);
-    const m = JSON.parse(read('site.webmanifest')) as { name: string; lang: string; icons: { src: string }[] };
+    expect(dim('icon-maskable-512.png')).toEqual([512, 512]);
+    const m = JSON.parse(read('site.webmanifest')) as {
+      name: string; short_name: string; lang: string; theme_color: string; background_color: string;
+      icons: { src: string; sizes: string; type: string; purpose: string }[];
+    };
+    expect(m.name).toBe('Biển Số – Tra cứu mã biển số xe');
+    expect(m.short_name).toBe('Biển Số');
     expect(m.lang).toBe('vi');
+    expect(m.theme_color).toBe('#1D4ED8');
+    expect(m.background_color).toBe('#F8FAFC');
+    expect(m.icons.map((i) => [i.src, i.sizes, i.purpose])).toEqual([
+      ['/icon-192.png', '192x192', 'any'],
+      ['/icon-512.png', '512x512', 'any'],
+      ['/icon-maskable-512.png', '512x512', 'maskable'],
+    ]);
     for (const i of m.icons) expect(existsSync(`dist${i.src}`), i.src).toBe(true);
+  });
+  it('header shows the brand logo (light + dark) with alt text, files served from public/', () => {
+    for (const f of htmlFiles) {
+      const h = read(f);
+      expect(h, f).toContain('<img src="/brand/logo-horizontal.svg" alt="Biển Số"');
+      expect(h, f).toContain('srcset="/brand/logo-horizontal-dark.svg" media="(prefers-color-scheme: dark)"');
+    }
+    for (const f of ['logo-horizontal.svg', 'logo-horizontal-dark.svg']) expect(existsSync(`dist/brand/${f}`), f).toBe(true);
+    // Only the copied files are served from brand/: no Facebook cover, no sources.
+    expect(existsSync('dist/facebook-cover.png')).toBe(false);
+    expect(existsSync('dist/brand/facebook-cover.png')).toBe(false);
   });
 });
 

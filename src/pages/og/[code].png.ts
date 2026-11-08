@@ -1,6 +1,5 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
 import { data } from '../../lib/data';
-import { formatDate } from '../../lib/format';
 import { lookup } from '../../lib/lookup';
 import { renderOgPng } from '../../lib/og';
 
@@ -15,7 +14,7 @@ export const GET: APIRoute = async ({ params }) => {
       : await renderOgPng({
           plate: r.code,
           title: r.province.name,
-          ...(r.changed ? { subtitle: `Trước ${formatDate(data.meta.dataVersion)}: ${r.former}` } : {}),
+          ...(r.changed ? { former: r.former } : {}),
         });
   return new Response(png as BodyInit, { headers: { 'Content-Type': 'image/png' } });
 };

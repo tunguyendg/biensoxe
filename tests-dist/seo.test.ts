@@ -223,7 +223,10 @@ describe('6. technical', () => {
         expect(meta(h, k), `${f} ${k}`).toBeTruthy();
       }
       expect(meta(h, 'og:title')).toBe(title(h));
-      expect(meta(h, 'og:image')?.startsWith(`${SITE}/og/`)).toBe(true);
+      const og = meta(h, 'og:image') as string;
+      expect(og.startsWith(`${SITE}/og/`)).toBe(true);
+      // Every static page uses the brand default image; only /[code] has its own.
+      if (!/^\d{2}\.html$/.test(f)) expect(og, f).toBe(`${SITE}/og/default.png`);
       expect(meta(h, 'og:image:width')).toBe('1200');
       expect(meta(h, 'twitter:card')).toBe('summary_large_image');
     }

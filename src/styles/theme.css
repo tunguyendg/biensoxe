@@ -34,6 +34,21 @@ body {
   background: var(--bg);
   color: var(--fg);
 }
+.site-head {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 0.5rem 1rem 0;
+}
+.site-head a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.site-head img {
+  display: block;
+  height: 32px;
+  width: auto;
+}
 footer {
   max-width: 40rem;
   margin: 0 auto;

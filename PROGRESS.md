@@ -88,3 +88,9 @@
 - At most 2 ad blocks per page in total: valid featured banners take slots first (2 banners → 0 cards, 1 → 1, 0 → 2) via `offerSlots()`; `OfferCards` counts banners with the same `activeFeatured()` rule. A banner hidden in the browser after `endAt` is not backfilled (accepted).
 - Featured banners now also need `checkedAt` ≤ 30 days at build (same `isFresh` as cards). `docs/AFFILIATE.md` updated.
 - Tests: 3 slot cases (container render), stale banner, dist check "≤ 2 ad blocks on every page". 338 unit + 285 dist; coverage 100%.
+
+## Brand integration (icons, OG, header logo)
+- Done: `brand/` (from bien_so_brand.zip) is now the single source. Copied to `public/`: favicon.svg/.ico, favicon-16/32, apple-touch-icon, icon-192/512, icon-maskable-512; `public/og/default.png` = brand/og-default.png (default OG for all static pages); `public/brand/logo-horizontal(-dark).svg` for the header (picture + prefers-color-scheme, 32px, alt "Biển Số", no JS).
+- Removed `scripts/make-icons.ts` and `src/pages/og/default.png.ts`. Manifest, `<head>` icon links and theme-color (#1D4ED8 / #0B1F4D) per brief. Per-code OG redone in brand colours (navy→blue gradient, white plate, yellow arrow former → current, logo top-left); PNGs palette-quantised via sharp (devDependency, already an Astro dep) so each ≤ 60 KB (max 30 KB).
+- Tests: dist icons byte-equal brand/, manifest content/files, all pages have icon tags + logo, og:image of static pages = /og/default.png and byte-equal brand file, OG ≤ 60 KB. facebook-cover.png is not served (tested).
+- Open: logo is an <img> so it is not part of the JS budget; old "BIEN SO" text wordmark did not exist in the header, so the logo is new there.

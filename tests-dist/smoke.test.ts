@@ -109,6 +109,14 @@ describe('OG images', () => {
   });
 });
 
+describe('OG default image', () => {
+  it('is exactly brand/og-default.png (1200×630)', () => {
+    const b = readFileSync('dist/og/default.png');
+    expect(b.equals(readFileSync('brand/og-default.png'))).toBe(true);
+    expect([b.readUInt32BE(16), b.readUInt32BE(20)]).toEqual([1200, 630]);
+  });
+});
+
 describe('internal links', () => {
   const exists = (path: string) => {
     if (path === '/') return existsSync('dist/index.html');
