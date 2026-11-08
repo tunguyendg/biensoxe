@@ -15,6 +15,8 @@ Status values:
 | 4 | Plates are tied to the owner's identity number; a plate is kept for 5 years after the vehicle is transferred or scrapped | SECONDARY | TT 37/2026/TT-BCA (effective 08/6/2026), via [LSVN](https://lsvn.vn/mot-so-thay-doi-moi-ve-dang-ky-xe-tu-hom-nay-a173933.html) |
 | 5 | No rule found requiring existing plates to be changed because of the merger | **OPEN** | TT 51/2025 contains no such provision in the text reviewed. Do not state this as fact. |
 | 6 | Later amendments (TT 37/2026, TT 62/2026) do not change the code table | SECONDARY | LSVN / LuatVietnam summaries. Re-check quarterly. |
+| 7 | Per province: `mergedFrom` (former units merged), `areaKm2`, `population` after the merger. 23 merged provinces/cities have all three; the 11 unchanged (Hà Nội, Huế, Cao Bằng, Điện Biên, Hà Tĩnh, Lai Châu, Lạng Sơn, Nghệ An, Quảng Ninh, Thanh Hóa, Sơn La) have `mergedFrom: []` and `null` area/population | SECONDARY → needs PRIMARY | NQ 202/2025/QH15, Điều 1 khoản 1–24, read from the LuatVietnam PDF (note: the file read is an **English translation**, area/population "will have a natural area of … and a population of …"). Figures are as stated there; Điều 3 khoản 2 says the Government may update the areas after field survey. `mergedFrom` was cross-checked: it equals the distinct `formerProvince` of each province's codes for all 23. |
+| 8 | `adminCenter` (trung tâm chính trị – hành chính) | **OPEN** | The NQ 202 text read does **not** state it → `null` for all 34. Do not show. |
 
 **Last full review:** 2026-11-08 (claude.ai research). **Next review due:** 2027-02.
 

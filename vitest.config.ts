@@ -5,7 +5,7 @@ export default defineConfig({
     include: ['tests/**/*.test.ts'],
     coverage: {
       provider: 'v8',
-      include: ['src/lib/parse.ts', 'src/lib/lookup.ts', 'src/lib/view.ts'],
+      include: ['src/lib/parse.ts', 'src/lib/lookup.ts', 'src/lib/view.ts', 'src/lib/offers.ts', 'src/lib/card.ts'],
       thresholds: { branches: 100, functions: 100, lines: 100, statements: 100 },
     },
   },

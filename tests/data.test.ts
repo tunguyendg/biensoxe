@@ -64,6 +64,45 @@ describe('data integrity', () => {
   });
 });
 
+describe('province facts (NQ 202/2025/QH15)', () => {
+  it('every one of the 34 provinces has all the new fields', () => {
+    for (const p of provinces) {
+      expect(Array.isArray(p.mergedFrom), p.slug).toBe(true);
+      for (const k of ['adminCenter', 'areaKm2', 'population'] as const) {
+        expect(p, `${p.slug}.${k}`).toHaveProperty(k);
+      }
+      expect(p.adminCenter === null || p.adminCenter.trim() !== '', p.slug).toBe(true);
+      expect(p.areaKm2 === null || p.areaKm2 > 0, p.slug).toBe(true);
+      expect(p.population === null || Number.isInteger(p.population), p.slug).toBe(true);
+    }
+  });
+
+  it('mergedFrom equals the distinct formerProvince of the province\'s codes', () => {
+    for (const p of provinces) {
+      const fromCodes = new Set(
+        codes.flatMap((c) => (c.type === 'province' && c.currentProvince === p.slug ? [c.formerProvince] : [])),
+      );
+      if (p.mergedFrom.length === 0) expect(fromCodes.size, p.slug).toBe(1);
+      else expect(new Set(p.mergedFrom), p.slug).toEqual(fromCodes);
+      expect(new Set(p.mergedFrom).size, p.slug).toBe(p.mergedFrom.length);
+    }
+  });
+
+  it('merged vs unchanged split matches NQ 202: 23 merged, 11 unchanged', () => {
+    expect(provinces.filter((p) => p.mergedFrom.length > 0)).toHaveLength(23);
+    expect(provinces.filter((p) => p.mergedFrom.length === 0)).toHaveLength(11);
+  });
+
+  it('area and population are present exactly for merged provinces; records stay unverified', () => {
+    for (const p of provinces) {
+      const merged = p.mergedFrom.length > 0;
+      expect(p.areaKm2 !== null, p.slug).toBe(merged);
+      expect(p.population !== null, p.slug).toBe(merged);
+      expect(p.verified).toBe(false);
+    }
+  });
+});
+
 describe('strict gate', () => {
   const clone = (): PlateData => structuredClone(data);
 

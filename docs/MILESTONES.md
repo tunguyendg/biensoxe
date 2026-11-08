@@ -69,6 +69,24 @@ Implementation details are Claude Code's call. The criteria below are what "done
 
 **Done when:** `npm run verify` passes and the page count is 81 + 34 + home + bang-ma + nguon + 404.
 
+## M4b — Richer result card + affiliate offers
+**A. Province data (single source: NQ 202/2025/QH15)**
+- Add to `provinces[]`: `adminCenter`, `areaKm2`, `population`, `mergedFrom` (all former units incl. the one that kept the name; `[]` if unchanged). Read from the NQ 202 PDF only; anything the PDF does not state stays `null` and goes to open questions. Keep `verified:false`.
+- Update `data/SOURCES.md`; integrity tests: all 34 provinces have every field; `mergedFrom` equals the distinct `formerProvince` of the province's codes.
+
+**B. Result card (home and `/[code]`)**
+- Under "Trước 01/07/2025": badge "Không thay đổi sau sáp nhập 01/07/2025" when `mergedFrom` is empty, else "Hợp nhất từ: …".
+- One small line "Trung tâm hành chính: … · Miền …" (the null part is hidden).
+- Area / population only on `/tinh/[slug]`.
+- Result still visible at 360×640.
+
+**C. Affiliate**
+- `data/offers.json`: `[{id,title,description,url,image?,placements:["result","tinh","code"],active}]`; image ≤ 40 KB webp in `public/offers/`. Ship 4 samples with `active:false`, url "TODO".
+- `OfferCards` component: ≤ 2 cards per page, **below** the result card and below the main content of `/tinh` and `/[code]`. Never on `/nguon` or `/404`. Label "Liên kết tiếp thị — BIEN SO có thể nhận hoa hồng." Links `target="_blank" rel="sponsored noopener"`. Lazy images with fixed width/height. No third-party scripts.
+- Tests: inactive or "TODO" offers never render; `/nguon` has no offers; build fails if an active offer has a non-https url. No license-plate frames/covers.
+
+**Done when:** `npm run verify` passes; lookup JS ≤ 15 KB gzip.
+
 ## M5 — Polish + launch readiness (no deploy)
 - Dark mode (system); Vietnamese font with full diacritics (self-hosted, subset); favicon + manifest icons.
 - Cloudflare Web Analytics snippet behind an env var (off locally).

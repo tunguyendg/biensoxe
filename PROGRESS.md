@@ -34,3 +34,10 @@
 - Lookup JS: 17.3 KB raw / 4.6 KB gzip (budget 15 KB). Checked once at 360×640: province + former visible without scrolling.
 - Decisions: `inputmode=numeric` (letters-first plates reachable by paste/desktop only); no-JS form submits to /bang-ma; chip/list links point to /[code] and /nguon which land in M4 (404 until then). Date examples in CLAUDE.md/MILESTONES fixed to 01/07/2025.
 - Next: M4 (static pages + SEO). Open: M1 questions still pending Founder.
+
+## 2026-11-08 — M4b Richer result card + affiliate (Claude Code)
+- Data: `provinces[]` gained `mergedFrom`, `adminCenter`, `areaKm2`, `population` from NQ 202 PDF (an English translation by LuatVietnam). 23 merged provinces have area/pop; 11 unchanged = null. `adminCenter` = null for all 34 (not in the PDF). `mergedFrom` cross-checked against code `formerProvince`; all `verified:false`.
+- Card: merge badge + "Miền …" line (`src/lib/card.ts`); area/pop helper ready for `/tinh/[slug]` (M4). Checked at 360×640 (HCM, worst case): province → badge → chips still above the fold.
+- Offers: `data/offers.json` (4 samples inactive, url TODO), `OfferCards.astro` (≤2, disclosure label, sponsored+noopener, lazy fixed-size img), build gate for active non-https (proven), plate frame/cover ban. Only on home for now; /[code] and /tinh arrive with M4.
+- Lookup JS: 5.4 KB gzip (was 4.6). 202 tests, coverage 100% on lib modules.
+- Open: adminCenter source (Vietnamese NQ 202 text? other doc); area/pop for the 11 unchanged; Huế/75 name; re-plating rule.

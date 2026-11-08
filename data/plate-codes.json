@@ -32,6 +32,10 @@
         "40"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -46,6 +50,13 @@
       "formerProvinces": [
         "Hải Dương"
       ],
+      "mergedFrom": [
+        "Hải Phòng",
+        "Hải Dương"
+      ],
+      "adminCenter": null,
+      "areaKm2": 3194.72,
+      "population": 4664124,
       "verified": false
     },
     {
@@ -56,6 +67,10 @@
         "14"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -69,6 +84,13 @@
       "formerProvinces": [
         "Bắc Giang"
       ],
+      "mergedFrom": [
+        "Bắc Giang",
+        "Bắc Ninh"
+      ],
+      "adminCenter": null,
+      "areaKm2": 4718.6,
+      "population": 3619433,
       "verified": false
     },
     {
@@ -82,6 +104,13 @@
       "formerProvinces": [
         "Thái Bình"
       ],
+      "mergedFrom": [
+        "Thái Bình",
+        "Hưng Yên"
+      ],
+      "adminCenter": null,
+      "areaKm2": 2514.81,
+      "population": 3567943,
       "verified": false
     },
     {
@@ -97,6 +126,14 @@
         "Hà Nam",
         "Nam Định"
       ],
+      "mergedFrom": [
+        "Hà Nam",
+        "Nam Định",
+        "Ninh Bình"
+      ],
+      "adminCenter": null,
+      "areaKm2": 3942.62,
+      "population": 4412264,
       "verified": false
     },
     {
@@ -112,6 +149,14 @@
         "Hòa Bình",
         "Vĩnh Phúc"
       ],
+      "mergedFrom": [
+        "Vĩnh Phúc",
+        "Hòa Bình",
+        "Phú Thọ"
+      ],
+      "adminCenter": null,
+      "areaKm2": 9361.38,
+      "population": 4022638,
       "verified": false
     },
     {
@@ -125,6 +170,13 @@
       "formerProvinces": [
         "Bắc Kạn"
       ],
+      "mergedFrom": [
+        "Bắc Kạn",
+        "Thái Nguyên"
+      ],
+      "adminCenter": null,
+      "areaKm2": 8375.21,
+      "population": 1799489,
       "verified": false
     },
     {
@@ -138,6 +190,13 @@
       "formerProvinces": [
         "Hà Giang"
       ],
+      "mergedFrom": [
+        "Hà Giang",
+        "Tuyên Quang"
+      ],
+      "adminCenter": null,
+      "areaKm2": 13795.5,
+      "population": 1865270,
       "verified": false
     },
     {
@@ -151,6 +210,13 @@
       "formerProvinces": [
         "Yên Bái"
       ],
+      "mergedFrom": [
+        "Yên Bái",
+        "Lào Cai"
+      ],
+      "adminCenter": null,
+      "areaKm2": 13256.92,
+      "population": 1778785,
       "verified": false
     },
     {
@@ -161,6 +227,10 @@
         "11"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -171,6 +241,10 @@
         "12"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -181,6 +255,10 @@
         "27"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -191,6 +269,10 @@
         "25"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -201,6 +283,10 @@
         "26"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -211,6 +297,10 @@
         "36"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -221,6 +311,10 @@
         "37"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -231,6 +325,10 @@
         "38"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -244,6 +342,13 @@
       "formerProvinces": [
         "Quảng Bình"
       ],
+      "mergedFrom": [
+        "Quảng Bình",
+        "Quảng Trị"
+      ],
+      "adminCenter": null,
+      "areaKm2": 12700,
+      "population": 1870845,
       "verified": false
     },
     {
@@ -254,6 +359,10 @@
         "75"
       ],
       "formerProvinces": [],
+      "mergedFrom": [],
+      "adminCenter": null,
+      "areaKm2": null,
+      "population": null,
       "verified": false
     },
     {
@@ -267,6 +376,13 @@
       "formerProvinces": [
         "Quảng Nam"
       ],
+      "mergedFrom": [
+        "Đà Nẵng",
+        "Quảng Nam"
+      ],
+      "adminCenter": null,
+      "areaKm2": 11859.59,
+      "population": 3065628,
       "verified": false
     },
     {
@@ -280,6 +396,13 @@
       "formerProvinces": [
         "Kon Tum"
       ],
+      "mergedFrom": [
+        "Kon Tum",
+        "Quảng Ngãi"
+      ],
+      "adminCenter": null,
+      "areaKm2": 14832.55,
+      "population": 2161755,
       "verified": false
     },
     {
@@ -293,6 +416,13 @@
       "formerProvinces": [
         "Bình Định"
       ],
+      "mergedFrom": [
+        "Bình Định",
+        "Gia Lai"
+      ],
+      "adminCenter": null,
+      "areaKm2": 21576.53,
+      "population": 3583693,
       "verified": false
     },
     {
@@ -306,6 +436,13 @@
       "formerProvinces": [
         "Phú Yên"
       ],
+      "mergedFrom": [
+        "Phú Yên",
+        "Đắk Lắk"
+      ],
+      "adminCenter": null,
+      "areaKm2": 18096.4,
+      "population": 3346853,
       "verified": false
     },
     {
@@ -319,6 +456,13 @@
       "formerProvinces": [
         "Ninh Thuận"
       ],
+      "mergedFrom": [
+        "Ninh Thuận",
+        "Khánh Hòa"
+      ],
+      "adminCenter": null,
+      "areaKm2": 8555.86,
+      "population": 2243554,
       "verified": false
     },
     {
@@ -334,6 +478,14 @@
         "Bình Thuận",
         "Đắk Nông"
       ],
+      "mergedFrom": [
+        "Đắk Nông",
+        "Bình Thuận",
+        "Lâm Đồng"
+      ],
+      "adminCenter": null,
+      "areaKm2": 24233.07,
+      "population": 3872999,
       "verified": false
     },
     {
@@ -359,6 +511,14 @@
         "Bà Rịa – Vũng Tàu",
         "Bình Dương"
       ],
+      "mergedFrom": [
+        "TP. Hồ Chí Minh",
+        "Bà Rịa – Vũng Tàu",
+        "Bình Dương"
+      ],
+      "adminCenter": null,
+      "areaKm2": 6772.59,
+      "population": 14002598,
       "verified": false
     },
     {
@@ -373,6 +533,13 @@
       "formerProvinces": [
         "Bình Phước"
       ],
+      "mergedFrom": [
+        "Bình Phước",
+        "Đồng Nai"
+      ],
+      "adminCenter": null,
+      "areaKm2": 12737.18,
+      "population": 4491408,
       "verified": false
     },
     {
@@ -386,6 +553,13 @@
       "formerProvinces": [
         "Long An"
       ],
+      "mergedFrom": [
+        "Long An",
+        "Tây Ninh"
+      ],
+      "adminCenter": null,
+      "areaKm2": 8536.44,
+      "population": 3254170,
       "verified": false
     },
     {
@@ -401,6 +575,14 @@
         "Hậu Giang",
         "Sóc Trăng"
       ],
+      "mergedFrom": [
+        "Cần Thơ",
+        "Sóc Trăng",
+        "Hậu Giang"
+      ],
+      "adminCenter": null,
+      "areaKm2": 6360.83,
+      "population": 4199824,
       "verified": false
     },
     {
@@ -416,6 +598,14 @@
         "Bến Tre",
         "Trà Vinh"
       ],
+      "mergedFrom": [
+        "Bến Tre",
+        "Trà Vinh",
+        "Vĩnh Long"
+      ],
+      "adminCenter": null,
+      "areaKm2": 6296.2,
+      "population": 4257581,
       "verified": false
     },
     {
@@ -429,6 +619,13 @@
       "formerProvinces": [
         "Tiền Giang"
       ],
+      "mergedFrom": [
+        "Tiền Giang",
+        "Đồng Tháp"
+      ],
+      "adminCenter": null,
+      "areaKm2": 5938.64,
+      "population": 4370046,
       "verified": false
     },
     {
@@ -442,6 +639,13 @@
       "formerProvinces": [
         "Kiên Giang"
       ],
+      "mergedFrom": [
+        "Kiên Giang",
+        "An Giang"
+      ],
+      "adminCenter": null,
+      "areaKm2": 9888.91,
+      "population": 4952238,
       "verified": false
     },
     {
@@ -455,6 +659,13 @@
       "formerProvinces": [
         "Bạc Liêu"
       ],
+      "mergedFrom": [
+        "Bạc Liêu",
+        "Cà Mau"
+      ],
+      "adminCenter": null,
+      "areaKm2": 7942.39,
+      "population": 2606672,
       "verified": false
     }
   ],

@@ -43,6 +43,18 @@ describe('search UI', () => {
     expect(plate.textContent).toBe('83');
   });
 
+  it('shows the merge badge and meta line under the former-name line', async () => {
+    const { out, type } = await boot({ desktop: true });
+    type('83');
+    expect(out.querySelector('.badge')?.textContent).toBe('Hợp nhất từ: Cần Thơ, Sóc Trăng, Hậu Giang');
+    expect(out.querySelector('.meta')?.textContent).toBe('Miền Nam');
+    const kids = [...out.children].map((c) => c.className);
+    expect(kids.indexOf('former')).toBeLessThan(kids.indexOf('badge badge--merged'));
+    type('29');
+    expect(out.querySelector('.badge')?.textContent).toBe('Không thay đổi sau sáp nhập 01/07/2025');
+    expect(out.querySelector('.former')).toBeNull();
+  });
+
   it('does not re-render while typing more of the same plate (no flicker)', async () => {
     const { out, type } = await boot({ desktop: true });
     type('83');

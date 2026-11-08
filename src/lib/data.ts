@@ -22,6 +22,12 @@ export interface Province {
   region: Region;
   codes: string[];
   formerProvinces: string[];
+  /** All former units merged into this one, incl. the one that kept the name. [] = unchanged. (NQ 202/2025/QH15) */
+  mergedFrom: string[];
+  /** Political-administrative centre. null = not stated in NQ 202. */
+  adminCenter: string | null;
+  areaKm2: number | null;
+  population: number | null;
   verified: boolean;
 }
 

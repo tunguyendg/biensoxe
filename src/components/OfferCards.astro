@@ -1,0 +1,49 @@
+---
+import { DISCLOSURE, offers, selectOffers, type Placement } from '../lib/offers';
+
+// Only pages that may carry offers can import this component: home, /[code], /tinh/[slug].
+// Never /nguon or /404.
+interface Props {
+  placement: Placement;
+}
+const { placement } = Astro.props;
+const shown = selectOffers(offers, placement);
+---
+
+{
+  shown.length > 0 && (
+    <aside class="offers" aria-label="Liên kết tiếp thị">
+      <p class="offers__label">{DISCLOSURE}</p>
+      <ul>
+        {shown.map((o) => (
+          <li>
+            <a class="offer" href={o.url} target="_blank" rel="sponsored noopener">
+              {o.image && (
+                <img src={o.image} alt="" width="72" height="72" loading="lazy" decoding="async" />
+              )}
+              <span class="offer__text">
+                <strong>{o.title}</strong>
+                <span>{o.description}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
+
+<style is:global>
+  .offers { margin: 1rem 0; }
+  .offers__label { margin: 0 0 0.5rem; font-size: 0.8125rem; color: var(--muted); }
+  .offers ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .offer {
+    display: flex; align-items: center; gap: 0.75rem; min-height: 3.5rem; padding: 0.5rem 0.75rem;
+    color: var(--fg); text-decoration: none; background: var(--card);
+    border: 1px dashed var(--border-strong); border-radius: 0.75rem;
+  }
+  .offer img { flex: none; width: 72px; height: 72px; object-fit: cover; border-radius: 0.5rem; }
+  .offer__text { display: grid; gap: 0.125rem; }
+  .offer__text span { font-size: 0.875rem; color: var(--muted); }
+  .offer:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+</style>

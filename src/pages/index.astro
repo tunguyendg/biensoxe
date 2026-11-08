@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import OfferCards from '../components/OfferCards.astro';
 import { lookup } from '../lib/lookup';
 import '../styles/home.css';
 
@@ -45,6 +46,8 @@ const confusing = CONFUSING.flatMap((code) => {
         </p>
       </noscript>
     </section>
+
+    <OfferCards placement="result" />
 
     <section class="confusing" aria-labelledby="confusing-h">
       <h2 id="confusing-h">Các mã hay bị nhầm sau sáp nhập</h2>

@@ -1,3 +1,4 @@
+import { mergeBadge, metaLine } from '../lib/card';
 import { data } from '../lib/data';
 import { formatDate } from '../lib/format';
 import { getViewState, plateText, stateKey, type ViewState } from '../lib/view';
@@ -85,11 +86,14 @@ function render(s: ViewState): Child[] {
         ];
       }
       const name = r.province.name;
+      const badge = mergeBadge(r.province);
       const formerLine = r.changed ? `Trước ${formatDate(data.meta.dataVersion)}: ${r.former}` : null;
       return [
         h('p', { class: 'lead' }, `Biển ${r.code} là xe đăng ký tại`),
         h('h2', { class: 'province' }, name),
         formerLine && h('p', { class: 'former' }, formerLine),
+        h('p', { class: badge.merged ? 'badge badge--merged' : 'badge' }, badge.text),
+        h('p', { class: 'meta' }, metaLine(r.province)),
         r.siblings.length > 0 &&
           h(
             'div',
