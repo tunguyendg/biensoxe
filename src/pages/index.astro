@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import FeaturedBanner from '../components/FeaturedBanner.astro';
 import OfferCards from '../components/OfferCards.astro';
 import ResultCard from '../components/ResultCard.astro';
 import { lookup } from '../lib/lookup';
@@ -65,6 +66,7 @@ const confusing = CONFUSING.flatMap((code) => {
       </ul>
       <p><a class="more" href="/bang-ma">Xem bảng mã đầy đủ →</a></p>
     </section>
+    <FeaturedBanner />
   </main>
 
   <script>

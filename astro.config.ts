@@ -1,6 +1,9 @@
 import { defineConfig } from 'astro/config';
+import { existsSync, statSync } from 'node:fs';
 import { assertStrictBuild } from './src/lib/strict';
 import { data } from './src/lib/data';
+import { IMAGE_MAX_BYTES, validateFeaturedConfig, validateFeaturedLinks } from './src/lib/featured';
+import { featuredConfig, featuredLinks } from './src/lib/featured-data';
 import { validateConfig, validateOffers } from './src/lib/offers';
 import { offerConfig, offers } from './src/lib/offers-data';
 
@@ -20,6 +23,15 @@ export default defineConfig({
           assertStrictBuild(data, process.env.BIEN_SO_STRICT, process.env.SITE_URL);
           validateConfig(offerConfig);
           validateOffers(offers); // stored links must be https
+          validateFeaturedConfig(featuredConfig); // ≤ 2 active, shopee/shp.ee https targets, promo wording needs endAt
+          validateFeaturedLinks(featuredLinks);
+          for (const f of featuredConfig) {
+            if (!f.image) continue;
+            const file = `public${f.image}`;
+            if (!existsSync(file) || statSync(file).size > IMAGE_MAX_BYTES) {
+              throw new Error(`featured.config.json: "${f.id}" image ${f.image} must exist in public/ and be ≤ 60 KB`);
+            }
+          }
         },
       },
     },

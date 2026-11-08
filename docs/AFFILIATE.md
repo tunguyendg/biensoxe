@@ -26,3 +26,11 @@ Chỉ hiện danh mục (icon + tên + mô tả + nút "Xem trên Shopee"), khô
 - Link mở `target="_blank"`, `rel="sponsored noopener noreferrer"`, `referrerpolicy="no-referrer"`. Không có biển số/mã tỉnh trong bất kỳ sub/utm nào.
 - Không thêm script bên thứ ba. Không quảng cáo khung/ốp biển số.
 - Khu affiliate không có trên `/nguon`, `/bang-ma`, `/404`.
+
+## Banner nổi bật (Featured)
+Tối đa **2** banner, hiện ở cuối nội dung trang chủ, `/[code]`, `/tinh/[slug]` (không có trên `/nguon`, `/bang-ma`, `/404`), nhãn "Quảng cáo".
+1. Sửa `data/featured.config.json`: `id`, `title` (≤ 50 ký tự), `subtitle` (≤ 80), `targetUrl` (trang sản phẩm / shop / chương trình, phải là `https://shopee.vn/…` hoặc `https://shp.ee/…`), `image` (tuỳ chọn: `/featured/<tên>.webp`, ≤ 60 KB, đặt trong `public/featured/`), `startAt`/`endAt` (ISO có múi giờ, ví dụ `2026-11-11T00:00:00+07:00`), `active`.
+2. `npm run offers:links` (tạo aff_link cho cả danh mục lẫn banner, sub1 = `featured`, sub2 = id; lỗi thì cả hai file cũ giữ nguyên) → `npm run offers:check` → commit `data/featured.json` + config → push = deploy.
+- Build tự **loại** banner ngoài khoảng `startAt`–`endAt` hoặc `status` ≠ ok. Site tĩnh không tự build lại khi hết hạn, nên có thêm script nhỏ (≈ 200 byte) ẩn banner đã quá `endAt` theo giờ trình duyệt; hết banner thì cả khu ẩn. Vẫn nên gỡ banner khỏi config và deploy lại sau khi kết thúc chương trình.
+- Build **fail** nếu: > 2 mục `active`; `targetUrl` của mục active không phải shopee.vn/shp.ee (https); tiêu đề/mô tả có `%`, "giảm", "đ", "k", "free ship", "voucher" mà không có `endAt`; ảnh sai đường dẫn/quá 60 KB.
+- Không hiện giá cụ thể trong chữ nếu không chắc còn đúng; chữ có thời hạn thì luôn đặt `endAt`.

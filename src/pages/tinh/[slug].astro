@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import FeaturedBanner from '../../components/FeaturedBanner.astro';
 import OfferCards from '../../components/OfferCards.astro';
 import Base from '../../layouts/Base.astro';
 import { SHOW_AREA_POPULATION, areaPopulationLine, mergeBadge, metaLine } from '../../lib/card';
@@ -59,5 +60,7 @@ const crumbs: Crumb[] = [
     <div class="card-foot" set:html={footerHtml()} />
 
     <OfferCards placement="tinh" pageKey={p.slug} />
+
+    <FeaturedBanner />
   </main>
 </Base>

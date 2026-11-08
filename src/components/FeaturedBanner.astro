@@ -1,0 +1,75 @@
+---
+import { HIDE_EXPIRED_SCRIPT, activeFeatured, type FeaturedConfigItem, type FeaturedLink } from '../lib/featured';
+import { featuredConfig, featuredLinks } from '../lib/featured-data';
+import { DISCLOSURE } from '../lib/offers';
+
+// Founder-managed banners (data/featured.config.json → offers:links → featured.json).
+// Put at the END of <main>, only on: home, /[code], /tinh/[slug]. Never on /nguon, /bang-ma, /404.
+// Renders nothing (no wrapper, no gap) when no banner is valid.
+interface Props {
+  // Test hooks; production uses the data files and the build time.
+  config?: FeaturedConfigItem[];
+  links?: FeaturedLink[];
+  now?: Date;
+}
+const { config = featuredConfig, links = featuredLinks, now = new Date() } = Astro.props;
+const shown = activeFeatured(config, links, now);
+---
+
+{
+  shown.length > 0 && (
+    <>
+      <aside class="featured" aria-label="Quảng cáo">
+        <p class="featured__label">{DISCLOSURE}</p>
+        <ul class="featured__list">
+          {shown.map(({ item, href }) => (
+            <li class="feat" data-end={item.endAt}>
+              <a class="feat__link" href={href} target="_blank" rel="sponsored noopener noreferrer" referrerpolicy="no-referrer">
+                {item.image ? (
+                  <img class="feat__img" src={item.image} alt={item.title} width="112" height="112" loading="lazy" decoding="async" />
+                ) : (
+                  <svg class="feat__icon" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 12v8H4v-8" />
+                    <path d="M2 7h20v5H2z" />
+                    <path d="M12 20V7" />
+                    <path d="M12 7H8.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7z" />
+                    <path d="M12 7h3.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z" />
+                  </svg>
+                )}
+                <span class="feat__text">
+                  <strong>{item.title}</strong>
+                  <span>{item.subtitle}</span>
+                </span>
+                <span class="feat__cta">Xem ngay trên Shopee</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+      <script is:inline set:html={HIDE_EXPIRED_SCRIPT} />
+    </>
+  )
+}
+
+<style is:global>
+  .featured { margin: 1.5rem 0 1rem; padding: 0.75rem; background: var(--offer-bg); border-radius: 1rem; }
+  .featured[hidden], .feat[hidden] { display: none; }
+  .featured__label { margin: 0 0 0.375rem; font-size: 0.75rem; line-height: 1; letter-spacing: 0.02em; color: var(--muted); }
+  .featured__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+  .feat__link {
+    display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.75rem 1rem; padding: 0.875rem;
+    color: var(--fg); text-decoration: none; background: var(--card);
+    border: 2px solid var(--border-strong); border-radius: 0.875rem;
+  }
+  .feat__img { width: 112px; height: 112px; object-fit: cover; border-radius: 0.625rem; }
+  .feat__icon { color: var(--muted); }
+  .feat__text { display: grid; gap: 0.25rem; min-width: 0; }
+  .feat__text strong { font-size: 1.125rem; }
+  .feat__text span { font-size: 0.9375rem; color: var(--muted); }
+  .feat__cta {
+    grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; min-height: 2.75rem;
+    font-weight: 700; color: var(--card); background: var(--fg); border-radius: 0.5rem;
+  }
+  .feat__link:focus-visible { outline: 3px solid var(--fg); outline-offset: 2px; }
+  @media (min-width: 40rem) { .featured__list { grid-template-columns: 1fr 1fr; } .featured__list:has(> :only-child) { grid-template-columns: 1fr; } }
+</style>

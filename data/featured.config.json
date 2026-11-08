@@ -1,0 +1,11 @@
+[
+  {
+    "id": "sieu-sale-11-11",
+    "title": "Siêu sale 11.11",
+    "subtitle": "Các ưu đãi theo chương trình trên Shopee, có thời hạn.",
+    "targetUrl": "TODO",
+    "startAt": "2026-11-11T00:00:00+07:00",
+    "endAt": "2026-11-12T00:00:00+07:00",
+    "active": false
+  }
+]

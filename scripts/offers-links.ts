@@ -3,8 +3,9 @@
  * Runs on the Founder's machine only (needs ACCESSTRADE_TOKEN in .env) — never during the Cloudflare build.
  *   npm run offers:links
  */
-import { readFileSync, renameSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+import { validateFeaturedConfig, type FeaturedConfigItem, type FeaturedLink } from '../src/lib/featured';
 import {
   PLACEMENTS,
   validateConfig,
@@ -113,8 +114,23 @@ export async function buildOffers(config: OfferConfigItem[], deps: Deps): Promis
   }));
 }
 
+/** Featured banners: one aff_link per active item (sub1 = "featured", sub2 = id). Throws on any failure. */
+export async function buildFeatured(config: FeaturedConfigItem[], deps: Deps): Promise<FeaturedLink[]> {
+  validateFeaturedConfig(config);
+  const generatedAt = deps.now().toISOString();
+  const out: FeaturedLink[] = [];
+  for (const f of config.filter((c) => c.active)) {
+    const [affLink] = await postBatch(deps, 'featured', f.id, [f.targetUrl]);
+    deps.log?.(`ok  featured ${f.id}`);
+    out.push({ id: f.id, affLink: affLink as string, generatedAt, checkedAt: null, status: 'unchecked' });
+  }
+  return out;
+}
+
 export const CONFIG_PATH = 'data/offers.config.json';
 export const OFFERS_PATH = 'data/offers.json';
+export const FEATURED_CONFIG_PATH = 'data/featured.config.json';
+export const FEATURED_PATH = 'data/featured.json';
 
 export interface MainOpts {
   root?: string; // project root (tests use a temp dir)
@@ -142,21 +158,29 @@ export async function main(o: MainOpts = {}): Promise<number> {
     return 1;
   }
   const config = JSON.parse(readFileSync(`${root}/${CONFIG_PATH}`, 'utf8')) as OfferConfigItem[];
+  const featuredCfgFile = `${root}/${FEATURED_CONFIG_PATH}`;
+  const featuredConfig = existsSync(featuredCfgFile) ? (JSON.parse(readFileSync(featuredCfgFile, 'utf8')) as FeaturedConfigItem[]) : null;
   const target = `${root}/${OFFERS_PATH}`;
+  const featuredTarget = `${root}/${FEATURED_PATH}`;
   try {
-    const result = await buildOffers(config, {
+    const deps: Deps = {
       fetch: o.fetchFn ?? fetch,
       token,
       now: () => new Date(),
       sleep: o.sleep ?? ((ms) => new Promise((r) => setTimeout(r, ms))),
       log,
-    });
+    };
+    // Build everything first; only when ALL of it succeeded do we touch the files.
+    const result = await buildOffers(config, deps);
+    const featured = featuredConfig ? await buildFeatured(featuredConfig, deps) : null;
     writeFileSync(`${target}.tmp`, JSON.stringify(result, null, 2) + '\n');
+    if (featured) writeFileSync(`${featuredTarget}.tmp`, JSON.stringify(featured, null, 2) + '\n');
     renameSync(`${target}.tmp`, target);
-    log(`Wrote ${result.length} offer(s) to ${OFFERS_PATH}. Now run: npm run offers:check`);
+    if (featured) renameSync(`${featuredTarget}.tmp`, featuredTarget);
+    log(`Wrote ${result.length} offer(s) to ${OFFERS_PATH}${featured ? ` and ${featured.length} featured banner(s) to ${FEATURED_PATH}` : ''}. Now run: npm run offers:check`);
     return 0;
   } catch (e) {
-    err(`FAILED — ${OFFERS_PATH} left unchanged. ${(e as Error).message}`);
+    err(`FAILED — ${OFFERS_PATH}${featuredConfig ? ` and ${FEATURED_PATH}` : ''} left unchanged. ${(e as Error).message}`);
     return 1;
   }
 }

@@ -76,3 +76,10 @@
 - `tests-dist/seo.test.ts` (137 checks over all 119 pages): headings, title/description, internal links + orphans, JSON-LD, robots/sitemap, technical, /nguon ad section. Run against the pre-fix build: 8 groups failed (listed in the report), now all green.
 - Fixed: titles ≤ 60 / descriptions 120–160 with graceful fallbacks (`fitText` in `src/lib/pages.ts`); h1 `/bang-ma` + `/nguon` + `/80`; visible breadcrumb Trang chủ › Tỉnh › Mã sharing one `crumbs` source with the JSON-LD; chip `aria-label`; WebSite JSON-LD; sitemap `lastmod`; 404 = noindex, no canonical; `/nguon` "Quảng cáo trên BIEN SO" section.
 - Already fine: one h1 / no skipped levels, no orphans, robots, lang, OG/Twitter, canonical = sitemap URL.
+
+## 2026-11-08 — Featured banners (Claude Code)
+- `data/featured.config.json` (1 inactive sample "Siêu sale 11.11", url TODO) → `offers:links` (same campaign, sub1="featured", sub2=id; offers + featured written only if both succeed) → `offers:check` (also featured) → `data/featured.json` (`[]` now).
+- `FeaturedBanner.astro`: end of `<main>` on home, `/[code]`, `/tinh/[slug]` only; "Quảng cáo" label; ≤ 2; vertical on mobile / side by side on desktop; image (112×112, lazy) or icon card; renders nothing (no gap) when empty. Run window filtered at build + 203-byte inline script hides expired banners in the browser.
+- Build gate: > 2 active, non-shopee/shp.ee https target, promo wording without `endAt`, bad/oversized image → build FAILS (each proven once).
+- JS: no client JS added (total chunks gzip unchanged, ≤ +0.5 KB test). Tests: 330 unit + 284 dist; coverage 100%.
+- `docs/AFFILIATE.md` has the "Banner nổi bật" section.

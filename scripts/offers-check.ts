@@ -2,8 +2,9 @@
  * Follow each affiliate link's redirects and confirm the final host is Shopee. No token needed.
  *   npm run offers:check      (re-run about every 2 weeks; build ignores offers older than 30 days)
  */
-import { readFileSync, renameSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+import type { FeaturedLink } from '../src/lib/featured';
 import { PLACEMENTS, type Offer } from '../src/lib/offers';
 
 export const MAX_HOPS = 10;
@@ -68,19 +69,45 @@ export async function checkOffers(offers: Offer[], deps: CheckDeps, log?: (l: st
   return out;
 }
 
+export async function checkFeatured(links: FeaturedLink[], deps: CheckDeps, log?: (l: string) => void): Promise<FeaturedLink[]> {
+  const checkedAt = deps.now().toISOString();
+  const out: FeaturedLink[] = [];
+  for (const l of links) {
+    let ok = false;
+    try {
+      const host = await resolveFinalHost(l.affLink, deps);
+      ok = host !== null && isShopeeHost(host);
+      log?.(`${ok ? 'ok  ' : 'FAIL'} featured ${l.id} → ${host ?? 'too many redirects'}`);
+    } catch (e) {
+      log?.(`FAIL featured ${l.id} → ${(e as Error).name}`);
+    }
+    out.push({ ...l, checkedAt, status: ok ? 'ok' : 'failed' });
+  }
+  return out;
+}
+
 export async function main(o: { root?: string; fetchFn?: typeof fetch; log?: (l: string) => void } = {}): Promise<number> {
   const log = o.log ?? console.log;
-  const target = `${o.root ?? '.'}/data/offers.json`;
+  const root = o.root ?? '.';
+  const target = `${root}/data/offers.json`;
+  const featuredTarget = `${root}/data/featured.json`;
   const offers = JSON.parse(readFileSync(target, 'utf8')) as Offer[];
-  if (offers.length === 0) {
+  const featured = existsSync(featuredTarget) ? (JSON.parse(readFileSync(featuredTarget, 'utf8')) as FeaturedLink[]) : [];
+  if (offers.length === 0 && featured.length === 0) {
     log('data/offers.json is empty — run: npm run offers:links');
     return 0;
   }
-  const result = await checkOffers(offers, { fetch: o.fetchFn ?? fetch, now: () => new Date() }, log);
+  const deps = { fetch: o.fetchFn ?? fetch, now: () => new Date() };
+  const result = await checkOffers(offers, deps, log);
+  const featuredResult = await checkFeatured(featured, deps, log);
   writeFileSync(`${target}.tmp`, JSON.stringify(result, null, 2) + '\n');
   renameSync(`${target}.tmp`, target);
-  const failed = result.filter((x) => x.status !== 'ok');
-  log(failed.length === 0 ? 'All offers ok.' : `${failed.length} offer(s) failed: ${failed.map((x) => x.id).join(', ')}`);
+  if (featured.length > 0) {
+    writeFileSync(`${featuredTarget}.tmp`, JSON.stringify(featuredResult, null, 2) + '\n');
+    renameSync(`${featuredTarget}.tmp`, featuredTarget);
+  }
+  const failed = [...result, ...featuredResult].filter((x) => x.status !== 'ok');
+  log(failed.length === 0 ? 'All offers and featured banners ok.' : `${failed.length} failed: ${failed.map((x) => x.id).join(', ')}`);
   return failed.length === 0 ? 0 : 1;
 }
 
