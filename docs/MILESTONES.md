@@ -36,7 +36,7 @@ Implementation details are Claude Code's call. The criteria below are what "done
 - Result card, in this order:
   1. plate-style rendering of the input (CSS/SVG);
   2. current province, large;
-  3. "Trước 01/7/2025: …" when different;
+  3. "Trước 01/07/2025: …" when different;
   4. sibling code chips (links to `/[code]`);
   5. the limits line;
   6. source + data date;

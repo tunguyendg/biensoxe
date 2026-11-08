@@ -36,8 +36,14 @@ const draft = isDraft();
 
 <style is:global>
   :root {
-    --bg: #fff;
+    --bg: #f4f6fa;
+    --card: #fff;
     --fg: #14213d;
+    --muted: #4d5870;
+    --accent: #0b57d0;
+    --border: #d5dae4;
+    --border-strong: #8b95ab;
+    --info-bg: #e8effb;
     --warn-bg: #b00020;
     --warn-fg: #fff;
   }
@@ -51,10 +57,18 @@ const draft = isDraft();
     background: var(--warn-bg);
     color: var(--warn-fg);
     font-weight: 700;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
     text-align: center;
   }
   footer {
+    max-width: 40rem;
+    margin: 0 auto;
     padding: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  footer p {
+    margin: 0.25rem 0;
   }
 </style>

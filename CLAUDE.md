@@ -2,7 +2,7 @@
 
 ## What this is
 A Vietnamese, mobile-first website. The user types a plate prefix (or a full plate) and immediately sees:
-- the **current** province/city (after 01/7/2025);
+- the **current** province/city (after 01/07/2025);
 - the **former** province;
 - the other codes of the same province;
 - what a plate **cannot** tell you.
@@ -48,7 +48,7 @@ Full rationale: `docs/PRODUCT_BRIEF.md`. Do **not** re-read it every session; re
    - real `<label>`, and `aria-live` on the result.
 
 ## Vietnamese copy rules
-- Plain Vietnamese, full diacritics. Example: "Biển **83** là xe đăng ký tại **Cần Thơ**. Trước 01/7/2025: **Sóc Trăng**."
+- Plain Vietnamese, full diacritics. Example: "Biển **83** là xe đăng ký tại **Cần Thơ**. Trước 01/07/2025: **Sóc Trăng**."
 - Show the current name first and biggest; the former name second.
 - Never write "xe của người X".
 - Dates as dd/mm/yyyy.

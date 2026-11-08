@@ -27,3 +27,10 @@
 - Decisions: full-width digits normalised (NFKC) → valid; single digit → `invalid`; letters-first → `letters` (no guess); lookup returns `province|special|unknown` + `changed` flag + `siblings`.
 - Open: dates render as 01/07/2025 (dd/mm/yyyy), not "01/7/2025" — confirm; old M1 questions (code 75, re-plating) unchanged.
 - Next: M3 (home search UI).
+
+## 2026-11-08 — M3 Home search experience (Claude Code)
+- Done: home page with live lookup (no submit), plate-style render, result card (current → former → sibling chips → limits → source/dates → Share), "mã hay bị nhầm" list + link to /bang-ma. 182 tests incl. jsdom UI tests; view logic in `src/lib/view.ts` (100% coverage).
+- UX: 0–1 digit = neutral hint; invalid only for junk/≥2 chars w/o code; unknown code = info panel (not red); no re-render while typing the same code; card min-height reserved; autofocus desktop only (`hover:hover`+`pointer:fine`); `?q=83` prefill used by Share.
+- Lookup JS: 17.3 KB raw / 4.6 KB gzip (budget 15 KB). Checked once at 360×640: province + former visible without scrolling.
+- Decisions: `inputmode=numeric` (letters-first plates reachable by paste/desktop only); no-JS form submits to /bang-ma; chip/list links point to /[code] and /nguon which land in M4 (404 until then). Date examples in CLAUDE.md/MILESTONES fixed to 01/07/2025.
+- Next: M4 (static pages + SEO). Open: M1 questions still pending Founder.

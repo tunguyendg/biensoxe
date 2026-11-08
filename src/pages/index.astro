@@ -1,10 +1,73 @@
 ---
 import Base from '../layouts/Base.astro';
+import { lookup } from '../lib/lookup';
+import '../styles/home.css';
+
+// Codes people most often mix up after the 01/07/2025 mergers. Names come only from the data.
+const CONFUSING = ['61', '72', '83', '92', '93', '34'];
+const confusing = CONFUSING.flatMap((code) => {
+  const r = lookup(code);
+  return r.kind === 'province' ? [{ code, name: r.province.name, former: r.former }] : [];
+});
 ---
 
-<Base title="Biển số xe — tra cứu mã tỉnh/thành">
-  <main>
-    <h1>Tra cứu mã biển số xe</h1>
-    <p>Khung dự án (M1). Ô tra cứu sẽ được làm ở M3.</p>
+<Base title="Biển số xe là tỉnh nào? Tra cứu mã biển số sau sáp nhập">
+  <main class="home">
+    <h1>Biển số xe là tỉnh nào?</h1>
+
+    <form id="search-form" class="search" role="search" action="/bang-ma" method="get">
+      <label for="plate-input">Nhập 2 số đầu, hoặc cả biển số</label>
+      <input
+        id="plate-input"
+        name="q"
+        type="text"
+        inputmode="numeric"
+        enterkeyhint="search"
+        autocomplete="off"
+        autocapitalize="characters"
+        spellcheck="false"
+        maxlength="20"
+        placeholder="83 hoặc 83A-123.45"
+      />
+    </form>
+
+    <section class="card" aria-label="Kết quả tra cứu">
+      <div id="plate" class="plate plate--ghost" aria-hidden="true">
+        <span id="plate-text" class="plate__text">83</span>
+      </div>
+      <div id="result" class="result" aria-live="polite" aria-atomic="true">
+        <p class="hint">Nhập 2 số đầu của biển, ví dụ 83.</p>
+      </div>
+      <noscript>
+        <p class="note">
+          Trình duyệt đang tắt JavaScript nên không tra ngay khi gõ được.
+          <a href="/bang-ma">Xem bảng mã đầy đủ</a>.
+        </p>
+      </noscript>
+    </section>
+
+    <section class="confusing" aria-labelledby="confusing-h">
+      <h2 id="confusing-h">Các mã hay bị nhầm sau sáp nhập</h2>
+      <ul>
+        {
+          confusing.map((c) => (
+            <li>
+              <a href={`/${c.code}`}>
+                <strong class="confusing__code">{c.code}</strong>
+                <span>
+                  {c.name}
+                  <small>Trước đây: {c.former}</small>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p><a class="more" href="/bang-ma">Xem bảng mã đầy đủ →</a></p>
+    </section>
   </main>
+
+  <script>
+    import '../scripts/search';
+  </script>
 </Base>
