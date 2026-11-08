@@ -13,7 +13,7 @@ const item = (id: string, over: Partial<FeaturedConfigItem> = {}): FeaturedConfi
   id, title: 'Camera hành trình', subtitle: 'Ghi lại hình ảnh trên đường đi.', targetUrl: 'https://shopee.vn/product/1/2', active: true, ...over,
 });
 const link = (id: string, over: Partial<FeaturedLink> = {}): FeaturedLink => ({
-  id, affLink: `https://go.isclix.com/deep_link/x/y?sub1=featured&sub2=${id}`, generatedAt: 'g', checkedAt: 'c', status: 'ok', ...over,
+  id, affLink: `https://go.isclix.com/deep_link/x/y?sub1=featured&sub2=${id}`, generatedAt: 'g', checkedAt: '2026-11-08T00:00:00+07:00', status: 'ok', ...over,
 });
 
 describe('shipped data', () => {
@@ -98,10 +98,10 @@ describe('activeFeatured (build-time filter)', () => {
     expect(ids(c, l, new Date('2026-11-11T00:00:00+07:00'))).toEqual(['a']);
     expect(ids(c, l, new Date('2026-11-11T23:59:59+07:00'))).toEqual(['a']);
     expect(ids(c, l, new Date('2026-11-12T00:00:00+07:00'))).toEqual([]);
-    expect(ids(c, l, new Date('2027-01-01T00:00:00+07:00'))).toEqual([]);
+    expect(ids(c, l, new Date('2026-11-20T00:00:00+07:00'))).toEqual([]); // after endAt (link still fresh)
   });
   it('open-ended items (no startAt / endAt) are always in window', () => {
-    expect(ids([item('a')], [link('a')], new Date('2030-01-01T00:00:00Z'))).toEqual(['a']);
+    expect(ids([item('a')], [link('a', { checkedAt: '2029-12-30T00:00:00Z' })], new Date('2030-01-01T00:00:00Z'))).toEqual(['a']);
     expect(ids([item('a', { endAt: '2026-12-01T00:00:00+07:00' })], [link('a')])).toEqual(['a']);
     expect(ids([item('a', { startAt: '2026-11-01T00:00:00+07:00' })], [link('a')])).toEqual(['a']);
   });
@@ -111,6 +111,16 @@ describe('activeFeatured (build-time filter)', () => {
     expect(ids([item('a')], [link('a', { status: 'unchecked' })])).toEqual([]);
     expect(ids([item('a')], [])).toEqual([]);
     expect(ids([item('a')], [link('a', { affLink: 'http://x' })])).toEqual([]);
+  });
+  it('checkedAt must be within 30 days of the build (same rule as category cards)', () => {
+    const day = (n: number) => new Date(NOW.getTime() - n * 86_400_000).toISOString();
+    const c = [item('a')];
+    expect(ids(c, [link('a', { checkedAt: day(30) })])).toEqual(['a']);
+    expect(ids(c, [link('a', { checkedAt: day(31) })])).toEqual([]);
+    expect(ids(c, [link('a', { checkedAt: null })])).toEqual([]);
+    expect(ids(c, [link('a', { checkedAt: 'garbage' })])).toEqual([]);
+    // inside the run window but stale → still hidden
+    expect(ids([item('a', win)], [link('a', { checkedAt: day(45) })])).toEqual([]);
   });
   it('never more than 2, in config order', () => {
     expect(ids([item('a'), item('b'), item('c')], [link('a'), link('b'), link('c')])).toEqual(['a', 'b']); // (the build gate would reject 3 active anyway)

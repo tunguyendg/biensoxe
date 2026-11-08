@@ -4,7 +4,9 @@ export type Placement = 'result' | 'tinh';
 export const PLACEMENTS: readonly Placement[] = ['result', 'tinh'];
 export type OfferStatus = 'unchecked' | 'ok' | 'failed';
 
-export const MAX_OFFERS_PER_PAGE = 2;
+/** Total ad blocks per page, featured banners + category cards together. */
+export const MAX_ADS_PER_PAGE = 2;
+export const MAX_OFFERS_PER_PAGE = MAX_ADS_PER_PAGE;
 export const MAX_AGE_DAYS = 30;
 export const BLURB_MAX = 60;
 /** Small label in the top corner of the offers block. */
@@ -59,7 +61,7 @@ export function validateOffers(list: Offer[]): void {
   }
 }
 
-export function isFresh(o: Offer, now: Date): boolean {
+export function isFresh(o: { checkedAt: string | null }, now: Date): boolean {
   if (o.checkedAt === null) return false;
   const t = Date.parse(o.checkedAt);
   if (Number.isNaN(t)) return false;
@@ -83,17 +85,26 @@ export function hashKey(s: string): number {
   return h;
 }
 
-/** At most 2 offers, rotating deterministically by page key so static pages stay stable across builds. */
+/** Slots left for category cards once `featuredCount` featured banners are on the page (banners win). */
+export function offerSlots(featuredCount: number): number {
+  return Math.max(0, MAX_ADS_PER_PAGE - featuredCount);
+}
+
+/**
+ * Up to `slots` offers (default 2), rotating deterministically by page key so static pages stay stable
+ * across builds. Pass `offerSlots(featuredCount)` so banner + cards never exceed 2 per page.
+ */
 export function pickOffers(
   offers: Offer[],
   config: OfferConfigItem[],
   placement: Placement,
   pageKey: string,
   now: Date,
+  slots: number = MAX_ADS_PER_PAGE,
 ): Offer[] {
   const list = eligibleOffers(offers, config, placement, now);
-  if (list.length === 0) return [];
+  if (list.length === 0 || slots <= 0) return [];
   const start = hashKey(pageKey) % list.length;
-  const n = Math.min(MAX_OFFERS_PER_PAGE, list.length);
+  const n = Math.min(slots, list.length);
   return Array.from({ length: n }, (_, i) => list[(start + i) % list.length] as Offer);
 }

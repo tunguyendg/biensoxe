@@ -1,3 +1,5 @@
+import { isFresh } from './offers';
+
 // Pure logic for the Founder-managed "featured" banners (max 2, with an optional run window).
 
 export const MAX_FEATURED = 2;
@@ -88,13 +90,14 @@ export function validateFeaturedLinks(list: FeaturedLink[]): void {
   }
 }
 
-/** Active, status ok, inside [startAt, endAt), at most 2, in config order. */
+/** Active, status ok, checked within 30 days, inside [startAt, endAt), at most 2, in config order. */
 export function activeFeatured(config: FeaturedConfigItem[], links: FeaturedLink[], now: Date): FeaturedShown[] {
   const t = now.getTime();
   const out: FeaturedShown[] = [];
   for (const item of config) {
     const link = links.find((l) => l.id === item.id);
     if (!item.active || !link || link.status !== 'ok' || !link.affLink.startsWith('https://')) continue;
+    if (!isFresh(link, now)) continue;
     if (item.startAt !== undefined && Date.parse(item.startAt) > t) continue;
     if (item.endAt !== undefined && Date.parse(item.endAt) <= t) continue;
     out.push({ item, href: link.affLink });

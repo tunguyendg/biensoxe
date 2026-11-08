@@ -9,7 +9,7 @@ const NOW = new Date('2026-11-11T12:00:00+07:00');
 const cfg = (id: string, over: Partial<FeaturedConfigItem> = {}): FeaturedConfigItem => ({
   id, title: `T-${id}`, subtitle: `S-${id}`, targetUrl: 'https://shopee.vn/x', startAt: '2026-11-11T00:00:00+07:00', endAt: '2026-11-12T00:00:00+07:00', active: true, ...over,
 });
-const lnk = (id: string, over: Partial<FeaturedLink> = {}): FeaturedLink => ({ id, affLink: `https://go.isclix.com/${id}`, generatedAt: 'g', checkedAt: 'c', status: 'ok', ...over });
+const lnk = (id: string, over: Partial<FeaturedLink> = {}): FeaturedLink => ({ id, affLink: `https://go.isclix.com/${id}`, generatedAt: 'g', checkedAt: '2026-11-08T00:00:00+07:00', status: 'ok', ...over });
 
 const withoutEnd = (c: FeaturedConfigItem): FeaturedConfigItem => {
   const copy = { ...c };
@@ -29,6 +29,11 @@ describe('<FeaturedBanner>', () => {
     expect((await render({ config: [cfg('a')], links: [lnk('a', { status: 'failed' })] })).trim()).toBe('');
     expect((await render({ config: [cfg('a')], links: [lnk('a')], now: new Date('2026-11-12T00:00:01+07:00') })).trim()).toBe('');
     expect((await render({ config: [cfg('a')], links: [lnk('a')], now: new Date('2026-11-10T00:00:00+07:00') })).trim()).toBe('');
+  });
+
+  it('a banner whose link was checked more than 30 days before the build is not rendered', async () => {
+    const stale = lnk('a', { checkedAt: '2026-09-01T00:00:00+07:00' });
+    expect((await render({ config: [cfg('a')], links: [stale] })).trim()).toBe('');
   });
 
   it('text card (no image): Quảng cáo label, icon, title, subtitle, CTA, link attributes, data-end', async () => {

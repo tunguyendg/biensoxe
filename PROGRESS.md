@@ -83,3 +83,8 @@
 - Build gate: > 2 active, non-shopee/shp.ee https target, promo wording without `endAt`, bad/oversized image → build FAILS (each proven once).
 - JS: no client JS added (total chunks gzip unchanged, ≤ +0.5 KB test). Tests: 330 unit + 284 dist; coverage 100%.
 - `docs/AFFILIATE.md` has the "Banner nổi bật" section.
+
+## 2026-11-08 — Ad cap + banner freshness (Claude Code)
+- At most 2 ad blocks per page in total: valid featured banners take slots first (2 banners → 0 cards, 1 → 1, 0 → 2) via `offerSlots()`; `OfferCards` counts banners with the same `activeFeatured()` rule. A banner hidden in the browser after `endAt` is not backfilled (accepted).
+- Featured banners now also need `checkedAt` ≤ 30 days at build (same `isFresh` as cards). `docs/AFFILIATE.md` updated.
+- Tests: 3 slot cases (container render), stale banner, dist check "≤ 2 ad blocks on every page". 338 unit + 285 dist; coverage 100%.

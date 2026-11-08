@@ -1,6 +1,8 @@
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { describe, expect, it } from 'vitest';
 import OfferCards from '../src/components/OfferCards.astro';
+import FeaturedBanner from '../src/components/FeaturedBanner.astro';
+import type { FeaturedConfigItem, FeaturedLink } from '../src/lib/featured';
 import type { Offer, OfferConfigItem } from '../src/lib/offers';
 
 const NOW = new Date('2026-11-08T00:00:00Z');
@@ -65,5 +67,39 @@ describe('<OfferCards>', () => {
       const html = await render({ placement: 'result', pageKey: key, offers: ids.map((i) => offer(i)), config: ids.map((id) => ({ id, title: id, blurb: 'b', keyword: id, active: true })) });
       expect(html.match(/<svg/g)?.length).toBe(2);
     }
+  });
+});
+
+describe('combined ad cap: at most 2 blocks per page (featured banners first, then category cards)', () => {
+  const fcfg = (id: string): FeaturedConfigItem => ({ id, title: `F-${id}`, subtitle: 'S', targetUrl: 'https://shopee.vn/x', active: true });
+  const flink = (id: string): FeaturedLink => ({ id, affLink: `https://go.isclix.com/f-${id}`, generatedAt: days(1), checkedAt: days(1), status: 'ok' });
+  const offers = IDS.map((i) => offer(i));
+
+  async function page(featuredIds: string[]) {
+    const featured = { config: featuredIds.map(fcfg), links: featuredIds.map(flink) };
+    const c = await AstroContainer.create();
+    const cards = await c.renderToString(OfferCards, { props: { now: NOW, placement: 'result', pageKey: '83', offers, config: config(), featured } });
+    const banner = await c.renderToString(FeaturedBanner, { props: { now: NOW, config: featured.config, links: featured.links } });
+    return { cards: cards.match(/class="offer"/g)?.length ?? 0, banners: banner.match(/class="feat"/g)?.length ?? 0, cardsHtml: cards };
+  }
+
+  it('2 banners → 0 category cards (no label, no wrapper)', async () => {
+    const p = await page(['a', 'b']);
+    expect([p.banners, p.cards]).toEqual([2, 0]);
+    expect(p.cardsHtml.trim()).toBe('');
+  });
+  it('1 banner → 1 category card', async () => {
+    const p = await page(['a']);
+    expect([p.banners, p.cards]).toEqual([1, 1]);
+  });
+  it('0 banners → 2 category cards', async () => {
+    const p = await page([]);
+    expect([p.banners, p.cards]).toEqual([0, 2]);
+  });
+  it('an invalid banner (stale check) does not take a slot', async () => {
+    const featured = { config: [fcfg('a')], links: [{ ...flink('a'), checkedAt: days(45) }] };
+    const c = await AstroContainer.create();
+    const cards = await c.renderToString(OfferCards, { props: { now: NOW, placement: 'result', pageKey: '83', offers, config: config(), featured } });
+    expect(cards.match(/class="offer"/g)).toHaveLength(2);
   });
 });

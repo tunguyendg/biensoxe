@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import config from '../data/offers.config.json';
 import stored from '../data/offers.json';
 import {
-  BLURB_MAX, eligibleOffers, hashKey, isFresh, pickOffers, validateConfig, validateOffers,
+  BLURB_MAX, MAX_ADS_PER_PAGE, eligibleOffers, hashKey, isFresh, offerSlots, pickOffers, validateConfig, validateOffers,
   type Offer, type OfferConfigItem,
 } from '../src/lib/offers';
 
@@ -104,6 +104,20 @@ describe('pickOffers', () => {
   it('different pages rotate through the categories', () => {
     const firsts = new Set(Array.from({ length: 81 }, (_, n) => pickOffers(list, c, 'result', String(n + 11), NOW)[0]?.id));
     expect(firsts.size).toBe(4);
+  });
+  it('slots: 2 by default; fewer slots → fewer cards; 0 (or less) → none', () => {
+    expect(pickOffers(list, c, 'result', 'x', NOW)).toHaveLength(2);
+    expect(pickOffers(list, c, 'result', 'x', NOW, 2)).toHaveLength(2);
+    expect(pickOffers(list, c, 'result', 'x', NOW, 1)).toHaveLength(1);
+    expect(pickOffers(list, c, 'result', 'x', NOW, 0)).toEqual([]);
+    expect(pickOffers(list, c, 'result', 'x', NOW, -1)).toEqual([]);
+    // the single card is the first of the pair the page would otherwise show
+    expect(pickOffers(list, c, 'result', '83', NOW, 1)[0]).toEqual(pickOffers(list, c, 'result', '83', NOW)[0]);
+  });
+  it('offerSlots: banners take the 2 ad slots first (2 → 0 cards, 1 → 1 card, 0 → 2 cards)', () => {
+    expect(MAX_ADS_PER_PAGE).toBe(2);
+    expect([0, 1, 2].map(offerSlots)).toEqual([2, 1, 0]);
+    expect(offerSlots(3)).toBe(0); // can't go negative
   });
   it('a single valid offer yields one card', () => {
     expect(pickOffers([offer('a')], c, 'tinh', 'x', NOW)).toHaveLength(1);

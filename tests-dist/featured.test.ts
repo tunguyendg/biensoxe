@@ -27,6 +27,13 @@ describe('featured banner in dist/', () => {
       expect(h, f).toMatch(/<\/aside><script>[^<]+<\/script><\/main>\s*<footer/);
     }
   });
+  it('every page carries at most 2 ad blocks in total (banners + category cards)', () => {
+    for (const f of html) {
+      const h = read(f);
+      const n = (h.match(/class="offer"/g)?.length ?? 0) + (h.match(/class="feat"/g)?.length ?? 0);
+      expect(n, f).toBeLessThanOrEqual(2);
+    }
+  });
   it('lookup JS did not grow (≤ +0.5 KB gzip in total) and contains no featured code', () => {
     const js = all.filter((f) => f.endsWith('.js'));
     const total = js.reduce((n, f) => n + gzipSync(readFileSync(join('dist', f)), { level: 9 }).length, 0);

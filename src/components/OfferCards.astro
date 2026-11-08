@@ -1,5 +1,7 @@
 ---
-import { DISCLOSURE, pickOffers, type Offer, type OfferConfigItem, type Placement } from '../lib/offers';
+import { activeFeatured, type FeaturedConfigItem, type FeaturedLink } from '../lib/featured';
+import { featuredConfig, featuredLinks } from '../lib/featured-data';
+import { DISCLOSURE, offerSlots, pickOffers, type Offer, type OfferConfigItem, type Placement } from '../lib/offers';
 import { offerConfig, offers as stored } from '../lib/offers-data';
 
 // Allowed only on: home + /[code] (placement="result") and /tinh/[slug] (placement="tinh").
@@ -12,9 +14,12 @@ interface Props {
   offers?: Offer[];
   config?: OfferConfigItem[];
   now?: Date;
+  featured?: { config: FeaturedConfigItem[]; links: FeaturedLink[] };
 }
-const { placement, pageKey, offers = stored, config = offerConfig, now = new Date() } = Astro.props;
-const shown = pickOffers(offers, config, placement, pageKey, now);
+const { placement, pageKey, offers = stored, config = offerConfig, now = new Date(), featured } = Astro.props;
+// At most 2 ad blocks per page in total: valid featured banners take the slots first.
+const featuredCount = activeFeatured(featured?.config ?? featuredConfig, featured?.links ?? featuredLinks, now).length;
+const shown = pickOffers(offers, config, placement, pageKey, now, offerSlots(featuredCount));
 ---
 
 {
