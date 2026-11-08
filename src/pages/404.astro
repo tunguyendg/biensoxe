@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/home.css';
+import '../styles/pages.css';
+
+// No offers on this page, by design.
+---
+
+<Base title="Không tìm thấy trang — BIEN SO" description="Trang không tồn tại. Tra cứu mã biển số xe theo 2 số đầu." path="/404">
+  <main class="home page">
+    <h1>Không tìm thấy trang này</h1>
+    <div id="nf-result" class="result" aria-live="polite"></div>
+    <p>Nếu bạn đang tìm một mã biển, mã đó có thể chưa được cấp cho tỉnh nào. Nhập 2 số đầu của biển để tra lại:</p>
+    <form id="search-form" class="search" role="search" action="/bang-ma" method="get">
+      <label for="plate-input">Nhập 2 số đầu, hoặc cả biển số</label>
+      <input id="plate-input" name="q" type="text" inputmode="numeric" enterkeyhint="search" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" placeholder="83 hoặc 83A-123.45" />
+    </form>
+    <p class="links"><a href="/bang-ma">Xem bảng mã đầy đủ</a> <a href="/">Về trang chủ</a></p>
+  </main>
+  <script>
+    import '../scripts/not-found';
+  </script>
+</Base>

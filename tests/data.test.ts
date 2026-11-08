@@ -117,14 +117,14 @@ describe('strict gate', () => {
   });
 
   it('throws under BIEN_SO_STRICT=1 while any record is unverified', () => {
-    expect(() => assertStrictBuild(data, '1')).toThrow(/verified:false/);
+    expect(() => assertStrictBuild(data, '1', 'https://bienso.example')).toThrow(/verified:false/);
   });
 
   it('passes under strict once everything is verified', () => {
     const d = clone();
     d.provinces.forEach((p) => (p.verified = true));
     d.codes.forEach((c) => (c.verified = true));
-    expect(() => assertStrictBuild(d, '1')).not.toThrow();
+    expect(() => assertStrictBuild(d, '1', 'https://bienso.example')).not.toThrow();
     expect(isDraft(d)).toBe(false);
   });
 
@@ -133,6 +133,6 @@ describe('strict gate', () => {
     d.provinces.forEach((p) => (p.verified = true));
     d.codes.forEach((c) => (c.verified = true));
     d.codes[0]!.verified = false;
-    expect(() => assertStrictBuild(d, '1')).toThrow();
+    expect(() => assertStrictBuild(d, '1', 'https://bienso.example')).toThrow(/verified:false/);
   });
 });

@@ -142,7 +142,7 @@ describe('search UI', () => {
     vi.stubGlobal('navigator', { clipboard: { writeText } });
     type('83');
     (out.querySelector('.share button') as HTMLButtonElement).click();
-    await vi.waitFor(() => expect(writeText).toHaveBeenCalledWith(expect.stringContaining('/?q=83')));
+    await vi.waitFor(() => expect(writeText).toHaveBeenCalledWith(expect.stringContaining('/83')));
     await vi.waitFor(() => expect(out.querySelector('.share-status')?.textContent).toBe('Đã sao chép liên kết'));
   });
 

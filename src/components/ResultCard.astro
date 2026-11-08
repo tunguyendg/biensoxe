@@ -1,0 +1,21 @@
+---
+import { renderResult } from '../lib/result-html';
+import type { ViewState } from '../lib/view';
+
+// The ONE result card. The home page renders the "hint" state and the search script swaps the
+// content; /[code] renders a real result. Same markup comes from renderResult() either way.
+interface Props {
+  state: ViewState;
+  plate: string;
+  ghost?: boolean;
+}
+const { state, plate, ghost = false } = Astro.props;
+---
+
+<section class="card" aria-label="Kết quả tra cứu">
+  <div id="plate" class:list={['plate', { 'plate--ghost': ghost }]} aria-hidden="true">
+    <span id="plate-text" class="plate__text">{plate}</span>
+  </div>
+  <div id="result" class="result" aria-live="polite" aria-atomic="true" set:html={renderResult(state)} />
+  <slot />
+</section>

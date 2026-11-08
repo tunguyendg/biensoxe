@@ -48,3 +48,12 @@
 - Privacy: `history.replaceState` → `/{code}` (or `/`); `?q=` still accepted then removed. Share link still `/?q=<code>` (2 digits only).
 - verify now ends with `npm run test:dist` (dist/ scans: no "Authorization"/token, no offers on nguon/bang-ma/404). 240 + 5 tests; coverage 100%. JS 5.43 KB gzip (+0.05 KB).
 - Open: first real `offers:links` run is the Founder's; /{code} URLs 404 until M4.
+
+## 2026-11-08 — M4 Static pages + SEO (Claude Code)
+- Pages (119): `/[code]` ×81 (80 included; unknown codes → 404), `/tinh/[slug]` ×34, `/bang-ma`, `/nguon`, `/404`, plus `sitemap.xml`, `robots.txt`, 82 OG PNGs (≤ 36 KB). `build.format: file` → `/83` is `dist/83.html`.
+- One result card: `renderResult()` (`src/lib/result-html.ts`) feeds both the static pages (`ResultCard.astro`) and the home search; one `LIMITS` string (`src/lib/copy.ts`); links/share now `/{code}`; `?q=` still accepted then dropped.
+- Area & population HIDDEN everywhere (`SHOW_AREA_POPULATION=false`) until all 34 provinces have a source; data kept in JSON. `adminCenter` still null → not shown.
+- SEO: canonical, OG/Twitter, BreadcrumbList (code/tinh), FAQPage (/nguon, 6 Qs from SOURCES.md), noindex while draft. Strict build now also needs `SITE_URL=https://…`; non-strict default is localhost.
+- Offers (M4c) mounted under the card on `/[code]`, under content on `/tinh`; absent from /nguon, /bang-ma, /404 (tested).
+- Home JS ≈ 6.1 KB gzip total (4 chunks). 258 unit + 133 dist smoke tests; coverage 100%. Build 119 pages in ~2 s.
+- Open: final domain for `SITE_URL`; first `offers:links` run; old open data questions unchanged.

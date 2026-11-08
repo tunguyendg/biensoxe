@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import OfferCards from '../components/OfferCards.astro';
+import ResultCard from '../components/ResultCard.astro';
 import { lookup } from '../lib/lookup';
 import '../styles/home.css';
 
@@ -12,7 +13,7 @@ const confusing = CONFUSING.flatMap((code) => {
 });
 ---
 
-<Base title="Biển số xe là tỉnh nào? Tra cứu mã biển số sau sáp nhập">
+<Base title="Biển số xe là tỉnh nào? Tra cứu mã biển số sau sáp nhập" path="/">
   <main class="home">
     <h1>Biển số xe là tỉnh nào?</h1>
 
@@ -32,20 +33,14 @@ const confusing = CONFUSING.flatMap((code) => {
       />
     </form>
 
-    <section class="card" aria-label="Kết quả tra cứu">
-      <div id="plate" class="plate plate--ghost" aria-hidden="true">
-        <span id="plate-text" class="plate__text">83</span>
-      </div>
-      <div id="result" class="result" aria-live="polite" aria-atomic="true">
-        <p class="hint">Nhập 2 số đầu của biển, ví dụ 83.</p>
-      </div>
+    <ResultCard state={{ kind: 'hint' }} plate="83" ghost>
       <noscript>
         <p class="note">
           Trình duyệt đang tắt JavaScript nên không tra ngay khi gõ được.
           <a href="/bang-ma">Xem bảng mã đầy đủ</a>.
         </p>
       </noscript>
-    </section>
+    </ResultCard>
 
     <OfferCards placement="result" pageKey="home" />
 

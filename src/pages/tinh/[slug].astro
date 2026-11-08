@@ -1,0 +1,62 @@
+---
+import type { GetStaticPaths } from 'astro';
+import OfferCards from '../../components/OfferCards.astro';
+import Base from '../../layouts/Base.astro';
+import { SHOW_AREA_POPULATION, areaPopulationLine, mergeBadge, metaLine } from '../../lib/card';
+import { data } from '../../lib/data';
+import { breadcrumbLd } from '../../lib/jsonld';
+import { lookup } from '../../lib/lookup';
+import { mergerSentence, provinceDescription, provinceTitle } from '../../lib/pages';
+import { footerHtml } from '../../lib/result-html';
+import '../../styles/home.css';
+import '../../styles/pages.css';
+
+export const getStaticPaths = (() => data.provinces.map((p) => ({ params: { slug: p.slug }, props: { p } }))) satisfies GetStaticPaths;
+
+const { p } = Astro.props;
+const site = Astro.site as URL;
+const badge = mergeBadge(p);
+const rows = p.codes.flatMap((c) => {
+  const r = lookup(c);
+  return r.kind === 'province' ? [{ code: c, former: r.former, changed: r.changed }] : [];
+});
+const areaPop = SHOW_AREA_POPULATION ? areaPopulationLine(p) : null;
+const crumbs = [
+  { name: 'Trang chủ', url: new URL('/', site).href },
+  { name: p.name, url: new URL(`/tinh/${p.slug}`, site).href },
+];
+---
+
+<Base title={provinceTitle(p)} description={provinceDescription(p)} path={`/tinh/${p.slug}`} jsonLd={[breadcrumbLd(crumbs)]}>
+  <main class="home page">
+    <nav class="crumbs" aria-label="Đường dẫn"><a href="/">Trang chủ</a> › <span>{p.name}</span></nav>
+    <h1>Biển số xe {p.name}</h1>
+    <p class="merger">{mergerSentence(p)}</p>
+    <p class={badge.merged ? 'badge badge--merged' : 'badge'}>{badge.text}</p>
+    <p class="meta">{metaLine(p)}</p>
+    {areaPop && <p class="meta">{areaPop}</p>}
+
+    <section aria-labelledby="codes-h">
+      <h2 id="codes-h">Các mã biển của {p.name}</h2>
+      <ul class="codes">
+        {
+          rows.map((c) => (
+            <li>
+              <a href={`/${c.code}`}>
+                <strong class="codes__n">{c.code}</strong>
+                <span class="codes__t">
+                  <b>{p.name}</b>
+                  {c.changed && <small>Trước đây: {c.former}</small>}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <div class="card-foot" set:html={footerHtml()} />
+
+    <OfferCards placement="tinh" pageKey={p.slug} />
+  </main>
+</Base>

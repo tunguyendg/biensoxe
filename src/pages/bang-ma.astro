@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import { data } from '../lib/data';
+import { foldText } from '../lib/format';
+import { LIMITS, sourceText } from '../lib/copy';
+import { lookup } from '../lib/lookup';
+import '../styles/home.css';
+import '../styles/pages.css';
+
+// Built only from the data file. Rows are sorted by code inside each region.
+const REGIONS = [
+  { key: 'bac', label: 'Miền Bắc' },
+  { key: 'trung', label: 'Miền Trung & Tây Nguyên' },
+  { key: 'nam', label: 'Miền Nam' },
+] as const;
+
+const rows = data.codes.flatMap((c) => {
+  const r = lookup(c.code);
+  if (r.kind === 'province') {
+    return [{ code: c.code, region: r.province.region as string, name: r.province.name, former: r.changed ? r.former : null }];
+  }
+  if (r.kind === 'special') return [{ code: c.code, region: 'dac-biet', name: r.label, former: null }];
+  return [];
+});
+const groups = [
+  ...REGIONS.map((g) => ({ key: g.key as string, label: g.label })),
+  { key: 'dac-biet', label: 'Mã đặc biệt' },
+]
+  .map((g) => ({ ...g, rows: rows.filter((r) => r.region === g.key).sort((a, b) => a.code.localeCompare(b.code)) }))
+  .filter((g) => g.rows.length > 0);
+---
+
+<Base
+  title="Bảng mã biển số xe 34 tỉnh thành (sau 01/07/2025)"
+  description="Bảng đầy đủ mã biển số xe theo tỉnh, thành sau sáp nhập 01/07/2025, chia theo vùng, có tỉnh trước đây."
+  path="/bang-ma"
+>
+  <main class="home page">
+    <nav class="crumbs" aria-label="Đường dẫn"><a href="/">Trang chủ</a> › <span>Bảng mã</span></nav>
+    <h1>Bảng mã biển số xe</h1>
+    <p class="intro">{data.codes.length} mã cho {data.provinces.length} tỉnh, thành, theo bảng mã hiệu lực từ 01/07/2025. Bấm một mã để xem chi tiết.</p>
+
+    <form class="filter search" role="search" onsubmit="return false">
+      <label for="filter-input">Lọc theo mã hoặc tên tỉnh</label>
+      <input id="filter-input" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" maxlength="20" placeholder="83 hoặc Cần Thơ" />
+      <p id="filter-count" class="meta" role="status"></p>
+    </form>
+    <p id="filter-empty" class="note note--info" hidden>Không có mã nào khớp. Thử gõ 2 số đầu hoặc tên tỉnh khác.</p>
+
+    {
+      groups.map((g) => (
+        <section class="region" data-group aria-labelledby={`h-${g.key}`}>
+          <h2 id={`h-${g.key}`}>{g.label}</h2>
+          <ul class="codes">
+            {g.rows.map((r) => (
+              <li data-q={foldText(`${r.code} ${r.name} ${r.former ?? ''}`)} data-code={r.code}>
+                <a href={`/${r.code}`}>
+                  <strong class="codes__n">{r.code}</strong>
+                  <span class="codes__t">
+                    <b>{r.name}</b>
+                    {r.former && <small>Trước đây: {r.former}</small>}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+
+    <section class="region" aria-labelledby="h-tinh">
+      <h2 id="h-tinh">Tra theo tỉnh, thành</h2>
+      <ul class="chips">
+        {data.provinces.map((p) => <li><a class="chip chip--wide" href={`/tinh/${p.slug}`}>{p.name}</a></li>)}
+      </ul>
+    </section>
+
+    <div class="card-foot"><p class="limits">{LIMITS}</p><p class="source">{sourceText()} <a href="/nguon">Nguồn &amp; giới hạn</a></p></div>
+  </main>
+
+  <script>
+    import '../scripts/bang-ma';
+  </script>
+</Base>

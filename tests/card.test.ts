@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { areaPopulationLine, mergeBadge, metaLine } from '../src/lib/card';
+import { SHOW_AREA_POPULATION, areaPopulationLine, mergeBadge, metaLine } from '../src/lib/card';
 import { data, type Province } from '../src/lib/data';
 
 const by = (slug: string) => data.provinces.find((p) => p.slug === slug) as Province;
 
 describe('card helpers', () => {
+  it('area & population stay hidden on every page until all 34 provinces have a source', () => {
+    expect(SHOW_AREA_POPULATION).toBe(false);
+  });
   it('unchanged province gets the "Không thay đổi" badge', () => {
     expect(mergeBadge(by('ha-noi'))).toEqual({ merged: false, text: 'Không thay đổi sau sáp nhập 01/07/2025' });
   });

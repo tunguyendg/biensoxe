@@ -1,0 +1,54 @@
+---
+import type { GetStaticPaths } from 'astro';
+import OfferCards from '../components/OfferCards.astro';
+import ResultCard from '../components/ResultCard.astro';
+import Base from '../layouts/Base.astro';
+import { data } from '../lib/data';
+import { breadcrumbLd } from '../lib/jsonld';
+import { lookup } from '../lib/lookup';
+import { codeDescription, codeExplanation, codeTitle } from '../lib/pages';
+import '../styles/home.css';
+import '../styles/pages.css';
+
+export const getStaticPaths = (() => data.codes.map((c) => ({ params: { code: c.code } }))) satisfies GetStaticPaths;
+
+const { code } = Astro.params;
+const r = lookup(code as string);
+if (r.kind === 'unknown') throw new Error(`No page for unknown code ${code}`); // never generated
+const site = Astro.site as URL;
+const crumbs = [
+  { name: 'Trang chủ', url: new URL('/', site).href },
+  { name: `Biển số ${r.code}`, url: new URL(`/${r.code}`, site).href },
+];
+---
+
+<Base
+  title={codeTitle(r)}
+  description={codeDescription(r)}
+  path={`/${r.code}`}
+  ogImage={`/og/${r.code}.png`}
+  jsonLd={[breadcrumbLd(crumbs)]}
+>
+  <main class="home page">
+    <nav class="crumbs" aria-label="Đường dẫn"><a href="/">Trang chủ</a> › <span>Biển số {r.code}</span></nav>
+    <h1>Biển số {r.code} là tỉnh nào?</h1>
+
+    <ResultCard state={{ kind: 'result', result: r }} plate={r.code} />
+
+    <OfferCards placement="result" pageKey={r.code} />
+
+    <section class="explain" aria-labelledby="explain-h">
+      <h2 id="explain-h">Giải thích ngắn</h2>
+      <p>{codeExplanation(r)}</p>
+      <p class="links">
+        {r.kind === 'province' && <a href={`/tinh/${r.province.slug}`}>Tất cả mã của {r.province.name}</a>}
+        <a href="/">Tra mã khác</a>
+        <a href="/bang-ma">Bảng mã đầy đủ</a>
+      </p>
+    </section>
+  </main>
+
+  <script>
+    import '../scripts/share';
+  </script>
+</Base>

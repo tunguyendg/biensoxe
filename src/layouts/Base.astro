@@ -1,12 +1,27 @@
 ---
 import { data, isDraft } from '../lib/data';
 import { formatDate } from '../lib/format';
+import { ldString, type JsonLd } from '../lib/jsonld';
 
 interface Props {
   title: string;
+  description?: string;
+  /** Path used for canonical/og:url, e.g. "/83". */
+  path?: string;
+  /** Path of the OG image; defaults to the generic one. */
+  ogImage?: string;
+  jsonLd?: JsonLd[];
 }
-const { title } = Astro.props;
+const {
+  title,
+  description = 'Gõ 2 số đầu của biển để biết xe đăng ký ở tỉnh/thành nào sau sáp nhập 01/07/2025, và tỉnh trước đây.',
+  path = Astro.url.pathname,
+  ogImage = '/og/default.png',
+  jsonLd = [],
+} = Astro.props;
 const draft = isDraft();
+const canonical = new URL(path, Astro.site).href;
+const image = new URL(ogImage, Astro.site).href;
 ---
 
 <!doctype html>
@@ -15,7 +30,24 @@ const draft = isDraft();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="robots" content={draft ? 'noindex' : 'index,follow'} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={draft ? 'noindex,follow' : 'index,follow'} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BIEN SO" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    {jsonLd.map((ld) => <script type="application/ld+json" set:html={ldString(ld)} />)}
+    <noscript><style>.share, .filter { display: none; }</style></noscript>
   </head>
   <body>
     {
@@ -27,6 +59,9 @@ const draft = isDraft();
     }
     <slot />
     <footer>
+      <nav aria-label="Liên kết chân trang">
+        <a href="/">Tra cứu</a> · <a href="/bang-ma">Bảng mã</a> · <a href="/nguon">Nguồn &amp; giới hạn</a>
+      </nav>
       <p>Trang web độc lập, không phải trang của cơ quan nhà nước.</p>
       <p>Bảng mã hiệu lực từ {formatDate(data.meta.dataVersion)}</p>
       <p>Kiểm tra lần cuối {formatDate(data.meta.lastReviewed)}</p>
@@ -71,5 +106,12 @@ const draft = isDraft();
   }
   footer p {
     margin: 0.25rem 0;
+  }
+  footer nav a {
+    display: inline-block;
+    min-height: 2.75rem;
+    line-height: 2.75rem;
+    color: var(--accent);
+    font-weight: 600;
   }
 </style>

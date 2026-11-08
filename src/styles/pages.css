@@ -1,0 +1,32 @@
+.crumbs { font-size: 0.875rem; color: var(--muted); margin: 0 0 0.5rem; }
+.crumbs a { display: inline-block; min-height: 2.75rem; line-height: 2.75rem; color: var(--accent); font-weight: 600; }
+.page h2:not(.province) { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; }
+.merger { font-size: 1.0625rem; line-height: 1.5; margin: 0 0 0.75rem; }
+.intro { margin: 0 0 1rem; line-height: 1.5; }
+.explain p { line-height: 1.6; margin: 0 0 0.75rem; }
+.links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.links a { display: inline-block; min-height: 2.75rem; line-height: 2.75rem; color: var(--accent); font-weight: 600; }
+
+/* Code rows: 2 columns (code | text), no wide tables, readable at 360px. */
+.codes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.codes li[hidden], .region[hidden] { display: none; }
+.codes li a {
+  display: grid; grid-template-columns: 3rem 1fr; align-items: center; gap: 0.875rem; min-height: 2.75rem;
+  padding: 0.5rem 0.875rem; color: var(--fg); text-decoration: none; background: var(--card);
+  border: 1px solid var(--border); border-radius: 0.75rem;
+}
+.codes__n { font-size: 1.5rem; color: var(--accent); }
+.codes__t { display: grid; }
+.codes__t small { color: var(--muted); }
+.region .chips { margin-top: 0.5rem; }
+.chip--wide { padding: 0 0.875rem; }
+.filter { margin: 0 0 1rem; }
+.filter .meta { margin: 0.375rem 0 0; min-height: 1.25rem; }
+@media (min-width: 40rem) { .codes { grid-template-columns: 1fr 1fr; } }
+
+.card-foot { margin: 1.5rem 0 1rem; }
+.faq { background: var(--card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 0 1rem; margin-bottom: 0.5rem; }
+.faq summary { min-height: 2.75rem; display: flex; align-items: center; font-weight: 600; cursor: pointer; }
+.faq p { line-height: 1.55; margin: 0 0 0.75rem; }
+.prose ul { padding-left: 1.25rem; line-height: 1.55; }
+.prose p { line-height: 1.55; }

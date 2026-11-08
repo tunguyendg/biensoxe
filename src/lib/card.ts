@@ -20,6 +20,12 @@ export function metaLine(p: Province): string {
   return p.adminCenter === null ? region : `Trung tâm hành chính: ${p.adminCenter} · ${region}`;
 }
 
+/**
+ * Area & population are hidden on every page until ALL 34 provinces have a source
+ * (NQ 202 only gives figures for the 23 merged ones). Data stays in the JSON.
+ */
+export const SHOW_AREA_POPULATION = false;
+
 const nf = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 });
 
 /** For /tinh/[slug] only. null parts are hidden; returns null when nothing is known. */

@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import { LIMITS } from '../lib/copy';
+import { data, isDraft } from '../lib/data';
+import { FAQ } from '../lib/faq';
+import { formatDate } from '../lib/format';
+import { faqLd } from '../lib/jsonld';
+import '../styles/home.css';
+import '../styles/pages.css';
+
+// No offers on this page, by design.
+const { legalBasis, dataVersion, lastReviewed } = data.meta;
+---
+
+<Base
+  title="Nguồn và giới hạn của dữ liệu biển số xe"
+  description="Căn cứ pháp lý, biển số cho biết và không cho biết gì, câu hỏi thường gặp và ngày kiểm tra dữ liệu."
+  path="/nguon"
+  jsonLd={[faqLd(FAQ)]}
+>
+  <main class="home page prose">
+    <nav class="crumbs" aria-label="Đường dẫn"><a href="/">Trang chủ</a> › <span>Nguồn &amp; giới hạn</span></nav>
+    <h1>Nguồn và giới hạn</h1>
+
+    <section aria-labelledby="independent-h">
+      <h2 id="independent-h">Trang web độc lập</h2>
+      <p>BIEN SO là trang web độc lập, không phải trang của cơ quan nhà nước và không dùng biểu tượng của cơ quan nào. Chúng tôi không thu thập hay lưu biển số bạn tra cứu: mọi tra cứu chạy ngay trong trình duyệt của bạn.</p>
+    </section>
+
+    <section aria-labelledby="legal-h">
+      <h2 id="legal-h">Căn cứ pháp lý</h2>
+      <ul>
+        {legalBasis.map((b) => <li>{b.title}. Ban hành {formatDate(b.issued)}, hiệu lực {formatDate(b.effective)}.</li>)}
+      </ul>
+      <p>Bảng mã hiệu lực từ {formatDate(dataVersion)}.</p>
+    </section>
+
+    <section aria-labelledby="tells-h">
+      <h2 id="tells-h">Biển số cho biết gì, không cho biết gì</h2>
+      <p><strong>Cho biết:</strong> tỉnh, thành tương ứng với mã biển theo bảng mã, và tỉnh trước khi sáp nhập.</p>
+      <p><strong>Không cho biết:</strong> chủ xe là ai, đang sống ở đâu, ở phường hay xã nào, hay tình trạng của xe.</p>
+      <p class="limits">{LIMITS}</p>
+    </section>
+
+    <section aria-labelledby="faq-h">
+      <h2 id="faq-h">Câu hỏi thường gặp</h2>
+      {
+        FAQ.map((f) => (
+          <details class="faq">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+            <p class="source">Nguồn: data/SOURCES.md, {f.source}.</p>
+          </details>
+        ))
+      }
+    </section>
+
+    <section aria-labelledby="data-h">
+      <h2 id="data-h">Tình trạng dữ liệu</h2>
+      <p>Kiểm tra lần cuối: {formatDate(lastReviewed)}.</p>
+      {isDraft() && <p class="note">Dữ liệu đang ở dạng nháp: chưa được đối chiếu từng dòng với văn bản chính thức.</p>}
+    </section>
+  </main>
+</Base>
