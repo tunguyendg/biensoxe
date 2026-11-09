@@ -130,3 +130,7 @@
 - Schema: one `{"@context","@graph"}` block per page (src/lib/schema.ts): Organization (minimal, logo 512) everywhere, WebSite full on `/` only, WebPage/CollectionPage, BreadcrumbList, ItemList (/bang-ma, /kien-thuc), Article (author/publisher = Organization @id), FAQPage kept on /nguon only; 404 has none. Tests: tests/schema.test.ts, tests-dist/schema.test.ts. og:site_name → "Biển Số".
 - Content: /kien-thuc now 5 articles + index cards (newest first). New: bảng đối chiếu 63 → 34, tỉnh giữ nguyên/hợp nhất (replaces "tra khi nhớ tên tỉnh cũ" — same intent as the table, would be thin), tỉnh có nhiều mã. ArticleFrame component. Internal links from /bang-ma, changed code pages, merged/multi-code province pages. Audit + proposal E in docs/SEO_V1_1.md.
 - Open for Founder: proposal E (/tinh-cu/*), og:site_name change, articles' publishedAt = 2026-11-09.
+
+## V1.1 approved (0aac2db)
+- Founder approved: bài 2 topic change, og:site_name "Biển Số", publishedAt 09/11/2026.
+- Mục E (/tinh-cu/*) quyết lại khoảng 30/11/2026 theo dữ liệu Search Console: truy vấn chứa tên tỉnh cũ có impressions nhưng vị trí > 10 thì làm, không có thì bỏ.
