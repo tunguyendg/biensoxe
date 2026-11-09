@@ -425,7 +425,8 @@ describe('V1.2 articles (docs/CONTENT_SOURCES_V1_2.md)', () => {
   it('/bien-so-3-so-4-so: still usable (Điều 39 khoản 3), changed when the owner does the procedure', () => {
     const t = body('bien-so-3-so-4-so-con-dung-duoc-khong');
     expect(t).toContain('vẫn được tiếp tục tham gia giao thông');
-    expect(t).toContain('đổi, cấp lại chứng nhận đăng ký xe, biển số xe hoặc đăng ký sang tên');
+    expect(t).toContain('khi có nhu cầu, hoặc khi làm thủ tục đổi, cấp lại chứng nhận đăng ký xe, biển số xe hoặc đăng ký sang tên');
+    expect(t).toContain('Hỏi công an nơi đăng ký để chắc chắn');
   });
   it('/dau-gia-bien-so-xe: exact figures (40 triệu / 5 triệu / 500.000 / 30 ngày / 12 tháng / 6 tháng), no results or winning prices', () => {
     const h = html('dau-gia-bien-so-xe');

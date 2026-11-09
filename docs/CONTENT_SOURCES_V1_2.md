@@ -63,7 +63,7 @@ Trạng thái nguồn:
 - [F12] Bài tóm tắt TT 37/2026 (LSVN) giữ nguyên quy tắc biển gắn số định danh và giữ số 5 năm. Từ 08/06/2026, chứng nhận đăng ký xe điện tử được tích hợp trên VNeID và VNeTraffic.
 - [F13] Điều 39 khoản 1: xe đã đăng ký biển 5 số trước ngày TT 79/2024 có hiệu lực (01/01/2025), chưa bị thu hồi, thì số biển đó được xác định là biển số định danh của chủ xe.
 - [F14] Ngoại lệ của [F13]: biển có các ký hiệu MK, TĐ, LD, DA, MĐ, R, CT, LB, CD.
-- [F15] Điều 39 khoản 3: xe biển 3 số, 4 số, hoặc biển 5 số có ký hiệu cũ **vẫn được tiếp tục tham gia giao thông**. Khi chủ xe làm thủ tục đổi, cấp lại chứng nhận đăng ký xe, biển số xe hoặc đăng ký sang tên thì đổi sang biển theo TT 79/2024.
+- [F15] Điều 39 khoản 3: xe biển 3 số, 4 số, hoặc biển 5 số có ký hiệu cũ **vẫn được tiếp tục tham gia giao thông**. Chủ xe đổi sang biển theo TT 79/2024 khi có nhu cầu, hoặc khi làm thủ tục đổi, cấp lại chứng nhận đăng ký xe, biển số xe hoặc đăng ký sang tên. (Đã đối chiếu VBHN 41/VBHN-BCA ngày 09/11/2026: khớp.)
 
 ### Đổi đăng ký, đổi biển và chuyển nơi cư trú (S-TT79 Điều 3 khoản 2, Điều 18, Điều 19, Điều 20)
 
