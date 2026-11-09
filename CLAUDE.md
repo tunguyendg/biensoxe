@@ -34,7 +34,7 @@ Full rationale: `docs/PRODUCT_BRIEF.md`. Do **not** re-read it every session; re
    - A production build (`BIEN_SO_STRICT=1`) must fail while any record is unverified.
 2. **Never imply** that a prefix reveals the owner, the owner's address or where they live now, the ward/commune, or the vehicle's status.
    - Every result shows the limits line and the source + data date.
-3. Never say "biển cũ không phải đổi" unless `data/SOURCES.md` cites a verified basis. Default wording: "Chưa thấy quy định bắt buộc đổi biển; hỏi công an nơi đăng ký để chắc chắn."
+3. Never say "biển cũ không phải đổi" unless `data/SOURCES.md` cites a verified basis. Default wording: "Điều 18 TT 79/2024/TT-BCA không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh; hỏi công an nơi đăng ký để chắc chắn." New legal content may only be written from `docs/CONTENT_SOURCES_V1_2.md` or `data/SOURCES.md`.
 4. Privacy: lookups never leave the browser. No cookies and no cookie banner. Analytics is Cloudflare Web Analytics only.
 5. Not a government site:
    - no police/state emblems;

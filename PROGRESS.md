@@ -140,3 +140,4 @@
 - data/SOURCES.md: rows 11–15 (F01–F27 by group, SECONDARY_FULLTEXT) + Founder note (check Điều 3, 18, 37 TT 79/2024 on the latest consolidated text before release); row 5 now F19.
 - Sáp nhập 2025 article + /nguon FAQ: old default "Chưa thấy quy định bắt buộc đổi biển…" replaced by the F19 sentence + "hỏi công an nơi đăng ký để chắc chắn" (CLAUDE.md rule 3 still names the old wording as default; left untouched).
 - /kien-thuc: grouped by topic, list indent fixed (.prose ul specificity), "BIEN SO" → "Biển Số" in all visible text; cách-đọc article no longer says colour/letters are out of scope (links to the new articles).
+- 2026-11-09: V1.2 approved (b45c957). CLAUDE.md rule 3 → F19 wording; SOURCES.md rows 5, 11–14 note VBHN 41 check (matches); Founder-check note removed.
