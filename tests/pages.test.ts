@@ -9,6 +9,9 @@ import { lookup } from '../src/lib/lookup';
 import { DESC_MAX, DESC_MIN, TITLE_MAX, codeDescription, codeExplanation, codeTitle, fitText, mergerSentence, provinceDescription, provinceTitle } from '../src/lib/pages';
 import { foldText, joinVi } from '../src/lib/format';
 import { assertStrictBuild } from '../src/lib/strict';
+import type { AuditGate } from '../src/lib/audit-gate';
+const OK: AuditGate = { currentSha: 'x', audit: { dataSha256: 'x', mismatches: 0, coverageIssues: 0 } };
+
 
 const found = (c: string) => lookup(c) as Extract<ReturnType<typeof lookup>, { kind: 'province' | 'special' }>;
 
@@ -100,15 +103,15 @@ describe('strict build also needs the real https SITE_URL', () => {
   verified.provinces.forEach((p) => (p.verified = true));
   verified.codes.forEach((c) => (c.verified = true));
   it('fails only for unverified records and/or SITE_URL, and says both when both apply', () => {
-    expect(() => assertStrictBuild(data, '1')).toThrow(/verified:false[\s\S]*SITE_URL/);
-    expect(() => assertStrictBuild(data, '1', 'https://x.example')).toThrow(/verified:false/);
-    expect(() => assertStrictBuild(data, '1', 'https://x.example')).not.toThrow(/SITE_URL/);
+    expect(() => assertStrictBuild(data, '1', undefined, OK)).toThrow(/verified:false[\s\S]*SITE_URL/);
+    expect(() => assertStrictBuild(data, '1', 'https://x.example', OK)).toThrow(/verified:false/);
+    expect(() => assertStrictBuild(data, '1', 'https://x.example', OK)).not.toThrow(/SITE_URL/);
   });
   it('fails without https SITE_URL, passes with it', () => {
-    expect(() => assertStrictBuild(verified, '1')).toThrow(/SITE_URL/);
-    expect(() => assertStrictBuild(verified, '1', 'http://x.test')).toThrow(/SITE_URL/);
-    expect(() => assertStrictBuild(verified, '1', 'https://bienso.example')).not.toThrow();
-    expect(() => assertStrictBuild(verified, undefined)).not.toThrow();
+    expect(() => assertStrictBuild(verified, '1', undefined, OK)).toThrow(/SITE_URL/);
+    expect(() => assertStrictBuild(verified, '1', 'http://x.test', OK)).toThrow(/SITE_URL/);
+    expect(() => assertStrictBuild(verified, '1', 'https://bienso.example', OK)).not.toThrow();
+    expect(() => assertStrictBuild(verified, undefined, undefined, OK)).not.toThrow();
   });
 });
 
@@ -118,5 +121,56 @@ describe('analytics snippet', () => {
     expect(analyticsScript(undefined)).toBeNull();
     expect(analyticsScript('  ')).toBeNull();
     expect(analyticsScript(' abc123 ')).toEqual({ src: 'https://static.cloudflareinsights.com/beacon.min.js', beacon: '{"token":"abc123"}' });
+  });
+});
+
+describe('strict build also needs a fresh, clean data audit', () => {
+  const verified = structuredClone(data);
+  verified.provinces.forEach((p) => (p.verified = true));
+  verified.codes.forEach((c) => (c.verified = true));
+  const SITE = 'https://bienso.example';
+  const gate = (a: Partial<NonNullable<AuditGate['audit']>> | null): AuditGate => ({
+    currentSha: 'abc',
+    audit: a === null ? null : { dataSha256: 'abc', mismatches: 0, coverageIssues: 0, ...a },
+  });
+  it('passes only with a matching sha and 0 MISMATCH / 0 coverage issues', () => {
+    expect(() => assertStrictBuild(verified, '1', SITE, gate({}))).not.toThrow();
+  });
+  it('fails when the audit file is missing', () => {
+    expect(() => assertStrictBuild(verified, '1', SITE, gate(null))).toThrow(/audit-result\.json is missing/);
+  });
+  it('fails when plate-codes.json changed after the audit (sha differs)', () => {
+    expect(() => assertStrictBuild(verified, '1', SITE, gate({ dataSha256: 'old' }))).toThrow(/stale/);
+  });
+  it('fails on MISMATCH or coverage issues', () => {
+    expect(() => assertStrictBuild(verified, '1', SITE, gate({ mismatches: 1 }))).toThrow(/1 MISMATCH/);
+    expect(() => assertStrictBuild(verified, '1', SITE, gate({ coverageIssues: 2 }))).toThrow(/2 coverage/);
+  });
+  it('lists every reason together and is a no-op without the strict flag', () => {
+    expect(() => assertStrictBuild(data, '1', undefined, gate(null))).toThrow(/verified:false[\s\S]*SITE_URL[\s\S]*audit-result/);
+    expect(() => assertStrictBuild(data, undefined, undefined, gate(null))).not.toThrow();
+  });
+  it('summariseAudit reads sha, MISMATCH count and coverage; malformed counts as an issue', async () => {
+    const { summariseAudit, readAuditGate } = await import('../src/lib/audit-gate');
+    expect(summariseAudit({ summary: { dataSha256: 'h', coverage: [] }, results: [{ verdict: 'MATCH' }, { verdict: 'MISMATCH' }] })).toEqual({ dataSha256: 'h', mismatches: 1, coverageIssues: 0 });
+    expect(summariseAudit({}).coverageIssues).toBeGreaterThan(0);
+    const real = readAuditGate('.');
+    expect(real.audit?.dataSha256).toBe(real.currentSha); // committed audit is fresh
+    expect(real.audit?.mismatches).toBe(0);
+  });
+});
+
+describe('appendixNameNote (decision-driven, name from data/sources)', async () => {
+  const { appendixNameNote } = await import('../src/lib/decisions');
+  const units = [{ name: 'Thừa Thiên Huế', codes: ['75'] }, { name: 'Cần Thơ', codes: ['65', '83'] }];
+  it('shows the appendix name only when a decision exists and the names differ', () => {
+    expect(appendixNameNote('code:75', 'Huế', ['75'], { 'code:75': 'x' }, units)).toBe("Phụ lục 02 TT 51/2025/TT-BCA ghi tên địa phương là 'Thừa Thiên Huế'.");
+    expect(appendixNameNote('province:hue', 'Huế', ['75'], { 'province:hue': 'x' }, units)).toContain('Thừa Thiên Huế');
+    expect(appendixNameNote('code:75', 'Huế', ['75'], {}, units)).toBeNull(); // no decision
+    expect(appendixNameNote('code:83', 'Cần Thơ', ['83'], { 'code:83': 'x' }, units)).toBeNull(); // same name
+    expect(appendixNameNote('code:99', 'X', ['99'], { 'code:99': 'x' }, units)).toBeNull(); // not in appendix
+  });
+  it('real data: the appendix name for code 75 is read from the source file', () => {
+    expect(appendixNameNote('code:75', 'Huế', ['75'], { 'code:75': 'x' })).toContain('Thừa Thiên Huế');
   });
 });

@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { countUnverified, data, isDraft, type PlateData } from '../src/lib/data';
 import { assertStrictBuild } from '../src/lib/strict';
+import type { AuditGate } from '../src/lib/audit-gate';
+const OK: AuditGate = { currentSha: 'x', audit: { dataSha256: 'x', mismatches: 0, coverageIssues: 0 } };
+
 
 const { provinces, codes } = data;
 const provinceBySlug = new Map(provinces.map((p) => [p.slug, p]));
@@ -116,19 +119,19 @@ describe('strict gate', () => {
   });
 
   it('is a no-op when the flag is not "1"', () => {
-    expect(() => assertStrictBuild(data, undefined)).not.toThrow();
-    expect(() => assertStrictBuild(data, '0')).not.toThrow();
+    expect(() => assertStrictBuild(data, undefined, undefined, OK)).not.toThrow();
+    expect(() => assertStrictBuild(data, '0', undefined, OK)).not.toThrow();
   });
 
   it('throws under BIEN_SO_STRICT=1 while any record is unverified', () => {
-    expect(() => assertStrictBuild(data, '1', 'https://bienso.example')).toThrow(/verified:false/);
+    expect(() => assertStrictBuild(data, '1', 'https://bienso.example', OK)).toThrow(/verified:false/);
   });
 
   it('passes under strict once everything is verified', () => {
     const d = clone();
     d.provinces.forEach((p) => (p.verified = true));
     d.codes.forEach((c) => (c.verified = true));
-    expect(() => assertStrictBuild(d, '1', 'https://bienso.example')).not.toThrow();
+    expect(() => assertStrictBuild(d, '1', 'https://bienso.example', OK)).not.toThrow();
     expect(isDraft(d)).toBe(false);
   });
 
@@ -137,6 +140,6 @@ describe('strict gate', () => {
     d.provinces.forEach((p) => (p.verified = true));
     d.codes.forEach((c) => (c.verified = true));
     d.codes[0]!.verified = false;
-    expect(() => assertStrictBuild(d, '1', 'https://bienso.example')).toThrow(/verified:false/);
+    expect(() => assertStrictBuild(d, '1', 'https://bienso.example', OK)).toThrow(/verified:false/);
   });
 });

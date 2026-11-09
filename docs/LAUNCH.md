@@ -66,14 +66,10 @@ Header: `curl -sI https://HOST/` phải có `cache-control: public, max-age=0, m
 - [ ] URL Inspection → "Request indexing" cho `/`, `/83`, `/bang-ma`.
 - [ ] Trong lúc dữ liệu còn nháp, mọi trang có `noindex` — chưa lên chỉ mục là đúng. Trang chỉ được index sau build strict (mục 5).
 
-## 5. Đối chiếu Phụ lục 02 → bật `verified:true`
-1. Lấy bản chính thức Phụ lục 02 TT 51/2025/TT-BCA (Công báo PDF hoặc cổng Bộ Công an).
-2. So từng dòng với `data/plate-codes.json` (`provinces[].codes`, `codes[]`): 81 mã, mỗi mã đúng tỉnh.
-3. Ghi lại tên Phụ lục dùng cho mã **75** (Huế / Thừa Thiên Huế) và mã **80**; sửa JSON nếu khác.
-4. Cập nhật `data/SOURCES.md` dòng 1 → `VERIFIED-PRIMARY`; ghi rõ điều đã đối chiếu. Quyết định các câu hỏi mở (đổi biển sau sáp nhập: giữ câu mặc định "Chưa thấy quy định bắt buộc đổi biển…" nếu chưa có căn cứ).
-5. Khi **tất cả** đã đúng và bạn đồng ý, đặt `verified: true` cho mọi bản ghi (34 tỉnh + 81 mã = 115). Nhờ kỹ sư làm, hoặc tự sửa; sau đó cập nhật `meta.status` và `meta.lastReviewed`.
-6. Kiểm tra cục bộ: `SITE_URL=https://DOMAIN BIEN_SO_STRICT=1 npm run build` phải **xanh**, và trang không còn ghi chú " · đang đối chiếu bản gốc" lẫn `noindex`.
-7. Push → Production build (strict) chạy xanh → làm lại mục 2.
+## 5. Đối chiếu dữ liệu → bật `verified:true`
+Làm theo [docs/FOUNDER_DATA_REVIEW.md](FOUNDER_DATA_REVIEW.md) (đối chiếu Phụ lục 02 với PDF Công báo, chốt tên mã 75, `npm run data:audit`, `npm run data:approve`).
+
+Build strict (`BIEN_SO_STRICT=1`) chỉ qua khi: mọi bản ghi `verified:true`, `SITE_URL` là https, và `data/audit-result.json` có `dataSha256` trùng `data/plate-codes.json` hiện tại với 0 MISMATCH, 0 lỗi độ phủ. Sau khi duyệt: `SITE_URL=https://DOMAIN BIEN_SO_STRICT=1 npm run build` phải xanh, trang không còn " · đang đối chiếu bản gốc" lẫn `noindex`; push → Production build chạy xanh → làm lại mục 2.
 
 ## 6. Cloudflare Web Analytics (không cookie)
 - [ ] Cloudflare → Analytics & Logs → Web Analytics → Add a site (hostname = `DOMAIN`) → chọn cách "Manual/JS snippet" → copy **token** trong `data-cf-beacon`.

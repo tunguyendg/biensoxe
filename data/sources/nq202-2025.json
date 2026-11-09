@@ -1,0 +1,196 @@
+{
+  "meta": {
+    "document": "Nghị quyết 202/2025/QH15 về việc sắp xếp đơn vị hành chính cấp tỉnh",
+    "adopted": "2025-06-12",
+    "effective": "2025-06-12",
+    "newGovernmentsFrom": "2025-07-01",
+    "pdf": "https://static3.luatvietnam.vn/uploaded/vietlawfile/2025/6/202_2025_qh15_130625135937.pdf",
+    "readOn": "2026-11-09",
+    "status": "SECONDARY_FULLTEXT — PDF văn bản trên LuatVietnam",
+    "notes": [
+      "NQ 202 KHÔNG ghi trung tâm chính trị – hành chính của tỉnh mới."
+    ]
+  },
+  "merged": [
+    {
+      "name": "Tuyên Quang",
+      "from": [
+        "Hà Giang",
+        "Tuyên Quang"
+      ]
+    },
+    {
+      "name": "Lào Cai",
+      "from": [
+        "Yên Bái",
+        "Lào Cai"
+      ]
+    },
+    {
+      "name": "Thái Nguyên",
+      "from": [
+        "Bắc Kạn",
+        "Thái Nguyên"
+      ]
+    },
+    {
+      "name": "Phú Thọ",
+      "from": [
+        "Vĩnh Phúc",
+        "Hòa Bình",
+        "Phú Thọ"
+      ]
+    },
+    {
+      "name": "Bắc Ninh",
+      "from": [
+        "Bắc Giang",
+        "Bắc Ninh"
+      ]
+    },
+    {
+      "name": "Hưng Yên",
+      "from": [
+        "Thái Bình",
+        "Hưng Yên"
+      ]
+    },
+    {
+      "name": "Hải Phòng",
+      "from": [
+        "Hải Phòng",
+        "Hải Dương"
+      ]
+    },
+    {
+      "name": "Ninh Bình",
+      "from": [
+        "Hà Nam",
+        "Nam Định",
+        "Ninh Bình"
+      ]
+    },
+    {
+      "name": "Quảng Trị",
+      "from": [
+        "Quảng Bình",
+        "Quảng Trị"
+      ]
+    },
+    {
+      "name": "Đà Nẵng",
+      "from": [
+        "Đà Nẵng",
+        "Quảng Nam"
+      ]
+    },
+    {
+      "name": "Quảng Ngãi",
+      "from": [
+        "Kon Tum",
+        "Quảng Ngãi"
+      ]
+    },
+    {
+      "name": "Gia Lai",
+      "from": [
+        "Bình Định",
+        "Gia Lai"
+      ]
+    },
+    {
+      "name": "Khánh Hòa",
+      "from": [
+        "Ninh Thuận",
+        "Khánh Hòa"
+      ]
+    },
+    {
+      "name": "Lâm Đồng",
+      "from": [
+        "Đắk Nông",
+        "Bình Thuận",
+        "Lâm Đồng"
+      ]
+    },
+    {
+      "name": "Đắk Lắk",
+      "from": [
+        "Phú Yên",
+        "Đắk Lắk"
+      ]
+    },
+    {
+      "name": "TP. Hồ Chí Minh",
+      "from": [
+        "TP. Hồ Chí Minh",
+        "Bà Rịa – Vũng Tàu",
+        "Bình Dương"
+      ]
+    },
+    {
+      "name": "Đồng Nai",
+      "from": [
+        "Bình Phước",
+        "Đồng Nai"
+      ]
+    },
+    {
+      "name": "Tây Ninh",
+      "from": [
+        "Long An",
+        "Tây Ninh"
+      ]
+    },
+    {
+      "name": "Cần Thơ",
+      "from": [
+        "Cần Thơ",
+        "Sóc Trăng",
+        "Hậu Giang"
+      ]
+    },
+    {
+      "name": "Vĩnh Long",
+      "from": [
+        "Bến Tre",
+        "Trà Vinh",
+        "Vĩnh Long"
+      ]
+    },
+    {
+      "name": "Đồng Tháp",
+      "from": [
+        "Tiền Giang",
+        "Đồng Tháp"
+      ]
+    },
+    {
+      "name": "Cà Mau",
+      "from": [
+        "Bạc Liêu",
+        "Cà Mau"
+      ]
+    },
+    {
+      "name": "An Giang",
+      "from": [
+        "Kiên Giang",
+        "An Giang"
+      ]
+    }
+  ],
+  "unchanged": [
+    "Cao Bằng",
+    "Điện Biên",
+    "Hà Tĩnh",
+    "Lai Châu",
+    "Lạng Sơn",
+    "Nghệ An",
+    "Quảng Ninh",
+    "Thanh Hóa",
+    "Sơn La",
+    "Hà Nội",
+    "Huế"
+  ]
+}

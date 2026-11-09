@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import { existsSync, statSync } from 'node:fs';
 import { assertStrictBuild } from './src/lib/strict';
+import { readAuditGate } from './src/lib/audit-gate';
 import { data } from './src/lib/data';
 import { IMAGE_MAX_BYTES, validateFeaturedConfig, validateFeaturedLinks } from './src/lib/featured';
 import { featuredConfig, featuredLinks } from './src/lib/featured-data';
@@ -20,7 +21,7 @@ export default defineConfig({
       name: 'bien-so-strict-gate',
       hooks: {
         'astro:config:setup': () => {
-          assertStrictBuild(data, process.env.BIEN_SO_STRICT, process.env.SITE_URL);
+          assertStrictBuild(data, process.env.BIEN_SO_STRICT, process.env.SITE_URL, readAuditGate());
           validateConfig(offerConfig);
           validateOffers(offers); // stored links must be https
           validateFeaturedConfig(featuredConfig); // ≤ 2 active, shopee/shp.ee https targets, promo wording needs endAt

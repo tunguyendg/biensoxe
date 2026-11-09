@@ -1,0 +1,419 @@
+{
+  "meta": {
+    "document": "Thông tư 79/2024/TT-BCA, Phụ lục số 02 (bản trước khi bị thay thế)",
+    "issued": "2024-11-15",
+    "effective": "2025-01-01",
+    "replacedBy": "Thông tư 51/2025/TT-BCA, Phụ lục số 02 (từ 01/07/2025)",
+    "transcribedFrom": "https://luatvietnam.vn/giao-thong/thong-tu-79-2024-tt-bca-cap-thu-hoi-chung-nhan-dang-ky-xe-bien-so-xe-co-gioi-xe-may-chuyen-dung-377888-d1.html",
+    "transcribedOn": "2026-11-09",
+    "status": "SECONDARY_FULLTEXT — chép từ bản toàn văn trên LuatVietnam; chưa đối chiếu bản Công báo",
+    "notes": [
+      "Bản chép ghi 'Điện Biển' (lỗi chính tả) và 'Bắc Cạn' — tên hành chính đúng là Điện Biên, Bắc Kạn."
+    ]
+  },
+  "units": [
+    {
+      "name": "Cao Bằng",
+      "codes": [
+        "11"
+      ]
+    },
+    {
+      "name": "Lạng Sơn",
+      "codes": [
+        "12"
+      ]
+    },
+    {
+      "name": "Quảng Ninh",
+      "codes": [
+        "14"
+      ]
+    },
+    {
+      "name": "Hải Phòng",
+      "codes": [
+        "15",
+        "16"
+      ]
+    },
+    {
+      "name": "Thái Bình",
+      "codes": [
+        "17"
+      ]
+    },
+    {
+      "name": "Nam Định",
+      "codes": [
+        "18"
+      ]
+    },
+    {
+      "name": "Phú Thọ",
+      "codes": [
+        "19"
+      ]
+    },
+    {
+      "name": "Thái Nguyên",
+      "codes": [
+        "20"
+      ]
+    },
+    {
+      "name": "Yên Bái",
+      "codes": [
+        "21"
+      ]
+    },
+    {
+      "name": "Tuyên Quang",
+      "codes": [
+        "22"
+      ]
+    },
+    {
+      "name": "Hà Giang",
+      "codes": [
+        "23"
+      ]
+    },
+    {
+      "name": "Lào Cai",
+      "codes": [
+        "24"
+      ]
+    },
+    {
+      "name": "Lai Châu",
+      "codes": [
+        "25"
+      ]
+    },
+    {
+      "name": "Sơn La",
+      "codes": [
+        "26"
+      ]
+    },
+    {
+      "name": "Điện Biên",
+      "codes": [
+        "27"
+      ]
+    },
+    {
+      "name": "Hòa Bình",
+      "codes": [
+        "28"
+      ]
+    },
+    {
+      "name": "Hà Nội",
+      "codes": [
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "40"
+      ]
+    },
+    {
+      "name": "Hải Dương",
+      "codes": [
+        "34"
+      ]
+    },
+    {
+      "name": "Ninh Bình",
+      "codes": [
+        "35"
+      ]
+    },
+    {
+      "name": "Thanh Hóa",
+      "codes": [
+        "36"
+      ]
+    },
+    {
+      "name": "Nghệ An",
+      "codes": [
+        "37"
+      ]
+    },
+    {
+      "name": "Hà Tĩnh",
+      "codes": [
+        "38"
+      ]
+    },
+    {
+      "name": "Đà Nẵng",
+      "codes": [
+        "43"
+      ]
+    },
+    {
+      "name": "Đắk Lắk",
+      "codes": [
+        "47"
+      ]
+    },
+    {
+      "name": "Đắk Nông",
+      "codes": [
+        "48"
+      ]
+    },
+    {
+      "name": "Lâm Đồng",
+      "codes": [
+        "49"
+      ]
+    },
+    {
+      "name": "TP. Hồ Chí Minh",
+      "codes": [
+        "41",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59"
+      ]
+    },
+    {
+      "name": "Đồng Nai",
+      "codes": [
+        "39",
+        "60"
+      ]
+    },
+    {
+      "name": "Bình Dương",
+      "codes": [
+        "61"
+      ]
+    },
+    {
+      "name": "Long An",
+      "codes": [
+        "62"
+      ]
+    },
+    {
+      "name": "Tiền Giang",
+      "codes": [
+        "63"
+      ]
+    },
+    {
+      "name": "Vĩnh Long",
+      "codes": [
+        "64"
+      ]
+    },
+    {
+      "name": "Cần Thơ",
+      "codes": [
+        "65"
+      ]
+    },
+    {
+      "name": "Đồng Tháp",
+      "codes": [
+        "66"
+      ]
+    },
+    {
+      "name": "An Giang",
+      "codes": [
+        "67"
+      ]
+    },
+    {
+      "name": "Kiên Giang",
+      "codes": [
+        "68"
+      ]
+    },
+    {
+      "name": "Cà Mau",
+      "codes": [
+        "69"
+      ]
+    },
+    {
+      "name": "Tây Ninh",
+      "codes": [
+        "70"
+      ]
+    },
+    {
+      "name": "Bến Tre",
+      "codes": [
+        "71"
+      ]
+    },
+    {
+      "name": "Bà Rịa – Vũng Tàu",
+      "codes": [
+        "72"
+      ]
+    },
+    {
+      "name": "Quảng Bình",
+      "codes": [
+        "73"
+      ]
+    },
+    {
+      "name": "Quảng Trị",
+      "codes": [
+        "74"
+      ]
+    },
+    {
+      "name": "Thừa Thiên Huế",
+      "codes": [
+        "75"
+      ]
+    },
+    {
+      "name": "Quảng Ngãi",
+      "codes": [
+        "76"
+      ]
+    },
+    {
+      "name": "Bình Định",
+      "codes": [
+        "77"
+      ]
+    },
+    {
+      "name": "Phú Yên",
+      "codes": [
+        "78"
+      ]
+    },
+    {
+      "name": "Khánh Hòa",
+      "codes": [
+        "79"
+      ]
+    },
+    {
+      "name": "Gia Lai",
+      "codes": [
+        "81"
+      ]
+    },
+    {
+      "name": "Kon Tum",
+      "codes": [
+        "82"
+      ]
+    },
+    {
+      "name": "Sóc Trăng",
+      "codes": [
+        "83"
+      ]
+    },
+    {
+      "name": "Trà Vinh",
+      "codes": [
+        "84"
+      ]
+    },
+    {
+      "name": "Ninh Thuận",
+      "codes": [
+        "85"
+      ]
+    },
+    {
+      "name": "Bình Thuận",
+      "codes": [
+        "86"
+      ]
+    },
+    {
+      "name": "Vĩnh Phúc",
+      "codes": [
+        "88"
+      ]
+    },
+    {
+      "name": "Hưng Yên",
+      "codes": [
+        "89"
+      ]
+    },
+    {
+      "name": "Hà Nam",
+      "codes": [
+        "90"
+      ]
+    },
+    {
+      "name": "Quảng Nam",
+      "codes": [
+        "92"
+      ]
+    },
+    {
+      "name": "Bình Phước",
+      "codes": [
+        "93"
+      ]
+    },
+    {
+      "name": "Bạc Liêu",
+      "codes": [
+        "94"
+      ]
+    },
+    {
+      "name": "Hậu Giang",
+      "codes": [
+        "95"
+      ]
+    },
+    {
+      "name": "Bắc Kạn",
+      "codes": [
+        "97"
+      ]
+    },
+    {
+      "name": "Bắc Giang",
+      "codes": [
+        "98"
+      ]
+    },
+    {
+      "name": "Bắc Ninh",
+      "codes": [
+        "99"
+      ]
+    }
+  ],
+  "special": [
+    {
+      "name": "Cục Cảnh sát giao thông",
+      "codes": [
+        "80"
+      ]
+    }
+  ]
+}

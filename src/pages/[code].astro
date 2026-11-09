@@ -7,6 +7,7 @@ import Base from '../layouts/Base.astro';
 import { data } from '../lib/data';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import { crumbsLd, type Crumb } from '../lib/crumbs';
+import { appendixNameNote } from '../lib/decisions';
 import { lookup } from '../lib/lookup';
 import { codeDescription, codeExplanation, codeTitle } from '../lib/pages';
 import '../styles/home.css';
@@ -17,6 +18,7 @@ export const getStaticPaths = (() => data.codes.map((c) => ({ params: { code: c.
 const { code } = Astro.params;
 const r = lookup(code as string);
 if (r.kind === 'unknown') throw new Error(`No page for unknown code ${code}`); // never generated
+const nameNote = r.kind === 'province' ? appendixNameNote(`code:${r.code}`, r.province.name, [r.code]) : null;
 const site = Astro.site as URL;
 const crumbs: Crumb[] = [
   { name: 'Trang chủ', path: '/' },
@@ -37,6 +39,8 @@ const crumbs: Crumb[] = [
     <h1>{r.kind === 'province' ? `Biển số ${r.code} là tỉnh nào?` : `Biển số ${r.code} là mã gì?`}</h1>
 
     <ResultCard state={{ kind: 'result', result: r }} plate={r.code} />
+
+    {nameNote && <p class="meta name-note">{nameNote}</p>}
 
     <OfferCards placement="result" pageKey={r.code} />
 

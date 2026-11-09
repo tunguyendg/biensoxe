@@ -97,3 +97,10 @@
 
 ## OG plate polish
 - Per-code OG plate now has drop shadow (dy 12, blur 16, black 35%) + thin light ring (#DBEAFE @50%); max PNG 33 KB. Skipped dist test explained: `it.runIf(!!token)` in launch.test.ts only runs when PUBLIC_CF_ANALYTICS_TOKEN is set at build; unit tests cover analyticsScript.
+
+## Data audit integration
+- Done: `data:audit` / `data:approve` scripts (kept as .mjs; eslint node globals for scripts/*.mjs, 2 unused vars removed); `verify` now runs `data:audit` (MISMATCH/coverage → fail); mutation tests (`tests/audit-mutation.test.ts`: wrong former of 83, wrong current of 61, code 97 removed, province on 80 → all fail). Strict gate also needs fresh `data/audit-result.json` (sha = current plate-codes.json, 0 MISMATCH, 0 coverage) — `src/lib/audit-gate.ts`.
+- `src/lib/decisions.ts`: when data/DECISIONS.json has `code:75` / `province:hue`, /75 and /tinh/hue show the appendix name note (name read from data/sources/tt51, not hard-coded). DECISIONS.json NOT created (Founder's call).
+- Docs: SOURCES.md rows 1, 9 (TT 79/2024), 10 (VBHN 41/VBHN-BCA), SECONDARY_FULLTEXT status; LAUNCH.md §5 → FOUNDER_DATA_REVIEW.md. committed docs/DATA_AUDIT.md + data/audit-result.json.
+- Real-data audit: 115 records, MATCH 113, NEEDS_DECISION 2 (code:75, province:hue), MISMATCH 0, coverage 0. verified unchanged (all false); approve never run.
+- Note: every `verify` rewrites the audit timestamp (auditedAt) in the two audit files.

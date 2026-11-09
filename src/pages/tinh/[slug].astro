@@ -7,6 +7,7 @@ import { SHOW_AREA_POPULATION, areaPopulationLine, mergeBadge, metaLine } from '
 import { data } from '../../lib/data';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { crumbsLd, type Crumb } from '../../lib/crumbs';
+import { appendixNameNote } from '../../lib/decisions';
 import { lookup } from '../../lib/lookup';
 import { mergerSentence, provinceDescription, provinceTitle } from '../../lib/pages';
 import { footerHtml } from '../../lib/result-html';
@@ -22,6 +23,7 @@ const rows = p.codes.flatMap((c) => {
   const r = lookup(c);
   return r.kind === 'province' ? [{ code: c, former: r.former, changed: r.changed }] : [];
 });
+const nameNote = appendixNameNote(`province:${p.slug}`, p.name, p.codes);
 const areaPop = SHOW_AREA_POPULATION ? areaPopulationLine(p) : null;
 const crumbs: Crumb[] = [
   { name: 'Trang chủ', path: '/' },
@@ -36,6 +38,7 @@ const crumbs: Crumb[] = [
     <p class="merger">{mergerSentence(p)}</p>
     <p class={badge.merged ? 'badge badge--merged' : 'badge'}>{badge.text}</p>
     <p class="meta">{metaLine(p)}</p>
+    {nameNote && <p class="meta name-note">{nameNote}</p>}
     {areaPop && <p class="meta">{areaPop}</p>}
 
     <section aria-labelledby="codes-h">

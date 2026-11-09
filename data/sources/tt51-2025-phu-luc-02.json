@@ -1,0 +1,275 @@
+{
+  "meta": {
+    "document": "Thông tư 51/2025/TT-BCA, Phụ lục số 02 — Ký hiệu biển số xe ô tô, xe mô tô, xe máy chuyên dùng trong nước",
+    "issued": "2025-06-30",
+    "effective": "2025-07-01",
+    "gazette": "Công báo số 887 + 888, đăng 15/07/2025",
+    "gazetteUrl": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-51-2025-tt-bca-45356.htm",
+    "transcribedFrom": "https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Thong-tu-51-2025-TT-BCA-sua-doi-Thong-tu-79-2024-TT-BCA-cap-chung-nhan-dang-ky-xe-bien-so-xe-co-gioi-663452.aspx",
+    "transcribedOn": "2026-11-09",
+    "status": "SECONDARY_FULLTEXT — chép từ bản toàn văn trên Thư Viện Pháp Luật, khớp bảng LuatVietnam; Founder cần đối chiếu PDF Công báo 887+888",
+    "notes": [
+      "Phụ lục ghi tên địa phương mã 75 là 'Thừa Thiên Huế'. NQ 202/2025/QH15 gọi đơn vị này là 'thành phố Huế'."
+    ]
+  },
+  "units": [
+    {
+      "name": "An Giang",
+      "codes": [
+        "67",
+        "68"
+      ]
+    },
+    {
+      "name": "Bắc Ninh",
+      "codes": [
+        "98",
+        "99"
+      ]
+    },
+    {
+      "name": "Cà Mau",
+      "codes": [
+        "69",
+        "94"
+      ]
+    },
+    {
+      "name": "Cần Thơ",
+      "codes": [
+        "65",
+        "83",
+        "95"
+      ]
+    },
+    {
+      "name": "Cao Bằng",
+      "codes": [
+        "11"
+      ]
+    },
+    {
+      "name": "Đà Nẵng",
+      "codes": [
+        "43",
+        "92"
+      ]
+    },
+    {
+      "name": "Đắk Lắk",
+      "codes": [
+        "47",
+        "78"
+      ]
+    },
+    {
+      "name": "Điện Biên",
+      "codes": [
+        "27"
+      ]
+    },
+    {
+      "name": "Đồng Nai",
+      "codes": [
+        "39",
+        "60",
+        "93"
+      ]
+    },
+    {
+      "name": "Đồng Tháp",
+      "codes": [
+        "63",
+        "66"
+      ]
+    },
+    {
+      "name": "Gia Lai",
+      "codes": [
+        "77",
+        "81"
+      ]
+    },
+    {
+      "name": "Hà Nội",
+      "codes": [
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "40"
+      ]
+    },
+    {
+      "name": "Hà Tĩnh",
+      "codes": [
+        "38"
+      ]
+    },
+    {
+      "name": "Hải Phòng",
+      "codes": [
+        "15",
+        "16",
+        "34"
+      ]
+    },
+    {
+      "name": "Hưng Yên",
+      "codes": [
+        "17",
+        "89"
+      ]
+    },
+    {
+      "name": "Khánh Hòa",
+      "codes": [
+        "79",
+        "85"
+      ]
+    },
+    {
+      "name": "Lai Châu",
+      "codes": [
+        "25"
+      ]
+    },
+    {
+      "name": "Lâm Đồng",
+      "codes": [
+        "48",
+        "49",
+        "86"
+      ]
+    },
+    {
+      "name": "Lạng Sơn",
+      "codes": [
+        "12"
+      ]
+    },
+    {
+      "name": "Lào Cai",
+      "codes": [
+        "21",
+        "24"
+      ]
+    },
+    {
+      "name": "Nghệ An",
+      "codes": [
+        "37"
+      ]
+    },
+    {
+      "name": "Ninh Bình",
+      "codes": [
+        "18",
+        "35",
+        "90"
+      ]
+    },
+    {
+      "name": "Phú Thọ",
+      "codes": [
+        "19",
+        "28",
+        "88"
+      ]
+    },
+    {
+      "name": "Quảng Ngãi",
+      "codes": [
+        "76",
+        "82"
+      ]
+    },
+    {
+      "name": "Quảng Ninh",
+      "codes": [
+        "14"
+      ]
+    },
+    {
+      "name": "Quảng Trị",
+      "codes": [
+        "73",
+        "74"
+      ]
+    },
+    {
+      "name": "Sơn La",
+      "codes": [
+        "26"
+      ]
+    },
+    {
+      "name": "Tây Ninh",
+      "codes": [
+        "62",
+        "70"
+      ]
+    },
+    {
+      "name": "Thái Nguyên",
+      "codes": [
+        "20",
+        "97"
+      ]
+    },
+    {
+      "name": "Thanh Hóa",
+      "codes": [
+        "36"
+      ]
+    },
+    {
+      "name": "Thừa Thiên Huế",
+      "codes": [
+        "75"
+      ]
+    },
+    {
+      "name": "TP. Hồ Chí Minh",
+      "codes": [
+        "41",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "61",
+        "72"
+      ]
+    },
+    {
+      "name": "Tuyên Quang",
+      "codes": [
+        "22",
+        "23"
+      ]
+    },
+    {
+      "name": "Vĩnh Long",
+      "codes": [
+        "64",
+        "71",
+        "84"
+      ]
+    }
+  ],
+  "special": [
+    {
+      "name": "Cục Cảnh sát giao thông",
+      "codes": [
+        "80"
+      ]
+    }
+  ]
+}

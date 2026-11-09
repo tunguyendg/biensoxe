@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "test": "vitest run --coverage",
     "build": "astro build",
-    "verify": "npm run check && npm run lint && npm test && npm run build && npm run test:dist",
+    "verify": "npm run check && npm run lint && npm run data:audit && npm test && npm run build && npm run test:dist",
+    "data:audit": "node scripts/audit-data.mjs",
+    "data:approve": "node scripts/approve-data.mjs",
     "offers:links": "tsx scripts/offers-links.ts",
     "offers:check": "tsx scripts/offers-check.ts",
     "test:dist": "vitest run --config vitest.dist.config.ts"

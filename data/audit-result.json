@@ -1,0 +1,1280 @@
+{
+  "summary": {
+    "auditedAt": "2026-11-09T05:21:40.746Z",
+    "dataSha256": "a457d0984fad13f40e545a2f3570d355204dbc0f36df55a58097f226aeafd226",
+    "totals": {
+      "records": 115,
+      "codes": 81,
+      "provinces": 34,
+      "codeProvince": 80,
+      "codeSpecial": 1,
+      "verifiedTrue": 0
+    },
+    "verdicts": {
+      "MATCH": {
+        "code": 80,
+        "province": 33
+      },
+      "MATCH_NEEDS_DECISION": {
+        "code": 1,
+        "province": 1
+      },
+      "MISMATCH": {
+        "code": 0,
+        "province": 0
+      }
+    },
+    "coverage": [],
+    "sources": {
+      "tt51": {
+        "document": "Thông tư 51/2025/TT-BCA, Phụ lục số 02 — Ký hiệu biển số xe ô tô, xe mô tô, xe máy chuyên dùng trong nước",
+        "issued": "2025-06-30",
+        "effective": "2025-07-01",
+        "gazette": "Công báo số 887 + 888, đăng 15/07/2025",
+        "gazetteUrl": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-51-2025-tt-bca-45356.htm",
+        "transcribedFrom": "https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Thong-tu-51-2025-TT-BCA-sua-doi-Thong-tu-79-2024-TT-BCA-cap-chung-nhan-dang-ky-xe-bien-so-xe-co-gioi-663452.aspx",
+        "transcribedOn": "2026-11-09",
+        "status": "SECONDARY_FULLTEXT — chép từ bản toàn văn trên Thư Viện Pháp Luật, khớp bảng LuatVietnam; Founder cần đối chiếu PDF Công báo 887+888",
+        "notes": [
+          "Phụ lục ghi tên địa phương mã 75 là 'Thừa Thiên Huế'. NQ 202/2025/QH15 gọi đơn vị này là 'thành phố Huế'."
+        ]
+      },
+      "tt79": {
+        "document": "Thông tư 79/2024/TT-BCA, Phụ lục số 02 (bản trước khi bị thay thế)",
+        "issued": "2024-11-15",
+        "effective": "2025-01-01",
+        "replacedBy": "Thông tư 51/2025/TT-BCA, Phụ lục số 02 (từ 01/07/2025)",
+        "transcribedFrom": "https://luatvietnam.vn/giao-thong/thong-tu-79-2024-tt-bca-cap-thu-hoi-chung-nhan-dang-ky-xe-bien-so-xe-co-gioi-xe-may-chuyen-dung-377888-d1.html",
+        "transcribedOn": "2026-11-09",
+        "status": "SECONDARY_FULLTEXT — chép từ bản toàn văn trên LuatVietnam; chưa đối chiếu bản Công báo",
+        "notes": [
+          "Bản chép ghi 'Điện Biển' (lỗi chính tả) và 'Bắc Cạn' — tên hành chính đúng là Điện Biên, Bắc Kạn."
+        ]
+      },
+      "nq202": {
+        "document": "Nghị quyết 202/2025/QH15 về việc sắp xếp đơn vị hành chính cấp tỉnh",
+        "adopted": "2025-06-12",
+        "effective": "2025-06-12",
+        "newGovernmentsFrom": "2025-07-01",
+        "pdf": "https://static3.luatvietnam.vn/uploaded/vietlawfile/2025/6/202_2025_qh15_130625135937.pdf",
+        "readOn": "2026-11-09",
+        "status": "SECONDARY_FULLTEXT — PDF văn bản trên LuatVietnam",
+        "notes": [
+          "NQ 202 KHÔNG ghi trung tâm chính trị – hành chính của tỉnh mới."
+        ]
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "code:11",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Cao Bằng → TT51: Cao Bằng"
+      ]
+    },
+    {
+      "id": "code:12",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Lạng Sơn → TT51: Lạng Sơn"
+      ]
+    },
+    {
+      "id": "code:14",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Quảng Ninh → TT51: Quảng Ninh"
+      ]
+    },
+    {
+      "id": "code:15",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hải Phòng → TT51: Hải Phòng"
+      ]
+    },
+    {
+      "id": "code:16",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hải Phòng → TT51: Hải Phòng"
+      ]
+    },
+    {
+      "id": "code:17",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Thái Bình → TT51: Hưng Yên"
+      ]
+    },
+    {
+      "id": "code:18",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Nam Định → TT51: Ninh Bình"
+      ]
+    },
+    {
+      "id": "code:19",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Phú Thọ → TT51: Phú Thọ"
+      ]
+    },
+    {
+      "id": "code:20",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Thái Nguyên → TT51: Thái Nguyên"
+      ]
+    },
+    {
+      "id": "code:21",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Yên Bái → TT51: Lào Cai"
+      ]
+    },
+    {
+      "id": "code:22",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Tuyên Quang → TT51: Tuyên Quang"
+      ]
+    },
+    {
+      "id": "code:23",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hà Giang → TT51: Tuyên Quang"
+      ]
+    },
+    {
+      "id": "code:24",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Lào Cai → TT51: Lào Cai"
+      ]
+    },
+    {
+      "id": "code:25",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Lai Châu → TT51: Lai Châu"
+      ]
+    },
+    {
+      "id": "code:26",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Sơn La → TT51: Sơn La"
+      ]
+    },
+    {
+      "id": "code:27",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Điện Biên → TT51: Điện Biên"
+      ]
+    },
+    {
+      "id": "code:28",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hòa Bình → TT51: Phú Thọ"
+      ]
+    },
+    {
+      "id": "code:29",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hà Nội → TT51: Hà Nội"
+      ]
+    },
+    {
+      "id": "code:30",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hà Nội → TT51: Hà Nội"
+      ]
+    },
+    {
+      "id": "code:31",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hà Nội → TT51: Hà Nội"
+      ]
+    },
+    {
+      "id": "code:32",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hà Nội → TT51: Hà Nội"
+      ]
+    },
+    {
+      "id": "code:33",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hà Nội → TT51: Hà Nội"
+      ]
+    },
+    {
+      "id": "code:34",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hải Dương → TT51: Hải Phòng"
+      ]
+    },
+    {
+      "id": "code:35",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Ninh Bình → TT51: Ninh Bình"
+      ]
+    },
+    {
+      "id": "code:36",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Thanh Hóa → TT51: Thanh Hóa"
+      ]
+    },
+    {
+      "id": "code:37",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Nghệ An → TT51: Nghệ An"
+      ]
+    },
+    {
+      "id": "code:38",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hà Tĩnh → TT51: Hà Tĩnh"
+      ]
+    },
+    {
+      "id": "code:39",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Đồng Nai → TT51: Đồng Nai"
+      ]
+    },
+    {
+      "id": "code:40",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hà Nội → TT51: Hà Nội"
+      ]
+    },
+    {
+      "id": "code:41",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:43",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Đà Nẵng → TT51: Đà Nẵng"
+      ]
+    },
+    {
+      "id": "code:47",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Đắk Lắk → TT51: Đắk Lắk"
+      ]
+    },
+    {
+      "id": "code:48",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Đắk Nông → TT51: Lâm Đồng"
+      ]
+    },
+    {
+      "id": "code:49",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Lâm Đồng → TT51: Lâm Đồng"
+      ]
+    },
+    {
+      "id": "code:50",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:51",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:52",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:53",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:54",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:55",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:56",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:57",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:58",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:59",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: TP. Hồ Chí Minh → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:60",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Đồng Nai → TT51: Đồng Nai"
+      ]
+    },
+    {
+      "id": "code:61",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bình Dương → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:62",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Long An → TT51: Tây Ninh"
+      ]
+    },
+    {
+      "id": "code:63",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Tiền Giang → TT51: Đồng Tháp"
+      ]
+    },
+    {
+      "id": "code:64",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Vĩnh Long → TT51: Vĩnh Long"
+      ]
+    },
+    {
+      "id": "code:65",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Cần Thơ → TT51: Cần Thơ"
+      ]
+    },
+    {
+      "id": "code:66",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Đồng Tháp → TT51: Đồng Tháp"
+      ]
+    },
+    {
+      "id": "code:67",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: An Giang → TT51: An Giang"
+      ]
+    },
+    {
+      "id": "code:68",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Kiên Giang → TT51: An Giang"
+      ]
+    },
+    {
+      "id": "code:69",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Cà Mau → TT51: Cà Mau"
+      ]
+    },
+    {
+      "id": "code:70",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Tây Ninh → TT51: Tây Ninh"
+      ]
+    },
+    {
+      "id": "code:71",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bến Tre → TT51: Vĩnh Long"
+      ]
+    },
+    {
+      "id": "code:72",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bà Rịa – Vũng Tàu → TT51: TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "id": "code:73",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Quảng Bình → TT51: Quảng Trị"
+      ]
+    },
+    {
+      "id": "code:74",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Quảng Trị → TT51: Quảng Trị"
+      ]
+    },
+    {
+      "id": "code:75",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH_NEEDS_DECISION",
+      "issues": [],
+      "notes": [
+        "Phụ lục TT51 ghi \"Thừa Thiên Huế\"; NQ202 gọi là \"thành phố Huế\" — tên hiển thị cần Founder chốt",
+        "TT79: Thừa Thiên Huế → TT51: Thừa Thiên Huế"
+      ]
+    },
+    {
+      "id": "code:76",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Quảng Ngãi → TT51: Quảng Ngãi"
+      ]
+    },
+    {
+      "id": "code:77",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bình Định → TT51: Gia Lai"
+      ]
+    },
+    {
+      "id": "code:78",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Phú Yên → TT51: Đắk Lắk"
+      ]
+    },
+    {
+      "id": "code:79",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Khánh Hòa → TT51: Khánh Hòa"
+      ]
+    },
+    {
+      "id": "code:80",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT51: Cục Cảnh sát giao thông"
+      ]
+    },
+    {
+      "id": "code:81",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Gia Lai → TT51: Gia Lai"
+      ]
+    },
+    {
+      "id": "code:82",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Kon Tum → TT51: Quảng Ngãi"
+      ]
+    },
+    {
+      "id": "code:83",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Sóc Trăng → TT51: Cần Thơ"
+      ]
+    },
+    {
+      "id": "code:84",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Trà Vinh → TT51: Vĩnh Long"
+      ]
+    },
+    {
+      "id": "code:85",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Ninh Thuận → TT51: Khánh Hòa"
+      ]
+    },
+    {
+      "id": "code:86",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bình Thuận → TT51: Lâm Đồng"
+      ]
+    },
+    {
+      "id": "code:88",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Vĩnh Phúc → TT51: Phú Thọ"
+      ]
+    },
+    {
+      "id": "code:89",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hưng Yên → TT51: Hưng Yên"
+      ]
+    },
+    {
+      "id": "code:90",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hà Nam → TT51: Ninh Bình"
+      ]
+    },
+    {
+      "id": "code:92",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Quảng Nam → TT51: Đà Nẵng"
+      ]
+    },
+    {
+      "id": "code:93",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bình Phước → TT51: Đồng Nai"
+      ]
+    },
+    {
+      "id": "code:94",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bạc Liêu → TT51: Cà Mau"
+      ]
+    },
+    {
+      "id": "code:95",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Hậu Giang → TT51: Cần Thơ"
+      ]
+    },
+    {
+      "id": "code:97",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bắc Kạn → TT51: Thái Nguyên"
+      ]
+    },
+    {
+      "id": "code:98",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bắc Giang → TT51: Bắc Ninh"
+      ]
+    },
+    {
+      "id": "code:99",
+      "kind": "code",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [
+        "TT79: Bắc Ninh → TT51: Bắc Ninh"
+      ]
+    },
+    {
+      "id": "province:ha-noi",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:hai-phong",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:quang-ninh",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:bac-ninh",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:hung-yen",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:ninh-binh",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:phu-tho",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:thai-nguyen",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:tuyen-quang",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:lao-cai",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:cao-bang",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:lang-son",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:dien-bien",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:lai-chau",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:son-la",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"bac\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:thanh-hoa",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:nghe-an",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:ha-tinh",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:quang-tri",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:hue",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH_NEEDS_DECISION",
+      "issues": [],
+      "notes": [
+        "Phụ lục TT51 ghi \"Thừa Thiên Huế\"; NQ202 ghi \"thành phố Huế\" — Founder chốt tên hiển thị"
+      ],
+      "info": [
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:da-nang",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:quang-ngai",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:gia-lai",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:dak-lak",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:khanh-hoa",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:lam-dong",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"trung\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:ho-chi-minh",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"nam\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:dong-nai",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"nam\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:tay-ninh",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"nam\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:can-tho",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"nam\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:vinh-long",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"nam\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:dong-thap",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"nam\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:an-giang",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"nam\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    },
+    {
+      "id": "province:ca-mau",
+      "kind": "province",
+      "verified": false,
+      "verdict": "MATCH",
+      "issues": [],
+      "notes": [],
+      "info": [
+        "Có areaKm2/population: KHÔNG kiểm trong đợt này — đang ẩn trên site, không dùng làm điều kiện verified",
+        "region \"nam\" là phân nhóm biên tập, không phải dữ liệu pháp lý"
+      ]
+    }
+  ]
+}
