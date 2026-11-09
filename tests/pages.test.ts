@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { LIMITS } from '../src/lib/copy';
 import { data } from '../src/lib/data';
 import { FAQ } from '../src/lib/faq';
-import { breadcrumbLd, faqLd, ldString } from '../src/lib/jsonld';
+import { breadcrumbNode, faqNode, ldString } from '../src/lib/jsonld';
 import { lookup } from '../src/lib/lookup';
 import { DESC_MAX, DESC_MIN, TITLE_MAX, codeDescription, codeExplanation, codeTitle, fitText, mergerSentence, provinceDescription, provinceTitle } from '../src/lib/pages';
 import { foldText, joinVi } from '../src/lib/format';
@@ -94,9 +94,9 @@ describe('FAQ & JSON-LD', () => {
     expect(FAQ.some((f) => f.a.includes('Chưa thấy quy định bắt buộc đổi biển; hỏi công an nơi đăng ký để chắc chắn.'))).toBe(true);
   });
   it('JSON-LD shapes and script-safe escaping', () => {
-    const b = breadcrumbLd([{ name: 'A', url: 'https://x/' }, { name: 'B', url: 'https://x/b' }]);
-    expect(b).toMatchObject({ '@type': 'BreadcrumbList', itemListElement: [{ position: 1 }, { position: 2, item: 'https://x/b' }] });
-    expect(faqLd(FAQ)).toMatchObject({ '@type': 'FAQPage' });
+    const b = breadcrumbNode('https://x/b#breadcrumb', [{ name: 'A', url: 'https://x/' }, { name: 'B', url: 'https://x/b' }]);
+    expect(b).toMatchObject({ '@type': 'BreadcrumbList', '@id': 'https://x/b#breadcrumb', itemListElement: [{ position: 1 }, { position: 2, item: 'https://x/b' }] });
+    expect(faqNode('https://x/#faq', FAQ)).toMatchObject({ '@type': 'FAQPage', '@id': 'https://x/#faq' });
     expect(ldString({ a: '</script><b>' })).not.toContain('<');
   });
 });
@@ -187,16 +187,26 @@ describe('appendixNameNote (decision-driven, name from data/sources)', async () 
 });
 
 describe('article dates', async () => {
-  const { articleDates, articleLd, ARTICLE_SAPNHAP } = await import('../src/lib/knowledge');
+  const { articleDates, ARTICLE_SAPNHAP, ARTICLES, articlesByDate } = await import('../src/lib/knowledge');
+  const { articleNode } = await import('../src/lib/schema');
   const site = new URL('https://bienso.org');
   it('datePublished = publishedAt; dateModified = max(publishedAt, lastReviewed); "Cập nhật" only when different', () => {
     expect(ARTICLE_SAPNHAP.publishedAt).toBe('2026-11-09');
     expect(articleDates(ARTICLE_SAPNHAP, '2026-11-08')).toEqual({ published: '2026-11-09', modified: '2026-11-09', showModified: false });
     expect(articleDates(ARTICLE_SAPNHAP, '2026-11-09').showModified).toBe(false);
     expect(articleDates(ARTICLE_SAPNHAP, '2026-12-01')).toEqual({ published: '2026-11-09', modified: '2026-12-01', showModified: true });
-    const ld = articleLd(ARTICLE_SAPNHAP, site, '2026-12-01');
-    expect(ld.datePublished).toBe('2026-11-09');
-    expect(ld.dateModified).toBe('2026-12-01');
-    expect(articleLd(ARTICLE_SAPNHAP, site, '2026-11-08').dateModified).toBe('2026-11-09');
+    const node = (lastReviewed: string) => {
+      const d = articleDates(ARTICLE_SAPNHAP, lastReviewed);
+      return articleNode({ path: ARTICLE_SAPNHAP.path, h1: ARTICLE_SAPNHAP.h1, description: ARTICLE_SAPNHAP.description, published: d.published, modified: d.modified }, site);
+    };
+    expect(node('2026-12-01')).toMatchObject({ datePublished: '2026-11-09', dateModified: '2026-12-01' });
+    expect(node('2026-11-08').dateModified).toBe('2026-11-09');
+  });
+  it('articlesByDate: newest first, same-day articles keep their declared order', () => {
+    const [a, b, c] = ARTICLES as [typeof ARTICLES[number], typeof ARTICLES[number], typeof ARTICLES[number]];
+    const x = { ...a, publishedAt: '2026-01-01' };
+    const y = { ...b, publishedAt: '2026-03-01' };
+    const z = { ...c, publishedAt: '2026-03-01' };
+    expect(articlesByDate([x, y, z])).toEqual([y, z, x]);
   });
 });

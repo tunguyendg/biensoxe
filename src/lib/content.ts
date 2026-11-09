@@ -84,3 +84,58 @@ export const SOURCE_DOCS: SourceDoc[] = [
 ];
 
 export const SOURCE_DATES = { nq202Adopted: formatDate(nq202.meta.adopted), nq202Effective: formatDate(nq202.meta.effective), governmentsFrom: formatDate(nq202.meta.newGovernmentsFrom) };
+
+// ---- Tables for /kien-thuc articles (all generated from data/plate-codes.json) ----
+const vi = (a: string, b: string) => a.localeCompare(b, 'vi');
+const lookupAll = createLookup(data);
+
+export interface MergeRow {
+  former: string;
+  province: Province;
+  codes: string[];
+}
+
+/** One row per former province (63): the current province and the codes the former province had. Grouped by current province. */
+export function mergeRows(): MergeRow[] {
+  const map = new Map<string, MergeRow>();
+  for (const c of data.codes) {
+    if (c.type !== 'province') continue;
+    const r = lookupAll(c.code);
+    if (r.kind !== 'province') continue;
+    const key = `${r.province.slug}|${c.formerProvince}`;
+    const row = map.get(key) ?? { former: c.formerProvince, province: r.province, codes: [] };
+    row.codes.push(c.code);
+    map.set(key, row);
+  }
+  return [...map.values()].sort((a, b) => vi(a.province.name, b.province.name) || vi(a.former, b.former));
+}
+
+/** Provinces grouped by how they were affected by NQ 202/2025/QH15. */
+export function provinceGroups() {
+  const by = (n: number) => data.provinces.filter((p) => p.mergedFrom.length === n).sort((a, b) => vi(a.name, b.name));
+  return { unchanged: by(0), from2: by(2), from3: by(3) };
+}
+
+export interface MultiCodeRow {
+  province: Province;
+  own: string[];
+  incoming: { code: string; former: string }[];
+}
+
+/** Provinces with ≥ 3 codes; "own" = codes whose former province carries the same name, "incoming" = codes of other former provinces. */
+export function multiCodeProvinces(min = 3): MultiCodeRow[] {
+  return data.provinces
+    .filter((p) => p.codes.length >= min)
+    .map((p) => {
+      const own: string[] = [];
+      const incoming: { code: string; former: string }[] = [];
+      for (const code of p.codes) {
+        const r = lookupAll(code);
+        if (r.kind !== 'province') continue;
+        if (r.changed) incoming.push({ code, former: r.former });
+        else own.push(code);
+      }
+      return { province: p, own, incoming };
+    })
+    .sort((a, b) => b.province.codes.length - a.province.codes.length || vi(a.province.name, b.province.name));
+}

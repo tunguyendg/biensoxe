@@ -1,18 +1,12 @@
 ---
-import Breadcrumb from '../../components/Breadcrumb.astro';
-import Sources from '../../components/Sources.astro';
-import Base from '../../layouts/Base.astro';
+import ArticleFrame from '../../components/ArticleFrame.astro';
 import { FORMER_COUNT, MERGED_COUNT, SOURCE_DATES, UNCHANGED_COUNT } from '../../lib/content';
 import { LIMITS, SOURCE_NAME } from '../../lib/copy';
-import { crumbsLd, type Crumb } from '../../lib/crumbs';
 import { data } from '../../lib/data';
 import { formatDate } from '../../lib/format';
-import { articleDates, articleLd, ARTICLE_DOCMA, ARTICLE_SAPNHAP as A, KB_INDEX } from '../../lib/knowledge';
+import { ARTICLE_BANGDOICHIEU, ARTICLE_DOCMA, ARTICLE_GIUNGUYEN, ARTICLE_SAPNHAP as A } from '../../lib/knowledge';
 import { lookup } from '../../lib/lookup';
-import '../../styles/home.css';
-import '../../styles/pages.css';
 
-const dates = articleDates(A);
 const tt = data.meta.legalBasis.find((b) => b.id === 'tt51-2025');
 const since = formatDate(data.meta.dataVersion);
 // Examples come from the data: three merged, one unchanged.
@@ -20,23 +14,10 @@ const examples = ['83', '61', '92', '27'].flatMap((c) => {
   const r = lookup(c);
   return r.kind === 'province' ? [r] : [];
 });
-const crumbs: Crumb[] = [
-  { name: 'Trang chủ', path: '/' },
-  { name: 'Kiến thức', path: KB_INDEX.path },
-  { name: A.h1, path: A.path },
-];
 ---
 
-<Base title={A.title} description={A.description} path={A.path} jsonLd={[crumbsLd(crumbs, Astro.site as URL), articleLd(A, Astro.site as URL)]}>
-  <main class="home page prose">
-    <Breadcrumb crumbs={crumbs} />
-    <h1>{A.h1}</h1>
-    <p class="meta">
-      Đăng ngày <time datetime={dates.published}>{formatDate(dates.published)}</time>
-      {dates.showModified && <> · Cập nhật <time datetime={dates.modified}>{formatDate(dates.modified)}</time></>}
-    </p>
-
-    <p class="intro">
+<ArticleFrame article={A}>
+<p class="intro">
       Từ {since}, cả nước có {data.provinces.length} tỉnh, thành thay vì {FORMER_COUNT}, và bảng ký hiệu biển số xe theo {SOURCE_NAME} bắt đầu có hiệu lực. Nhiều tỉnh nay dùng nhiều mã biển, gồm cả mã của các tỉnh cũ.
     </p>
 
@@ -44,7 +25,7 @@ const crumbs: Crumb[] = [
       <h2 id="s1">{FORMER_COUNT} đơn vị thành {data.provinces.length}</h2>
       <p>
         Nghị quyết 202/2025/QH15 được thông qua ngày {SOURCE_DATES.nq202Adopted} và có hiệu lực từ {SOURCE_DATES.nq202Effective}. Chính quyền địa phương mới hoạt động từ {SOURCE_DATES.governmentsFrom}.
-        Trong {data.provinces.length} đơn vị hiện nay có {MERGED_COUNT} tỉnh, thành hợp nhất từ các đơn vị cũ và {UNCHANGED_COUNT} tỉnh, thành giữ nguyên.
+        Trong {data.provinces.length} đơn vị hiện nay có {MERGED_COUNT} tỉnh, thành hợp nhất từ các đơn vị cũ và {UNCHANGED_COUNT} tỉnh, thành giữ nguyên. Danh sách từng nhóm ở bài <a href={ARTICLE_GIUNGUYEN.path}>{ARTICLE_GIUNGUYEN.h1.toLowerCase()}</a>.
       </p>
     </section>
 
@@ -69,7 +50,7 @@ const crumbs: Crumb[] = [
           ))
         }
       </ul>
-      <p>Muốn xem tất cả mã của một tỉnh, mở trang tỉnh, ví dụ <a href={`/tinh/${examples[0]?.province.slug}`}>biển số xe {examples[0]?.province.name}</a>.</p>
+      <p>Cần tra theo tên tỉnh cũ? Bài <a href={ARTICLE_BANGDOICHIEU.path}>{ARTICLE_BANGDOICHIEU.h1.toLowerCase()}</a> liệt kê đủ {FORMER_COUNT} tỉnh cũ. Muốn xem tất cả mã của một tỉnh, mở trang tỉnh, ví dụ <a href={`/tinh/${examples[0]?.province.slug}`}>biển số xe {examples[0]?.province.name}</a>.</p>
     </section>
 
     <section aria-labelledby="s4">
@@ -87,7 +68,4 @@ const crumbs: Crumb[] = [
       </p>
       <p class="limits">{LIMITS}</p>
     </section>
-
-    <Sources />
-  </main>
-</Base>
+</ArticleFrame>

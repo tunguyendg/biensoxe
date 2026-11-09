@@ -1,0 +1,77 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { multiCodeProvinces } from '../../lib/content';
+import { data } from '../../lib/data';
+import { formatDate } from '../../lib/format';
+import { ARTICLE_BANGDOICHIEU, ARTICLE_NHIEUMA as A } from '../../lib/knowledge';
+
+const rows = multiCodeProvinces();
+const since = formatDate(data.meta.dataVersion);
+const example = rows.find((r) => r.province.slug === 'can-tho') ?? rows[0];
+const codeLink = (c: string) => `<a href="/${c}" aria-label="Biển số ${c}">${c}</a>`;
+---
+
+<ArticleFrame article={A}>
+  <p class="intro">
+    Có {rows.length} tỉnh, thành dùng từ 3 mã biển số trở lên. Hai biển số có hai chữ số đầu khác nhau vẫn có thể cùng một tỉnh; để chắc chắn, tra mã trên BIEN SO và xem mục “Các mã khác” của tỉnh đó.
+  </p>
+
+  <section aria-labelledby="bang">
+    <h2 id="bang">Các tỉnh, thành có từ 3 mã</h2>
+    <p>
+      Cột “Mã của tỉnh từ trước {since}” gồm các mã mà tỉnh cùng tên đã có trước ngày đó. Cột “Mã từ tỉnh cũ hợp nhất” gồm các mã trước {since} thuộc một tỉnh cũ khác, nay thuộc tỉnh này.
+    </p>
+    <div class="tbl-wrap">
+      <table class="xtable">
+        <caption class="sr-only">Tỉnh có từ 3 mã biển số, tách mã của chính tỉnh và mã từ tỉnh cũ hợp nhất</caption>
+        <thead>
+          <tr>
+            <th scope="col">Tỉnh, thành</th>
+            <th scope="col">Số mã</th>
+            <th scope="col">Mã của tỉnh từ trước {since}</th>
+            <th scope="col">Mã từ tỉnh cũ hợp nhất</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((r) => (
+              <tr id={r.province.slug}>
+                <th scope="row" data-label="Tỉnh, thành"><a href={`/tinh/${r.province.slug}`}>{r.province.name}</a></th>
+                <td data-label="Số mã">{r.province.codes.length}</td>
+                <td data-label={`Mã của tỉnh từ trước ${since}`} set:html={r.own.length ? r.own.map(codeLink).join(', ') : '—'} />
+                <td
+                  data-label="Mã từ tỉnh cũ hợp nhất"
+                  set:html={r.incoming.length ? r.incoming.map((x) => `${codeLink(x.code)} (trước là ${x.former})`).join('; ') : '—'}
+                />
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="tra">
+    <h2 id="tra">Cách tra để không nhầm</h2>
+    <ol>
+      <li>Gõ 2 số đầu của biển vào <a href="/">ô tra cứu biển số xe</a>.</li>
+      <li>Xem tên tỉnh, thành và dòng “Trước {since}” để biết mã đó thuộc tỉnh nào trước đây.</li>
+      <li>Xem mục “Các mã khác của …” để biết những mã còn lại của cùng tỉnh, hoặc mở trang của tỉnh để xem đủ.</li>
+    </ol>
+    {
+      example && (
+        <p>
+          Ví dụ, <a href={`/tinh/${example.province.slug}`}>{example.province.name}</a> hiện dùng {example.province.codes.length} mã: {example.province.codes.join(', ')}.
+          {example.incoming.length > 0 && ` Trong đó ${example.incoming.map((x) => `mã ${x.code} trước ${since} là của ${x.former}`).join(', ')}.`}
+        </p>
+      )
+    }
+  </section>
+
+  <section aria-labelledby="tiep">
+    <h2 id="tiep">Xem tiếp</h2>
+    <p>
+      Muốn tra theo tên tỉnh cũ, xem <a href={ARTICLE_BANGDOICHIEU.path}>{ARTICLE_BANGDOICHIEU.h1.toLowerCase()}</a>. Toàn bộ mã hiện hành nằm ở <a href="/bang-ma">bảng biển số xe {data.provinces.length} tỉnh thành</a>.
+    </p>
+  </section>
+</ArticleFrame>

@@ -1,18 +1,12 @@
 ---
-import Breadcrumb from '../../components/Breadcrumb.astro';
-import Sources from '../../components/Sources.astro';
-import Base from '../../layouts/Base.astro';
+import ArticleFrame from '../../components/ArticleFrame.astro';
 import { special80 } from '../../lib/content';
 import { LIMITS, SOURCE_NAME } from '../../lib/copy';
-import { crumbsLd, type Crumb } from '../../lib/crumbs';
 import { data } from '../../lib/data';
 import { formatDate } from '../../lib/format';
-import { articleDates, articleLd, ARTICLE_DOCMA as A, ARTICLE_SAPNHAP, KB_INDEX } from '../../lib/knowledge';
+import { ARTICLE_DOCMA as A, ARTICLE_SAPNHAP } from '../../lib/knowledge';
 import { lookup } from '../../lib/lookup';
-import '../../styles/home.css';
-import '../../styles/pages.css';
 
-const dates = articleDates(A);
 const since = formatDate(data.meta.dataVersion);
 const examples = ['83', '61', '92', '27'].flatMap((c) => {
   const r = lookup(c);
@@ -20,23 +14,10 @@ const examples = ['83', '61', '92', '27'].flatMap((c) => {
 });
 const multi = lookup('83');
 const multiProvince = multi.kind === 'province' ? multi.province : null;
-const crumbs: Crumb[] = [
-  { name: 'Trang chủ', path: '/' },
-  { name: 'Kiến thức', path: KB_INDEX.path },
-  { name: A.h1, path: A.path },
-];
 ---
 
-<Base title={A.title} description={A.description} path={A.path} jsonLd={[crumbsLd(crumbs, Astro.site as URL), articleLd(A, Astro.site as URL)]}>
-  <main class="home page prose">
-    <Breadcrumb crumbs={crumbs} />
-    <h1>{A.h1}</h1>
-    <p class="meta">
-      Đăng ngày <time datetime={dates.published}>{formatDate(dates.published)}</time>
-      {dates.showModified && <> · Cập nhật <time datetime={dates.modified}>{formatDate(dates.modified)}</time></>}
-    </p>
-
-    <p class="intro">
+<ArticleFrame article={A}>
+<p class="intro">
       Hai chữ số đầu của biển số xe là ký hiệu địa phương nơi xe được đăng ký, theo {SOURCE_NAME}, hiệu lực từ {since}.
     </p>
 
@@ -77,7 +58,4 @@ const crumbs: Crumb[] = [
       <p>Bài này chỉ nói về hai chữ số đầu. Phần chữ cái và màu biển chưa có nguồn trong bảng mã của BIEN SO nên chưa được đề cập.</p>
       <p>Mã đổi theo sáp nhập thế nào, xem bài <a href={ARTICLE_SAPNHAP.path}>{ARTICLE_SAPNHAP.h1.toLowerCase()}</a>.</p>
     </section>
-
-    <Sources />
-  </main>
-</Base>
+</ArticleFrame>

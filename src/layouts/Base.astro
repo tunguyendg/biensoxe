@@ -15,7 +15,8 @@ interface Props {
   path?: string;
   /** Path of the OG image; defaults to the generic one. */
   ogImage?: string;
-  jsonLd?: JsonLd[];
+  /** One schema.org graph for the page (see lib/schema.ts). */
+  jsonLd?: JsonLd;
   /** Utility pages (404) are never indexed and have no canonical. */
   noindex?: boolean;
 }
@@ -24,7 +25,7 @@ const {
   description = 'Gõ 2 số đầu của biển để biết xe đăng ký ở tỉnh/thành nào sau sáp nhập 01/07/2025, và tỉnh trước đây.',
   path = Astro.url.pathname,
   ogImage = '/og/default.png',
-  jsonLd = [],
+  jsonLd,
   noindex = false,
 } = Astro.props;
 const draft = isDraft();
@@ -55,7 +56,7 @@ const image = new URL(ogImage, Astro.site).href;
     {!noindex && <link rel="canonical" href={canonical} />}
     <meta name="robots" content={noindex ? 'noindex,follow' : robotsContent(draft)} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="BIEN SO" />
+    <meta property="og:site_name" content="Biển Số" />
     <meta property="og:locale" content="vi_VN" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -67,7 +68,7 @@ const image = new URL(ogImage, Astro.site).href;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
-    {jsonLd.map((ld) => <script type="application/ld+json" set:html={ldString(ld)} />)}
+    {(jsonLd ? [jsonLd] : []).map((ld) => <script type="application/ld+json" set:html={ldString(ld)} />)}
     <noscript><style>.share, .filter { display: none; }</style></noscript>
   </head>
   <body>

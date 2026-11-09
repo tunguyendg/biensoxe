@@ -6,7 +6,9 @@ import ResultCard from '../components/ResultCard.astro';
 import Base from '../layouts/Base.astro';
 import { data } from '../lib/data';
 import Breadcrumb from '../components/Breadcrumb.astro';
-import { crumbsLd, type Crumb } from '../lib/crumbs';
+import type { Crumb } from '../lib/crumbs';
+import { pageGraph } from '../lib/schema';
+import { ARTICLE_BANGDOICHIEU } from '../lib/knowledge';
 import { appendixNameNote } from '../lib/decisions';
 import { lookup } from '../lib/lookup';
 import { codeFacts, specialAnswer } from '../lib/content';
@@ -36,7 +38,7 @@ const crumbs: Crumb[] = [
   description={codeDescription(r)}
   path={`/${r.code}`}
   ogImage={`/og/${r.code}.png`}
-  jsonLd={[crumbsLd(crumbs, site)]}
+  jsonLd={pageGraph({ site, path: `/${r.code}`, name: codeTitle(r), description: codeDescription(r), crumbs })}
 >
   <main class="home page">
     <Breadcrumb crumbs={crumbs} />
@@ -65,6 +67,7 @@ const crumbs: Crumb[] = [
       <p>{codeExplanation(r)}</p>
       <p class="links">
         {r.kind === 'province' && <a href={`/tinh/${r.province.slug}`}>Tất cả mã của {r.province.name}</a>}
+        {r.kind === 'province' && r.changed && <a href={`${ARTICLE_BANGDOICHIEU.path}#${r.province.slug}`}>Đối chiếu tỉnh cũ và tỉnh mới</a>}
         <a href="/">Tra mã khác</a>
         <a href="/bang-ma">Bảng mã đầy đủ</a>
       </p>

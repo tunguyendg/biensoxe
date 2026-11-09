@@ -12,12 +12,13 @@ const codes = data.codes.map((c) => c.code);
 const slugs = data.provinces.map((p) => p.slug);
 // The build reflects whatever state the data is in: draft (any verified:false) or approved.
 const draft = [...data.codes, ...data.provinces].some((r) => !r.verified);
+const NEW_ARTICLES = ['kien-thuc/bang-doi-chieu-63-tinh-cu-34-tinh-moi', 'kien-thuc/tinh-thanh-giu-nguyen-sau-sap-nhap-2025', 'kien-thuc/tinh-co-nhieu-ma-bien-so'];
 const limitsEsc = LIMITS.replace(/&/g, '&amp;');
 
 describe('page count', () => {
   it('81 code pages + 34 province pages + home + bang-ma + nguon + 404 + 3 kien-thuc', () => {
-    const expected = [...codes.map((c) => `${c}.html`), ...slugs.map((s) => `tinh/${s}.html`), 'index.html', 'bang-ma.html', 'nguon.html', '404.html', 'kien-thuc.html', 'kien-thuc/bien-so-xe-sau-sap-nhap-2025.html', 'kien-thuc/cach-doc-ma-bien-so-xe.html'];
-    expect(expected).toHaveLength(81 + 34 + 4 + 3);
+    const expected = [...codes.map((c) => `${c}.html`), ...slugs.map((s) => `tinh/${s}.html`), 'index.html', 'bang-ma.html', 'nguon.html', '404.html', 'kien-thuc.html', 'kien-thuc/bien-so-xe-sau-sap-nhap-2025.html', 'kien-thuc/cach-doc-ma-bien-so-xe.html', ...NEW_ARTICLES.map((a) => `${a}.html`)];
+    expect(expected).toHaveLength(81 + 34 + 4 + 3 + 3);
     expect([...htmlFiles].sort()).toEqual([...expected].sort());
   });
   it('unknown codes get no page (13, 42, 87)', () => {
@@ -29,10 +30,10 @@ describe('sitemap & robots', () => {
   const xml = read('sitemap.xml');
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1] as string);
   it('lists every page except 404, with absolute URLs and no duplicates', () => {
-    expect(locs).toHaveLength(81 + 34 + 3 + 3);
+    expect(locs).toHaveLength(81 + 34 + 3 + 3 + 3);
     expect(new Set(locs).size).toBe(locs.length);
     const paths = locs.map((l) => new URL(l).pathname).sort();
-    const expected = ['/', '/bang-ma', '/nguon', '/kien-thuc', '/kien-thuc/bien-so-xe-sau-sap-nhap-2025', '/kien-thuc/cach-doc-ma-bien-so-xe', ...codes.map((c) => `/${c}`), ...slugs.map((s) => `/tinh/${s}`)].sort();
+    const expected = ['/', '/bang-ma', '/nguon', '/kien-thuc', '/kien-thuc/bien-so-xe-sau-sap-nhap-2025', '/kien-thuc/cach-doc-ma-bien-so-xe', ...NEW_ARTICLES.map((a) => `/${a}`), ...codes.map((c) => `/${c}`), ...slugs.map((s) => `/tinh/${s}`)].sort();
     expect(paths).toEqual(expected);
     expect(xml).not.toContain('/404');
   });

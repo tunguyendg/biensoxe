@@ -2,18 +2,20 @@ import type { Faq } from './faq';
 
 export type JsonLd = Record<string, unknown>;
 
-export function breadcrumbLd(items: { name: string; url: string }[]): JsonLd {
+/** BreadcrumbList node (no @context: it lives inside the page's @graph). */
+export function breadcrumbNode(id: string, items: { name: string; url: string }[]): JsonLd {
   return {
-    '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    '@id': id,
     itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, item: it.url })),
   };
 }
 
-export function faqLd(faq: Faq[]): JsonLd {
+/** FAQPage node. Only used where the same questions are visible on the page (/nguon). */
+export function faqNode(id: string, faq: Faq[]): JsonLd {
   return {
-    '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    '@id': id,
     mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
   };
 }
@@ -21,9 +23,4 @@ export function faqLd(faq: Faq[]): JsonLd {
 /** JSON for an inline <script type="application/ld+json">; `<` is escaped so it can't close the tag. */
 export function ldString(ld: JsonLd): string {
   return JSON.stringify(ld).replace(/</g, '\\u003c');
-}
-
-/** WebSite markup for the home page (no SearchAction on purpose). */
-export function websiteLd(site: URL): JsonLd {
-  return { '@context': 'https://schema.org', '@type': 'WebSite', name: 'BIEN SO', url: new URL('/', site).href, inLanguage: 'vi' };
 }

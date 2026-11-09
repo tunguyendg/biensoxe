@@ -1,26 +1,44 @@
 ---
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import Base from '../../layouts/Base.astro';
-import { crumbsLd, type Crumb } from '../../lib/crumbs';
-import { ARTICLES, KB_INDEX } from '../../lib/knowledge';
+import type { Crumb } from '../../lib/crumbs';
+import { formatDate } from '../../lib/format';
+import { articlesByDate, KB_INDEX } from '../../lib/knowledge';
+import { itemListNode, pageGraph } from '../../lib/schema';
 import '../../styles/home.css';
 import '../../styles/pages.css';
 
 // No offers on /kien-thuc/*, same as /nguon.
+const site = Astro.site as URL;
+const list = articlesByDate();
 const crumbs: Crumb[] = [{ name: 'Trang chủ', path: '/' }, { name: 'Kiến thức', path: KB_INDEX.path }];
+const listId = `${new URL(KB_INDEX.path, site).href}#itemlist`;
+const graph = pageGraph({
+  site,
+  path: KB_INDEX.path,
+  type: 'CollectionPage',
+  name: KB_INDEX.title,
+  description: KB_INDEX.description,
+  crumbs,
+  mainEntityId: listId,
+  extra: [itemListNode(listId, list.map((a) => ({ name: a.h1, path: a.path })), site)],
+});
 ---
 
-<Base title={KB_INDEX.title} description={KB_INDEX.description} path={KB_INDEX.path} jsonLd={[crumbsLd(crumbs, Astro.site as URL)]}>
+<Base title={KB_INDEX.title} description={KB_INDEX.description} path={KB_INDEX.path} jsonLd={graph}>
   <main class="home page prose">
     <Breadcrumb crumbs={crumbs} />
     <h1>{KB_INDEX.h1}</h1>
-    <p class="intro">Hai bài ngắn, mỗi bài có mục nguồn ở cuối. Muốn tra một mã cụ thể, hãy dùng <a href="/">ô tra cứu biển số xe</a> hoặc <a href="/bang-ma">bảng biển số xe theo tỉnh thành</a>.</p>
+    <p class="intro">
+      Giải thích biển số xe sau sáp nhập tỉnh 2025 bằng số liệu từ bảng mã của BIEN SO, mỗi bài có mục nguồn ở cuối. Muốn tra một mã cụ thể, dùng <a href="/">ô tra cứu biển số xe</a> hoặc <a href="/bang-ma">bảng biển số xe theo tỉnh thành</a>.
+    </p>
     <ul class="kb-list">
       {
-        ARTICLES.map((a) => (
+        list.map((a) => (
           <li>
             <a href={a.path}><strong>{a.h1}</strong></a>
             <p>{a.description}</p>
+            <p class="meta">Đăng ngày <time datetime={a.publishedAt}>{formatDate(a.publishedAt)}</time></p>
           </li>
         ))
       }

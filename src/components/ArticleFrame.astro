@@ -1,0 +1,46 @@
+---
+import Breadcrumb from './Breadcrumb.astro';
+import Sources from './Sources.astro';
+import Base from '../layouts/Base.astro';
+import type { Crumb } from '../lib/crumbs';
+import { data } from '../lib/data';
+import { formatDate } from '../lib/format';
+import { articleDates, KB_INDEX, type Article } from '../lib/knowledge';
+import { articleNode, pageGraph } from '../lib/schema';
+import '../styles/home.css';
+import '../styles/pages.css';
+
+// Shared frame for /kien-thuc/* articles: breadcrumb, H1, dates, Nguồn. No ads here, same as /nguon.
+interface Props {
+  article: Article;
+}
+const { article: a } = Astro.props;
+const site = Astro.site as URL;
+const dates = articleDates(a, data.meta.lastReviewed);
+const crumbs: Crumb[] = [
+  { name: 'Trang chủ', path: '/' },
+  { name: 'Kiến thức', path: KB_INDEX.path },
+  { name: a.h1, path: a.path },
+];
+const graph = pageGraph({
+  site,
+  path: a.path,
+  name: a.title,
+  description: a.description,
+  crumbs,
+  extra: [articleNode({ path: a.path, h1: a.h1, description: a.description, published: dates.published, modified: dates.modified }, site)],
+});
+---
+
+<Base title={a.title} description={a.description} path={a.path} jsonLd={graph}>
+  <main class="home page prose">
+    <Breadcrumb crumbs={crumbs} />
+    <h1>{a.h1}</h1>
+    <p class="meta">
+      Đăng ngày <time datetime={dates.published}>{formatDate(dates.published)}</time>
+      {dates.showModified && <> · Cập nhật <time datetime={dates.modified}>{formatDate(dates.modified)}</time></>}
+    </p>
+    <slot />
+    <Sources />
+  </main>
+</Base>

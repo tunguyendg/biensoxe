@@ -6,7 +6,9 @@ import Base from '../../layouts/Base.astro';
 import { SHOW_AREA_POPULATION, areaPopulationLine, mergeBadge, metaLine } from '../../lib/card';
 import { data } from '../../lib/data';
 import Breadcrumb from '../../components/Breadcrumb.astro';
-import { crumbsLd, type Crumb } from '../../lib/crumbs';
+import type { Crumb } from '../../lib/crumbs';
+import { pageGraph } from '../../lib/schema';
+import { ARTICLE_BANGDOICHIEU, ARTICLE_NHIEUMA } from '../../lib/knowledge';
 import { provinceSummary } from '../../lib/content';
 import { appendixNameNote } from '../../lib/decisions';
 import { lookup } from '../../lib/lookup';
@@ -32,7 +34,7 @@ const crumbs: Crumb[] = [
 ];
 ---
 
-<Base title={provinceTitle(p)} description={provinceDescription(p)} path={`/tinh/${p.slug}`} jsonLd={[crumbsLd(crumbs, site)]}>
+<Base title={provinceTitle(p)} description={provinceDescription(p)} path={`/tinh/${p.slug}`} jsonLd={pageGraph({ site, path: `/tinh/${p.slug}`, name: provinceTitle(p), description: provinceDescription(p), crumbs })}>
   <main class="home page">
     <Breadcrumb crumbs={crumbs} />
     <h1>Biển số xe {p.name}</h1>
@@ -61,6 +63,11 @@ const crumbs: Crumb[] = [
         }
       </ul>
     </section>
+
+    <p class="links">
+      {p.mergedFrom.length > 0 && <a href={`${ARTICLE_BANGDOICHIEU.path}#${p.slug}`}>Đối chiếu tỉnh cũ và tỉnh mới</a>}
+      {p.codes.length >= 3 && <a href={ARTICLE_NHIEUMA.path}>Tỉnh có nhiều mã biển số</a>}
+    </p>
 
     <div class="card-foot" set:html={footerHtml()} />
 

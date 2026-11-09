@@ -13,11 +13,12 @@ const text = (html: string) => un(html.replace(/<(script|style|svg)[^>]*>[\s\S]*
 const main = (h: string) => /<main[\s\S]*?<\/main>/.exec(h)?.[0] ?? '';
 const words = (s: string) => s.split(/\s+/).filter(Boolean);
 const paragraphs = (html: string) => [...html.matchAll(/<p\b([^>]*)>([\s\S]*?)<\/p>/g)].map((m) => ({ cls: /class="([^"]*)"/.exec(m[1] as string)?.[1] ?? '', text: text(m[2] as string) }));
-const ld = (h: string) => [...h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse((m[1] as string).replace(/\\u003c/g, '<')) as Record<string, unknown>);
+const ld = (h: string) => [...h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap((m) => (JSON.parse((m[1] as string).replace(/\\u003c/g, '<')) as { '@graph': Record<string, unknown>[] })['@graph']);
 const title = (h: string) => text(/<title>([\s\S]*?)<\/title>/.exec(h)?.[1] ?? '');
 const desc = (h: string) => un(/<meta name="description" content="([^"]*)"/.exec(h)?.[1] ?? '');
 const codes = new Set(data.codes.map((c) => c.code));
-const ARTICLES = ['kien-thuc/bien-so-xe-sau-sap-nhap-2025', 'kien-thuc/cach-doc-ma-bien-so-xe'];
+const OLD = ['kien-thuc/bien-so-xe-sau-sap-nhap-2025', 'kien-thuc/cach-doc-ma-bien-so-xe'];
+const ARTICLES = [...OLD, 'kien-thuc/bang-doi-chieu-63-tinh-cu-34-tinh-moi', 'kien-thuc/tinh-thanh-giu-nguyen-sau-sap-nhap-2025', 'kien-thuc/tinh-co-nhieu-ma-bien-so'];
 const KB = ['kien-thuc', ...ARTICLES];
 
 describe('home block', () => {
@@ -115,6 +116,8 @@ describe('code pages: data-generated sentences', () => {
   });
 });
 
+const m_links = (html: string) => [...html.matchAll(/href="\/(\d{2})"/g)].map((x) => x[1] as string);
+
 describe('/kien-thuc', () => {
   it('3 pages: 1 H1, title ≤ 60, description 120–160, canonical, breadcrumb = JSON-LD, footer link', () => {
     for (const f of KB) {
@@ -141,7 +144,7 @@ describe('/kien-thuc', () => {
       }
     }
   });
-  it('the 2 articles carry Article JSON-LD (no FAQPage), datePublished = publishedAt, dateModified = max(publishedAt, lastReviewed), and a Nguồn section with real URLs', () => {
+  it('all 5 articles carry Article JSON-LD (no FAQPage), datePublished = publishedAt, dateModified = max(publishedAt, lastReviewed), and a Nguồn section with real URLs', () => {
     for (const f of ARTICLES) {
       const h = read(`${f}.html`);
       const art = ld(h).find((x) => x['@type'] === 'Article') as Record<string, unknown>;
@@ -152,7 +155,8 @@ describe('/kien-thuc', () => {
       expect(text(main(h))).toContain('Đăng ngày 09/11/2026');
       expect(text(main(h)).includes('Cập nhật')).toBe(modified !== '2026-11-09');
       expect(art.headline).toBe(text(/<h1[\s\S]*?<\/h1>/.exec(h)?.[0] ?? ''));
-      expect((art.publisher as { name: string }).name).toBe('Biển Số');
+      expect(art.publisher).toEqual({ '@id': `${new URL(String(art.mainEntityOfPage && (art.mainEntityOfPage as { '@id': string })['@id'])).origin}/#organization` });
+      expect(art.author).toEqual(art.publisher);
       expect(ld(h).some((x) => x['@type'] === 'FAQPage')).toBe(false);
       for (const url of [tt51.meta.gazetteUrl, tt51.meta.transcribedFrom, nq202.meta.pdf, tt79.meta.transcribedFrom]) expect(h, `${f} ${url}`).toContain(`href="${url}"`);
       expect(h).toContain('<h2 id="sources-h">Nguồn</h2>');
@@ -162,8 +166,9 @@ describe('/kien-thuc', () => {
   it('articles cross-link each other, /bang-ma and ≥ 5 code/province pages; no ads on /kien-thuc/*', () => {
     for (const f of ARTICLES) {
       const h = read(`${f}.html`);
-      const other = ARTICLES.find((x) => x !== f) as string;
-      expect(h).toContain(`href="/${other}"`);
+      const others = ARTICLES.filter((x) => x !== f);
+      expect(others.some((o) => h.includes(`href="/${o}`)), `${f} links no other article`).toBe(true);
+      if (OLD.includes(f)) expect(h).toContain(`href="/${OLD.find((x) => x !== f)}"`);
       expect(h).toContain('href="/bang-ma"');
       const targets = new Set([...h.matchAll(/href="\/((?:tinh\/)?[\w-]+)"/g)].map((m) => m[1] as string).filter((p) => /^\d{2}$/.test(p) || p.startsWith('tinh/')));
       expect(targets.size, f).toBeGreaterThanOrEqual(5 - 1); // see next assertion for the combined count
@@ -185,13 +190,14 @@ describe('/kien-thuc', () => {
       expect(t, f).not.toMatch(/bắt buộc đổi biển|phải đổi biển|cần đổi biển|thủ tục đổi biển/i);
     }
   });
-  it('every plate code mentioned exists in the data; the limits line is verbatim', () => {
+  it('every plate code mentioned exists in the data (also every linked /NN); the limits line is verbatim', () => {
     for (const f of ARTICLES) {
       const m = main(read(`${f}.html`));
       const t = text(m);
       const mentioned = [...t.matchAll(/(?:[Bb]iển số|[Mm]ã|[Bb]iển) (\d{2})\b/g)].map((x) => x[1] as string);
-      expect(mentioned.length, f).toBeGreaterThan(0);
+      if (OLD.includes(f)) expect(mentioned.length, f).toBeGreaterThan(0);
       for (const c of mentioned) expect(codes.has(c), `${f}: ${c}`).toBe(true);
+      for (const l of m_links(m)) expect(codes.has(l), `${f} link /${l}`).toBe(true);
     }
     expect(text(main(read(`${ARTICLES[1]}.html`)))).toContain(LIMITS);
   });
@@ -203,5 +209,118 @@ describe('/kien-thuc', () => {
     expect(t).not.toContain('cần kiểm chứng thêm');
     expect(t).toContain('30/06/2025');
     expect(nq202.meta.adopted).toBe('2025-06-12');
+  });
+});
+
+describe('new articles (V1.1)', () => {
+  const NEW = ARTICLES.slice(2);
+  const rowsOf = (h: string) => [...h.matchAll(/<tr[^>]*>[\s\S]*?<\/tr>/g)].map((m) => m[0]).filter((r) => r.includes('<td'));
+  const bySlug = new Map(data.provinces.map((p) => [p.slug, p]));
+
+  it('bảng đối chiếu: 63 rows (one per former province), every row links /tinh/[slug] and every /[code]; grouped by current province', () => {
+    const h = read(`${NEW[0]}.html`);
+    const rows = rowsOf(h);
+    const formers = new Map<string, { slug: string; codes: string[] }>();
+    for (const c of data.codes) {
+      if (c.type !== 'province' || c.formerProvince === null || c.currentProvince === null) continue;
+      const e: { slug: string; codes: string[] } = formers.get(c.formerProvince) ?? { slug: c.currentProvince, codes: [] };
+      e.codes.push(c.code);
+      formers.set(c.formerProvince, e);
+    }
+    expect(formers.size).toBe(63);
+    expect(rows).toHaveLength(63);
+    const seenFormer = new Set<string>();
+    for (const r of rows) {
+      const former = text(/<th[^>]*>([\s\S]*?)<\/th>/.exec(r)?.[1] ?? '');
+      const exp = formers.get(former);
+      expect(exp, former).toBeDefined();
+      seenFormer.add(former);
+      expect(r).toContain(`href="/tinh/${exp?.slug}"`);
+      const codes = [...r.matchAll(/href="\/(\d{2})"/g)].map((m) => m[1]);
+      expect(codes, former).toEqual(exp?.codes);
+    }
+    expect(seenFormer.size).toBe(63);
+    // grouped: rows of one current province are contiguous, and the first row of each of the 34 carries id=slug
+    const order = rows.map((r) => /href="\/tinh\/([^"]+)"/.exec(r)?.[1] as string);
+    const compact = order.filter((s, i) => s !== order[i - 1]);
+    expect(new Set(compact).size).toBe(compact.length);
+    expect(compact).toHaveLength(34);
+    for (const s of compact) expect(h, s).toMatch(new RegExp(`<tr id="${s}"`));
+    // opening answer names the numbers and dates from the sources
+    const t = text(main(h));
+    expect(t).toContain('63 đơn vị hành chính cấp tỉnh được sắp xếp thành 34');
+    expect(t).toContain('hiệu lực 12/06/2025');
+    expect(t).toContain('từ 01/07/2025');
+    expect(t).toContain('iển số xe 34 tỉnh thành');
+    expect(h).toContain('href="/bang-ma"');
+    for (const s of bySlug.keys()) expect(h).toContain(`href="/tinh/${s}"`);
+  });
+
+  it('tỉnh giữ nguyên: groups and counts match the data (11 / 6 / 17)', () => {
+    const h = read(`${NEW[1]}.html`);
+    const t = text(main(h));
+    const n = (k: number) => data.provinces.filter((p) => p.mergedFrom.length === k);
+    expect([n(0).length, n(3).length, n(2).length]).toEqual([11, 6, 17]);
+    expect(t).toContain('11 nơi giữ nguyên, 6 nơi hợp nhất từ 3 đơn vị cũ và 17 nơi hợp nhất từ 2 đơn vị cũ');
+    for (const p of [...n(0), ...n(2), ...n(3)]) expect(h, p.slug).toContain(`href="/tinh/${p.slug}"`);
+    for (const p of n(3)) expect(t, p.name).toContain(p.mergedFrom.join(', ').replace(/, ([^,]+)$/, ' và $1'));
+  });
+
+  it('nhiều mã: exactly the provinces with ≥ 3 codes, own vs incoming split from the data, no explanation of "why"', () => {
+    const h = read(`${NEW[2]}.html`);
+    const t = text(main(h));
+    const multi = data.provinces.filter((p) => p.codes.length >= 3).map((p) => p.slug).sort();
+    expect(multi).toEqual(['can-tho', 'dong-nai', 'ha-noi', 'hai-phong', 'ho-chi-minh', 'lam-dong', 'ninh-binh', 'phu-tho', 'vinh-long']);
+    const rows = rowsOf(h);
+    expect(rows).toHaveLength(multi.length);
+    expect(rows.map((r) => /<tr id="([^"]+)"/.exec(r)?.[1]).sort()).toEqual(multi);
+    const ct = rows.find((r) => /<tr id="can-tho"/.test(r)) as string;
+    expect(text(ct)).toContain('65');
+    expect(text(ct)).toContain('83 (trước là Sóc Trăng)');
+    expect(text(ct)).toContain('95 (trước là Hậu Giang)');
+    const ha = rows.find((r) => /<tr id="ha-noi"/.test(r)) as string;
+    expect(text(ha)).toContain('—'); // nothing incoming
+    expect(t).toContain('Có 9 tỉnh, thành dùng từ 3 mã biển số trở lên');
+    expect(t).not.toMatch(/vì (dân số|diện tích|nhu cầu|lý do)|do (dân số|diện tích)|để (đáp ứng|phục vụ)/i);
+  });
+
+  it('each new article: ≥ 5 internal links, ≥ 250 words of text, a Nguồn section, mobile-safe table markup', () => {
+    for (const f of NEW) {
+      const h = read(`${f}.html`);
+      const m = main(h);
+      expect([...m.matchAll(/href="\/[^"]*"/g)].length, f).toBeGreaterThanOrEqual(5);
+      expect(words(text(m)).length, f).toBeGreaterThanOrEqual(250);
+      expect(h, f).toContain('<h2 id="sources-h">Nguồn</h2>');
+      expect(h, f).toMatch(/<h2 id="[^"]+">/);
+    }
+    for (const f of [NEW[0], NEW[2]]) {
+      const h = read(`${f}.html`);
+      expect(h, f).toContain('class="tbl-wrap"');
+      expect(h, f).toMatch(/<table class="xtable"/);
+      expect(h, f).toMatch(/<td data-label=/); // stacked cards below 40rem need the labels
+    }
+  });
+
+  it('/kien-thuc: new intro (no "Hai bài ngắn"), cards with title, one-sentence description, date, newest first', () => {
+    const h = read('kien-thuc.html');
+    expect(text(h)).not.toContain('Hai bài ngắn');
+    const cards = [...h.matchAll(/<li><a href="(\/kien-thuc\/[^"]+)"><strong>([\s\S]*?)<\/strong><\/a><p>([\s\S]*?)<\/p><p class="meta">Đăng ngày <time datetime="([^"]+)">/g)];
+    expect(cards).toHaveLength(5);
+    const dates = cards.map((c) => c[4] as string);
+    expect([...dates].sort().reverse()).toEqual(dates);
+    for (const c of cards) expect((c[3] as string).length).toBeGreaterThan(40);
+  });
+
+  it('links from existing pages: /bang-ma → bài đối chiếu + nhiều mã; changed code pages and merged/multi-code province pages link the new articles', () => {
+    const bm = read('bang-ma.html');
+    expect(bm).toContain(`href="/${NEW[0]}"`);
+    expect(bm).toContain(`href="/${NEW[2]}"`);
+    expect(read('83.html')).toContain(`href="/${NEW[0]}#can-tho"`);
+    expect(read('27.html')).not.toContain(`/${NEW[0]}`); // unchanged province: no table row to point at
+    const ct = read('tinh/can-tho.html');
+    expect(ct).toContain(`href="/${NEW[0]}#can-tho"`);
+    expect(ct).toContain(`href="/${NEW[2]}"`);
+    expect(read('tinh/dien-bien.html')).not.toContain('/kien-thuc/');
+    expect(read(`${ARTICLES[0]}.html`)).toContain(`href="/${NEW[0]}"`);
   });
 });

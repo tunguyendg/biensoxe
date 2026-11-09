@@ -1,0 +1,59 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { SOURCE_DATES, provinceGroups } from '../../lib/content';
+import { data } from '../../lib/data';
+import { joinVi } from '../../lib/format';
+import { ARTICLE_BANGDOICHIEU, ARTICLE_GIUNGUYEN as A } from '../../lib/knowledge';
+
+const { unchanged, from2, from3 } = provinceGroups();
+const total = unchanged.length + from2.length + from3.length;
+const sections = [
+  { id: 'tu3', title: `${from3.length} tỉnh, thành hợp nhất từ 3 đơn vị`, list: from3 },
+  { id: 'tu2', title: `${from2.length} tỉnh, thành hợp nhất từ 2 đơn vị`, list: from2 },
+];
+---
+
+<ArticleFrame article={A}>
+  <p class="intro">
+    Trong {total} tỉnh, thành hiện nay, {unchanged.length} nơi giữ nguyên, {from3.length} nơi hợp nhất từ 3 đơn vị cũ và {from2.length} nơi hợp nhất từ 2 đơn vị cũ, theo Nghị quyết 202/2025/QH15
+    (hiệu lực {SOURCE_DATES.nq202Effective}).
+  </p>
+
+  <section aria-labelledby="giu">
+    <h2 id="giu">{unchanged.length} tỉnh, thành giữ nguyên</h2>
+    <p>Các nơi này không thuộc diện sắp xếp, nên tên và mã biển số vẫn như trước 01/07/2025.</p>
+    <ul class="plain">
+      {
+        unchanged.map((p) => (
+          <li>
+            <a href={`/tinh/${p.slug}`}>{p.name}</a>: {p.codes.length === 1 ? 'mã' : `${p.codes.length} mã`}{' '}
+            {p.codes.map((c, i) => <>{i > 0 && ', '}<a href={`/${c}`} aria-label={`Biển số ${c}`}>{c}</a></>)}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {
+    sections.map((s) => (
+      <section aria-labelledby={s.id}>
+        <h2 id={s.id}>{s.title}</h2>
+        <ul class="plain">
+          {s.list.map((p) => (
+            <li>
+              <a href={`/tinh/${p.slug}`}>{p.name}</a>, gồm {joinVi(p.mergedFrom)}; {p.codes.length} mã biển số.
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+
+  <section aria-labelledby="tiep">
+    <h2 id="tiep">Xem tiếp</h2>
+    <p>
+      Muốn biết từng tỉnh cũ nay thuộc đâu và mã biển số của tỉnh cũ, xem <a href={ARTICLE_BANGDOICHIEU.path}>{ARTICLE_BANGDOICHIEU.h1.toLowerCase()}</a>.
+      Bảng mã hiện hành ({data.codes.length} mã) nằm ở <a href="/bang-ma">bảng biển số xe {data.provinces.length} tỉnh thành</a>.
+    </p>
+  </section>
+</ArticleFrame>

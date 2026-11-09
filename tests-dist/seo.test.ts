@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import data from '../data/plate-codes.json';
 
-// SEO audit over every built page (122). Runs after `npm run build`.
+// SEO audit over every built page (125). Runs after `npm run build`.
 const all = readdirSync('dist', { recursive: true, encoding: 'utf8' });
 const files = all.filter((f) => f.endsWith('.html'));
 const read = (f: string) => readFileSync(join('dist', f), 'utf8');
@@ -136,8 +136,9 @@ describe('3. internal links', () => {
   });
 });
 
-describe('4. JSON-LD', () => {
-  const bcOf = (h: string) => ldBlocks(h).find((b) => b['@type'] === 'BreadcrumbList');
+describe('4. JSON-LD (one @graph per page; details in schema.test.ts)', () => {
+  const nodes = (h: string) => ldBlocks(h).flatMap((b) => (b['@graph'] as Record<string, unknown>[]) ?? []);
+  const bcOf = (h: string) => nodes(h).find((b) => b['@type'] === 'BreadcrumbList');
   it('BreadcrumbList matches the visible breadcrumb on every detail page (names + absolute URLs)', () => {
     for (const { f, h } of pages) {
       const nav = /<nav class="crumbs"[\s\S]*?<\/nav>/.exec(h)?.[0];
@@ -156,11 +157,11 @@ describe('4. JSON-LD', () => {
       });
     }
   });
-  it('FAQPage on /nguon; WebSite on the home page (name, url, inLanguage vi; no SearchAction)', () => {
-    const faq = ldBlocks(read('nguon.html')).find((b) => b['@type'] === 'FAQPage');
+  it('FAQPage on /nguon; WebSite fully defined on the home page (name, url, inLanguage vi; no SearchAction)', () => {
+    const faq = nodes(read('nguon.html')).find((b) => b['@type'] === 'FAQPage');
     expect((faq?.mainEntity as unknown[]).length).toBeGreaterThanOrEqual(4);
-    const site = ldBlocks(read('index.html')).find((b) => b['@type'] === 'WebSite');
-    expect(site).toMatchObject({ '@context': 'https://schema.org', name: 'BIEN SO', url: `${SITE}/`, inLanguage: 'vi' });
+    const site = nodes(read('index.html')).find((b) => b['@type'] === 'WebSite');
+    expect(site).toMatchObject({ name: 'Biển Số', url: `${SITE}/`, inLanguage: 'vi' });
     expect(JSON.stringify(site)).not.toContain('SearchAction');
     expect(JSON.stringify(site)).not.toContain('potentialAction');
   });
@@ -182,12 +183,12 @@ describe('5. robots.txt & sitemap.xml', () => {
     expect(r).not.toMatch(/^Disallow: \/\s*$/m);
     expect(r).toContain(`Sitemap: ${SITE}/sitemap.xml`);
   });
-  it('sitemap: 121 absolute URLs, lastmod = meta.lastReviewed, no 404, no duplicates', () => {
-    expect(locs).toHaveLength(121);
-    expect(new Set(locs).size).toBe(121);
+  it('sitemap: 124 absolute URLs, lastmod = meta.lastReviewed, no 404, no duplicates', () => {
+    expect(locs).toHaveLength(124);
+    expect(new Set(locs).size).toBe(124);
     for (const l of locs) expect(l.startsWith('http')).toBe(true);
     const mods = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((m) => m[1]);
-    expect(mods).toHaveLength(121);
+    expect(mods).toHaveLength(124);
     expect(new Set(mods)).toEqual(new Set([data.meta.lastReviewed]));
     expect(sitemap).not.toContain('404');
   });

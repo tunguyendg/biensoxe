@@ -1,0 +1,67 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { FORMER_COUNT, SOURCE_DATES, mergeRows } from '../../lib/content';
+import { data } from '../../lib/data';
+import { formatDate } from '../../lib/format';
+import { ARTICLE_BANGDOICHIEU as A, ARTICLE_NHIEUMA, ARTICLE_SAPNHAP } from '../../lib/knowledge';
+
+const rows = mergeRows();
+const since = formatDate(data.meta.dataVersion);
+// First row of each current province carries the anchor used by links from code and province pages.
+const firstOf = new Set(rows.map((r) => r.province.slug).filter((s, i, all) => all.indexOf(s) === i));
+const seen = new Set<string>();
+---
+
+<ArticleFrame article={A}>
+  <p class="intro">
+    Theo Nghị quyết 202/2025/QH15 (hiệu lực {SOURCE_DATES.nq202Effective}), {FORMER_COUNT} đơn vị hành chính cấp tỉnh được sắp xếp thành {data.provinces.length}; chính quyền địa phương mới hoạt động từ {SOURCE_DATES.governmentsFrom}.
+    Bảng dưới đây liệt kê đủ {rows.length} tỉnh cũ, tỉnh, thành hiện nay của từng nơi và mã biển số của tỉnh cũ trước {since}.
+  </p>
+
+  <section aria-labelledby="khac">
+    <h2 id="khac">Khác gì với bảng biển số hiện hành?</h2>
+    <p>
+      Bài này xếp theo <strong>tỉnh cũ</strong>, để trả lời “tỉnh X trước đây nay thuộc đâu”.{' '}
+      <a href="/bang-ma">Bảng biển số xe {data.provinces.length} tỉnh thành</a> xếp theo mã hiện hành và vùng. Về tổng quan sáp nhập, xem bài <a href={ARTICLE_SAPNHAP.path}>{ARTICLE_SAPNHAP.h1.toLowerCase()}</a>.
+    </p>
+  </section>
+
+  <section aria-labelledby="cach">
+    <h2 id="cach">Cách đọc bảng</h2>
+    <p>
+      Mỗi dòng là một tỉnh cũ. Cột giữa là tỉnh, thành hiện nay (bấm để xem các mã của nơi đó), cột cuối là mã biển số tỉnh cũ đó có trước {since} (bấm để xem chi tiết từng mã).
+      Một tỉnh có nhiều mã, ví dụ, được trình bày ở bài <a href={ARTICLE_NHIEUMA.path}>{ARTICLE_NHIEUMA.h1.toLowerCase()}</a>.
+    </p>
+  </section>
+
+  <section aria-labelledby="bang">
+    <h2 id="bang">Bảng {rows.length} tỉnh cũ</h2>
+    <div class="tbl-wrap">
+      <table class="xtable">
+        <caption class="sr-only">Tỉnh cũ, tỉnh hoặc thành phố hiện nay và mã biển số của tỉnh cũ</caption>
+        <thead>
+          <tr><th scope="col">Tỉnh cũ</th><th scope="col">Tỉnh, thành hiện nay</th><th scope="col">Mã biển số của tỉnh cũ</th></tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((r) => {
+              const first = firstOf.has(r.province.slug) && !seen.has(r.province.slug);
+              seen.add(r.province.slug);
+              return (
+                <tr id={first ? r.province.slug : undefined}>
+                  <th scope="row" data-label="Tỉnh cũ">{r.former}</th>
+                  <td data-label="Hiện nay"><a href={`/tinh/${r.province.slug}`}>{r.province.name}</a></td>
+                  <td data-label="Mã biển số">
+                    {r.codes.map((c, i) => (
+                      <>{i > 0 && ', '}<a href={`/${c}`} aria-label={`Biển số ${c}`}>{c}</a></>
+                    ))}
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</ArticleFrame>

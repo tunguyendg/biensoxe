@@ -6,22 +6,29 @@ import { LIMITS } from '../lib/copy';
 import { data, isDraft } from '../lib/data';
 import { FAQ } from '../lib/faq';
 import { formatDate } from '../lib/format';
-import { faqLd } from '../lib/jsonld';
+import { faqNode } from '../lib/jsonld';
+import { pageGraph } from '../lib/schema';
+import type { Crumb } from '../lib/crumbs';
 import '../styles/home.css';
 import '../styles/pages.css';
 
 // No offers on this page, by design.
 const { legalBasis, dataVersion, lastReviewed } = data.meta;
+const site = Astro.site as URL;
+const crumbs: Crumb[] = [{ name: 'Trang chủ', path: '/' }, { name: 'Nguồn và giới hạn', path: '/nguon' }];
+const graph = pageGraph({
+  site,
+  path: '/nguon',
+  name: NGUON_TITLE,
+  description: NGUON_DESC,
+  crumbs,
+  extra: [faqNode(`${new URL('/nguon', site).href}#faq`, FAQ)],
+});
 ---
 
-<Base
-  title={NGUON_TITLE}
-  description={NGUON_DESC}
-  path="/nguon"
-  jsonLd={[faqLd(FAQ)]}
->
+<Base title={NGUON_TITLE} description={NGUON_DESC} path="/nguon" jsonLd={graph}>
   <main class="home page prose">
-    <Breadcrumb crumbs={[{ name: 'Trang chủ', path: '/' }, { name: 'Nguồn và giới hạn', path: '/nguon' }]} />
+    <Breadcrumb crumbs={crumbs} />
     <h1>Nguồn và giới hạn của dữ liệu biển số xe</h1>
 
     <section aria-labelledby="independent-h">

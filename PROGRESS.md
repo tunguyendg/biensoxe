@@ -125,3 +125,8 @@
 
 ## Ads redesign
 - OfferCards: label → title → blurb from data/offers.config.json (text no longer read from offers.json; only links are), 56px yellow tile + redrawn icons, yellow full-width CTA "Xem giá hôm nay →" (right side ≥640px), one link per card, "Bán chạy trên Shopee" only when the stored link has sortBy=sales. FeaturedBanner: navy→blue gradient, white 20px title, yellow chip "Đến hết dd/mm" from endAt, yellow CTA "Xem chương trình →"; sample config sale-1111 (inactive, targetUrl TODO). offers-links searchUrl adds &sortBy=sales (not run with the real token → Founder re-runs offers:links). Build gate: label/title/blurb reject price/promo words (+ prices); featured needs endAt for them. New tokens (ad-*, feat-*) in the contrast test. No new JS.
+
+## V1.1: structured data + 3 articles
+- Schema: one `{"@context","@graph"}` block per page (src/lib/schema.ts): Organization (minimal, logo 512) everywhere, WebSite full on `/` only, WebPage/CollectionPage, BreadcrumbList, ItemList (/bang-ma, /kien-thuc), Article (author/publisher = Organization @id), FAQPage kept on /nguon only; 404 has none. Tests: tests/schema.test.ts, tests-dist/schema.test.ts. og:site_name → "Biển Số".
+- Content: /kien-thuc now 5 articles + index cards (newest first). New: bảng đối chiếu 63 → 34, tỉnh giữ nguyên/hợp nhất (replaces "tra khi nhớ tên tỉnh cũ" — same intent as the table, would be thin), tỉnh có nhiều mã. ArticleFrame component. Internal links from /bang-ma, changed code pages, merged/multi-code province pages. Audit + proposal E in docs/SEO_V1_1.md.
+- Open for Founder: proposal E (/tinh-cu/*), og:site_name change, articles' publishedAt = 2026-11-09.
