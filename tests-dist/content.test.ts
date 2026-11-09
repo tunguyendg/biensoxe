@@ -74,6 +74,7 @@ describe('code pages: data-generated sentences', () => {
   const pages = data.codes.filter((c) => c.type === 'province').map((c) => ({ code: c.code, m: main(read(`${c.code}.html`)) }));
   it('/83, /27 and /75 say the right thing', () => {
     const facts = (code: string) => paragraphs(pages.find((p) => p.code === code)?.m ?? '').find((p) => p.cls === 'facts')?.text;
+    expect(facts('52')).toBe('Mã 52 là một trong 13 mã biển của TP. Hồ Chí Minh.');
     expect(facts('83')).toBe('Trước 01/07/2025, mã 83 là của Sóc Trăng. Sóc Trăng nay thuộc Cần Thơ, cùng với Hậu Giang. Cần Thơ hiện dùng 3 mã: 65, 83, 95.');
     expect(facts('27')).toBe('Điện Biên không thay đổi sau sắp xếp hành chính 2025 và chỉ dùng mã 27.');
     expect(facts('75')).toBe('Huế không thay đổi sau sắp xếp hành chính 2025 và chỉ dùng mã 75.');
@@ -140,19 +141,22 @@ describe('/kien-thuc', () => {
       }
     }
   });
-  it('the 2 articles carry Article JSON-LD (no FAQPage), date = meta.lastReviewed, and a Nguồn section with real URLs', () => {
+  it('the 2 articles carry Article JSON-LD (no FAQPage), datePublished = publishedAt, dateModified = max(publishedAt, lastReviewed), and a Nguồn section with real URLs', () => {
     for (const f of ARTICLES) {
       const h = read(`${f}.html`);
       const art = ld(h).find((x) => x['@type'] === 'Article') as Record<string, unknown>;
       expect(art.inLanguage).toBe('vi');
-      expect(art.datePublished).toBe(data.meta.lastReviewed);
-      expect(art.dateModified).toBe(data.meta.lastReviewed);
+      expect(art.datePublished).toBe('2026-11-09');
+      const modified = data.meta.lastReviewed > '2026-11-09' ? data.meta.lastReviewed : '2026-11-09';
+      expect(art.dateModified).toBe(modified);
+      expect(text(main(h))).toContain('Đăng ngày 09/11/2026');
+      expect(text(main(h)).includes('Cập nhật')).toBe(modified !== '2026-11-09');
       expect(art.headline).toBe(text(/<h1[\s\S]*?<\/h1>/.exec(h)?.[0] ?? ''));
       expect((art.publisher as { name: string }).name).toBe('Biển Số');
       expect(ld(h).some((x) => x['@type'] === 'FAQPage')).toBe(false);
       for (const url of [tt51.meta.gazetteUrl, tt51.meta.transcribedFrom, nq202.meta.pdf, tt79.meta.transcribedFrom]) expect(h, `${f} ${url}`).toContain(`href="${url}"`);
       expect(h).toContain('<h2 id="sources-h">Nguồn</h2>');
-      expect(h).toContain(`datetime="${data.meta.lastReviewed}"`);
+      expect(h).toContain('datetime="2026-11-09"');
     }
   });
   it('articles cross-link each other, /bang-ma and ≥ 5 code/province pages; no ads on /kien-thuc/*', () => {
@@ -196,6 +200,7 @@ describe('/kien-thuc', () => {
     expect(t).toContain('63 đơn vị thành 34');
     expect(t).toContain('12/06/2025');
     expect(t).toContain('01/07/2025');
+    expect(t).not.toContain('cần kiểm chứng thêm');
     expect(t).toContain('30/06/2025');
     expect(nq202.meta.adopted).toBe('2025-06-12');
   });

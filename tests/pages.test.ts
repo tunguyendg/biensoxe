@@ -27,7 +27,10 @@ describe('titles & copy', () => {
     expect(codeDescription(found('83'))).toContain('trước 01/07/2025 là Sóc Trăng');
     expect(codeDescription(found('27'))).not.toContain('trước');
     expect(codeDescription(found('80'))).toContain('không gắn với tỉnh');
-    expect(codeExplanation(found('83'))).toContain('Mã 83 thuộc diện hợp nhất theo Nghị quyết 202/2025/QH15.');
+    expect(codeExplanation(found('83'))).toContain('Sóc Trăng được hợp nhất vào Cần Thơ theo Nghị quyết 202/2025/QH15.');
+    expect(codeExplanation(found('52'))).toBe('Biển 52 là xe đăng ký tại TP. Hồ Chí Minh. Mã 52 vẫn thuộc TP. Hồ Chí Minh như trước 01/07/2025.');
+    expect(codeExplanation(found('65'))).toContain('Mã 65 vẫn thuộc Cần Thơ như trước 01/07/2025.');
+    expect(codeExplanation(found('83'))).not.toContain('thuộc diện');
     expect(codeExplanation(found('27'))).toContain('không thuộc diện sắp xếp');
     expect(codeExplanation(found('80'))).toContain('Cục Cảnh sát giao thông');
     for (const c of data.codes) expect(codeExplanation(found(c.code))).not.toMatch(/không phải đổi/i);
@@ -180,5 +183,20 @@ describe('appendixNameNote (decision-driven, name from data/sources)', async () 
   });
   it('real data: the appendix name for code 75 is read from the source file', () => {
     expect(appendixNameNote('code:75', 'Huế', ['75'], { 'code:75': 'x' })).toContain('Thừa Thiên Huế');
+  });
+});
+
+describe('article dates', async () => {
+  const { articleDates, articleLd, ARTICLE_SAPNHAP } = await import('../src/lib/knowledge');
+  const site = new URL('https://bienso.org');
+  it('datePublished = publishedAt; dateModified = max(publishedAt, lastReviewed); "Cập nhật" only when different', () => {
+    expect(ARTICLE_SAPNHAP.publishedAt).toBe('2026-11-09');
+    expect(articleDates(ARTICLE_SAPNHAP, '2026-11-08')).toEqual({ published: '2026-11-09', modified: '2026-11-09', showModified: false });
+    expect(articleDates(ARTICLE_SAPNHAP, '2026-11-09').showModified).toBe(false);
+    expect(articleDates(ARTICLE_SAPNHAP, '2026-12-01')).toEqual({ published: '2026-11-09', modified: '2026-12-01', showModified: true });
+    const ld = articleLd(ARTICLE_SAPNHAP, site, '2026-12-01');
+    expect(ld.datePublished).toBe('2026-11-09');
+    expect(ld.dateModified).toBe('2026-12-01');
+    expect(articleLd(ARTICLE_SAPNHAP, site, '2026-11-08').dateModified).toBe('2026-11-09');
   });
 });

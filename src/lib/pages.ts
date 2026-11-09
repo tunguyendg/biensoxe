@@ -65,9 +65,14 @@ export function codeExplanation(r: Found): string {
   if (r.kind === 'special') {
     return `Mã ${r.code} không gắn với tỉnh hay thành phố nào. Theo bảng mã (${SOURCE_NAME}), đây là mã của ${r.label}.`;
   }
+  // Written per province, from the data. Pages of one province must not share long identical runs, so the
+  // same-name case repeats the code mid-sentence.
+  const merger = r.changed
+    ? `${r.former} được hợp nhất vào ${r.province.name} theo Nghị quyết 202/2025/QH15.`
+    : r.province.mergedFrom.length > 0
+      ? `Mã ${r.code} vẫn thuộc ${r.province.name} như trước ${formatDate(data.meta.dataVersion)}.`
+      : mergerSentence(r.province);
   const former = r.changed ? ` Trước ${formatDate(data.meta.dataVersion)}, mã này thuộc ${r.former}.` : '';
-  // The code appears again in the last sentence: code pages of one province (e.g. 13 for TP. Hồ Chí Minh) must not share long identical runs.
-  const merger = r.province.mergedFrom.length > 0 ? `Mã ${r.code} thuộc diện hợp nhất theo Nghị quyết 202/2025/QH15.` : mergerSentence(r.province);
   return `Biển ${r.code} là xe đăng ký tại ${r.province.name}.${former} ${merger}`;
 }
 

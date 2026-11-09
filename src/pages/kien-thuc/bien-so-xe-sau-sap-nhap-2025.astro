@@ -7,11 +7,12 @@ import { LIMITS, SOURCE_NAME } from '../../lib/copy';
 import { crumbsLd, type Crumb } from '../../lib/crumbs';
 import { data } from '../../lib/data';
 import { formatDate } from '../../lib/format';
-import { articleLd, ARTICLE_DOCMA, ARTICLE_SAPNHAP as A, KB_INDEX } from '../../lib/knowledge';
+import { articleDates, articleLd, ARTICLE_DOCMA, ARTICLE_SAPNHAP as A, KB_INDEX } from '../../lib/knowledge';
 import { lookup } from '../../lib/lookup';
 import '../../styles/home.css';
 import '../../styles/pages.css';
 
+const dates = articleDates(A);
 const tt = data.meta.legalBasis.find((b) => b.id === 'tt51-2025');
 const since = formatDate(data.meta.dataVersion);
 // Examples come from the data: three merged, one unchanged.
@@ -30,7 +31,10 @@ const crumbs: Crumb[] = [
   <main class="home page prose">
     <Breadcrumb crumbs={crumbs} />
     <h1>{A.h1}</h1>
-    <p class="meta">Cập nhật <time datetime={data.meta.lastReviewed}>{formatDate(data.meta.lastReviewed)}</time></p>
+    <p class="meta">
+      Đăng ngày <time datetime={dates.published}>{formatDate(dates.published)}</time>
+      {dates.showModified && <> · Cập nhật <time datetime={dates.modified}>{formatDate(dates.modified)}</time></>}
+    </p>
 
     <p class="intro">
       Từ {since}, cả nước có {data.provinces.length} tỉnh, thành thay vì {FORMER_COUNT}, và bảng ký hiệu biển số xe theo {SOURCE_NAME} bắt đầu có hiệu lực. Nhiều tỉnh nay dùng nhiều mã biển, gồm cả mã của các tỉnh cũ.
@@ -70,7 +74,7 @@ const crumbs: Crumb[] = [
 
     <section aria-labelledby="s4">
       <h2 id="s4">Biển đã cấp có phải đổi không?</h2>
-      <p>Chưa thấy quy định bắt buộc đổi biển; hỏi công an nơi đăng ký để chắc chắn. Nội dung này cần kiểm chứng thêm và chưa được xác nhận bằng một văn bản cụ thể.</p>
+      <p>Chưa thấy quy định bắt buộc đổi biển; hỏi công an nơi đăng ký để chắc chắn.</p>
       <p>
         Riêng việc chuyển nơi cư trú: theo Thông tư 79/2024/TT-BCA (từ 01/01/2025), chuyển nơi cư trú sang tỉnh khác không, tự nó, buộc phải đổi biển. Đây là thông tin từ nguồn thứ cấp, chưa đối chiếu với văn bản gốc.
       </p>

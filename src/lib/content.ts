@@ -33,8 +33,8 @@ export function codeFacts(r: Found): string[] {
     out.push(`Trước ${since}, mã ${code} là của ${former}. ${former} nay thuộc ${p.name}${others.length ? `, cùng với ${joinVi(others)}` : ''}.`);
     if (siblings.length > 0) out.push(count);
   } else if (p.mergedFrom.length > 0) {
-    out.push(`Mã ${code} không đổi tỉnh: trước ${since} đã là của ${p.name}.`);
-    if (siblings.length > 0) out.push(count);
+    // The explanation under "Giải thích ngắn" already says the code stays with the province; here only the code count.
+    out.push(siblings.length > 0 ? count : `Mã ${code} không đổi tỉnh: trước ${since} đã là của ${p.name}.`);
   } else {
     out.push(`${p.name} không thay đổi sau sắp xếp hành chính 2025 và ${siblings.length === 0 ? `chỉ dùng mã ${code}` : `dùng ${codeList(p.codes)}`}.`);
   }

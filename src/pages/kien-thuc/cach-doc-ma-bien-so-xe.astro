@@ -7,11 +7,12 @@ import { LIMITS, SOURCE_NAME } from '../../lib/copy';
 import { crumbsLd, type Crumb } from '../../lib/crumbs';
 import { data } from '../../lib/data';
 import { formatDate } from '../../lib/format';
-import { articleLd, ARTICLE_DOCMA as A, ARTICLE_SAPNHAP, KB_INDEX } from '../../lib/knowledge';
+import { articleDates, articleLd, ARTICLE_DOCMA as A, ARTICLE_SAPNHAP, KB_INDEX } from '../../lib/knowledge';
 import { lookup } from '../../lib/lookup';
 import '../../styles/home.css';
 import '../../styles/pages.css';
 
+const dates = articleDates(A);
 const since = formatDate(data.meta.dataVersion);
 const examples = ['83', '61', '92', '27'].flatMap((c) => {
   const r = lookup(c);
@@ -30,7 +31,10 @@ const crumbs: Crumb[] = [
   <main class="home page prose">
     <Breadcrumb crumbs={crumbs} />
     <h1>{A.h1}</h1>
-    <p class="meta">Cập nhật <time datetime={data.meta.lastReviewed}>{formatDate(data.meta.lastReviewed)}</time></p>
+    <p class="meta">
+      Đăng ngày <time datetime={dates.published}>{formatDate(dates.published)}</time>
+      {dates.showModified && <> · Cập nhật <time datetime={dates.modified}>{formatDate(dates.modified)}</time></>}
+    </p>
 
     <p class="intro">
       Hai chữ số đầu của biển số xe là ký hiệu địa phương nơi xe được đăng ký, theo {SOURCE_NAME}, hiệu lực từ {since}.
