@@ -39,7 +39,7 @@ export interface FeaturedShown {
 const ISO_WITH_OFFSET = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/;
 
 // Words that read as a price/promo claim. Allowed only when the banner has an end date.
-const PROMO = /(%|₫|giảm|voucher|free\s?ship|freeship|\d\s?[kđ](?![\p{L}\p{N}])|(?<![\p{L}\p{N}])[kđ](?![\p{L}\p{N}]))/iu;
+const PROMO = /(%|₫|giảm|sale|giá sốc|rẻ nhất|voucher|free\s?ship|freeship|\d{2,}[.,]\d{3}|\d\s?[kđ](?![\p{L}\p{N}])|(?<![\p{L}\p{N}])[kđ](?![\p{L}\p{N}]))/iu;
 
 export function isShopeeTarget(url: string): boolean {
   try {
@@ -111,3 +111,16 @@ export function activeFeatured(config: FeaturedConfigItem[], links: FeaturedLink
  */
 export const HIDE_EXPIRED_SCRIPT =
   'var n=Date.now();document.querySelectorAll(".featured").forEach(function(s){var a=0;s.querySelectorAll(".feat").forEach(function(e){var d=e.dataset.end;d&&Date.parse(d)<=n?e.hidden=!0:a=1});s.hidden=!a})';
+
+/**
+ * Chip text from endAt, e.g. "Đến hết 11/11" for 2026-11-12T00:00:00+07:00 (endAt is exclusive, so the last day is the
+ * day before). Uses the offset written in endAt, not the build machine's time zone. null when there is no endAt.
+ */
+export function endChip(endAt: string | undefined): string | null {
+  if (endAt === undefined) return null;
+  const m = /(Z|([+-])(\d{2}):(\d{2}))$/.exec(endAt);
+  const offsetMin = m && m[2] ? (m[2] === '-' ? -1 : 1) * (Number(m[3]) * 60 + Number(m[4])) : 0;
+  const d = new Date(Date.parse(endAt) - 1 + offsetMin * 60_000);
+  const two = (n: number) => String(n).padStart(2, '0');
+  return `Đến hết ${two(d.getUTCDate())}/${two(d.getUTCMonth() + 1)}`;
+}

@@ -62,7 +62,7 @@ describe('buildFeatured', () => {
 });
 
 describe('offers:links main() with featured', () => {
-  const OFFERS_CFG = [{ id: 'camera-hanh-trinh', title: 'Camera', blurb: 'Ghi lại hình ảnh.', keyword: 'camera', active: true }];
+  const OFFERS_CFG = [{ id: 'camera-hanh-trinh', label: 'L', title: 'Camera', blurb: 'Ghi lại hình ảnh.', keyword: 'camera', active: true }];
   const OLD_O = '[{"id":"old-offer"}]\n';
   const OLD_F = '[{"id":"old-featured"}]\n';
   function project(withFeatured = true) {

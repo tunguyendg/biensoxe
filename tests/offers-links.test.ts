@@ -3,9 +3,9 @@ import { API_URL, CAMPAIGN_ID, buildOffers, searchUrl, type Deps } from '../scri
 import { validateOffers, type OfferConfigItem } from '../src/lib/offers';
 
 const CONFIG: OfferConfigItem[] = [
-  { id: 'camera-hanh-trinh', title: 'Camera hành trình', blurb: 'Ghi lại hình ảnh trên đường đi.', keyword: 'camera hành trình ô tô', active: true },
-  { id: 'off', title: 'Off', blurb: 'Tắt.', keyword: 'tắt', active: false },
-  { id: 'bom-lop-mini', title: 'Bơm lốp mini', blurb: 'Bơm thêm hơi khi lốp non.', keyword: 'bơm lốp ô tô mini', active: true },
+  { id: 'camera-hanh-trinh', label: 'L', title: 'Camera hành trình', blurb: 'Ghi lại hình ảnh trên đường đi.', keyword: 'camera hành trình ô tô', active: true },
+  { id: 'off', label: 'L', title: 'Off', blurb: 'Tắt.', keyword: 'tắt', active: false },
+  { id: 'bom-lop-mini', label: 'L', title: 'Bơm lốp mini', blurb: 'Bơm thêm hơi khi lốp non.', keyword: 'bơm lốp ô tô mini', active: true },
 ];
 
 const okBody = (urls: string[], sub1: string, sub2: string) => ({
@@ -43,7 +43,7 @@ describe('buildOffers', () => {
       expect(Object.keys(c.body).sort()).toEqual(['campaign_id', 'sub1', 'sub2', 'urls']); // no sub4/sub5/utm
       expect((c.body.urls as string[]).length).toBeLessThanOrEqual(10);
     }
-    expect(calls[0]?.body.urls).toEqual([`https://shopee.vn/search?keyword=${encodeURIComponent('camera hành trình ô tô')}`]);
+    expect(calls[0]?.body.urls).toEqual([`https://shopee.vn/search?keyword=${encodeURIComponent('camera hành trình ô tô')}&sortBy=sales`]);
     const cam = out[0];
     expect(cam?.links.result).toContain('sub1=result');
     expect(cam?.links.tinh).toContain('sub1=tinh');
@@ -119,6 +119,6 @@ describe('buildOffers', () => {
   });
 
   it('searchUrl encodes the keyword', () => {
-    expect(searchUrl('a b&c')).toBe('https://shopee.vn/search?keyword=a%20b%26c');
+    expect(searchUrl('a b&c')).toBe('https://shopee.vn/search?keyword=a%20b%26c&sortBy=sales');
   });
 });

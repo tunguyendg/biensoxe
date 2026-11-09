@@ -8,12 +8,16 @@ export type OfferStatus = 'unchecked' | 'ok' | 'failed';
 export const MAX_ADS_PER_PAGE = 2;
 export const MAX_OFFERS_PER_PAGE = MAX_ADS_PER_PAGE;
 export const MAX_AGE_DAYS = 30;
-export const BLURB_MAX = 60;
+export const TITLE_MAX = 45;
+export const BLURB_MAX = 50;
+export const LABEL_MAX = 30;
 /** Small label in the top corner of the offers block. */
 export const DISCLOSURE = 'Quảng cáo';
 
 export interface OfferConfigItem {
   id: string;
+  /** Short category name shown small above the title. */
+  label: string;
   title: string;
   blurb: string;
   keyword: string;
@@ -30,22 +34,27 @@ export interface Offer {
   status: OfferStatus;
 }
 
-// No price / discount / quality promises in blurbs.
-const PRICE_WORDS = /(₫|\d\s?(k|đ|%)\b|giảm|voucher|khuyến mãi|rẻ|tốt nhất|chính hãng|miễn phí|giá rẻ)/i;
+/** A generated card, shown with the text from the config (data/offers.json only supplies links). */
+export type OfferView = Offer & { label: string };
+
+// Category cards have no end date, so no price / discount / promo / quality words and no prices at all.
+export const PRICE_WORDS = /(₫|%|\d\s?[kđ](?![\p{L}\p{N}])|\d{2,}[.,]\d{3}|giảm|sale|giá sốc|rẻ|free\s?ship|freeship|voucher|khuyến mãi|tốt nhất|chính hãng|miễn phí)/iu;
 
 export function validateConfig(list: OfferConfigItem[]): void {
   const ids = new Set<string>();
   for (const c of list) {
     if (ids.has(c.id)) throw new Error(`offers.config.json: duplicate id "${c.id}"`);
     ids.add(c.id);
-    if (c.title.trim() === '' || c.keyword.trim() === '') {
-      throw new Error(`offers.config.json: "${c.id}" needs a title and a keyword`);
+    if (c.title.trim() === '' || c.keyword.trim() === '' || c.label.trim() === '') {
+      throw new Error(`offers.config.json: "${c.id}" needs a label, a title and a keyword`);
     }
+    if (c.title.length > TITLE_MAX) throw new Error(`offers.config.json: "${c.id}" title must be at most ${TITLE_MAX} characters`);
+    if (c.label.length > LABEL_MAX) throw new Error(`offers.config.json: "${c.id}" label must be at most ${LABEL_MAX} characters`);
     if (c.blurb.trim() === '' || c.blurb.length > BLURB_MAX) {
       throw new Error(`offers.config.json: "${c.id}" blurb must be 1–${BLURB_MAX} characters`);
     }
-    if (PRICE_WORDS.test(c.blurb)) {
-      throw new Error(`offers.config.json: "${c.id}" blurb must not mention price/discount/quality`);
+    if (PRICE_WORDS.test(`${c.label} ${c.title} ${c.blurb}`)) {
+      throw new Error(`offers.config.json: "${c.id}" must not mention price/discount/promo/quality (cards have no end date)`);
     }
   }
 }
@@ -70,12 +79,12 @@ export function isFresh(o: { checkedAt: string | null }, now: Date): boolean {
 }
 
 /** Offers allowed on a page, in config order: active + status ok + fresh check + https link. */
-export function eligibleOffers(offers: Offer[], config: OfferConfigItem[], placement: Placement, now: Date): Offer[] {
+export function eligibleOffers(offers: Offer[], config: OfferConfigItem[], placement: Placement, now: Date): OfferView[] {
   return config.flatMap((c) => {
     const o = offers.find((x) => x.id === c.id);
     const ok =
       c.active && o !== undefined && o.status === 'ok' && isFresh(o, now) && o.links[placement].startsWith('https://');
-    return ok ? [o] : [];
+    return ok ? [{ ...o, label: c.label, title: c.title, blurb: c.blurb }] : [];
   });
 }
 
@@ -101,10 +110,10 @@ export function pickOffers(
   pageKey: string,
   now: Date,
   slots: number = MAX_ADS_PER_PAGE,
-): Offer[] {
+): OfferView[] {
   const list = eligibleOffers(offers, config, placement, now);
   if (list.length === 0 || slots <= 0) return [];
   const start = hashKey(pageKey) % list.length;
   const n = Math.min(slots, list.length);
-  return Array.from({ length: n }, (_, i) => list[(start + i) % list.length] as Offer);
+  return Array.from({ length: n }, (_, i) => list[(start + i) % list.length] as OfferView);
 }

@@ -29,7 +29,7 @@ export interface Deps {
 }
 
 export function searchUrl(keyword: string): string {
-  return `https://shopee.vn/search?keyword=${encodeURIComponent(keyword)}`;
+  return `https://shopee.vn/search?keyword=${encodeURIComponent(keyword)}&sortBy=sales`;
 }
 
 interface Group {

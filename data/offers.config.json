@@ -1,29 +1,33 @@
 [
   {
     "id": "camera-hanh-trinh",
-    "title": "Camera hành trình",
-    "blurb": "Ghi lại hình ảnh trên đường đi.",
+    "label": "Camera hành trình",
+    "title": "Va chạm? Có ngay video làm bằng chứng",
+    "blurb": "Ghi lại hành trình, xem lại khi cần",
     "keyword": "camera hành trình ô tô",
     "active": true
   },
   {
     "id": "bom-lop-mini",
-    "title": "Bơm lốp mini",
-    "blurb": "Bơm thêm hơi khi lốp xe bị non.",
+    "label": "Bơm lốp mini",
+    "title": "Lốp non giữa đường? Tự bơm tại chỗ",
+    "blurb": "Không phải dắt xe đi tìm tiệm",
     "keyword": "bơm lốp ô tô mini",
     "active": true
   },
   {
     "id": "gia-do-dien-thoai-xe-may",
-    "title": "Giá đỡ điện thoại xe máy",
-    "blurb": "Gắn điện thoại lên xe để xem bản đồ.",
+    "label": "Giá đỡ điện thoại",
+    "title": "Xem đường mà không phải cầm máy",
+    "blurb": "Gắn chắc điện thoại, hai tay giữ lái",
     "keyword": "giá đỡ điện thoại xe máy",
     "active": true
   },
   {
     "id": "cam-bien-ap-suat-lop",
-    "title": "Cảm biến áp suất lốp",
-    "blurb": "Theo dõi áp suất lốp khi đang lái.",
+    "label": "Cảm biến áp suất lốp",
+    "title": "Biết lốp non trước khi thành sự cố",
+    "blurb": "Báo áp suất từng bánh khi đang chạy",
     "keyword": "cảm biến áp suất lốp",
     "active": true
   }

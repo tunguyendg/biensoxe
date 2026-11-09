@@ -42,7 +42,8 @@ describe('<FeaturedBanner>', () => {
     expect(html).toContain('aria-label="Quảng cáo"');
     expect(html).toContain('T-a');
     expect(html).toContain('S-a');
-    expect(html).toContain('Xem ngay trên Shopee');
+    expect(html).toContain('Xem chương trình →');
+    expect(html).toContain('<span class="feat__chip">Đến hết 11/11</span>');
     expect(html).toContain('<svg');
     expect(html).not.toContain('<img');
     expect(html).toContain('href="https://go.isclix.com/a"');

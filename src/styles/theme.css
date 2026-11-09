@@ -12,6 +12,14 @@
   --border-strong: #8b95ab;
   --info-bg: #e8effb;
   --offer-bg: #efeee9;
+  --ad-tile: #fef3c7;
+  --ad-ink: #0b1f4d;
+  --ad-btn: #f59e0b;
+  --ad-btn-ink: #0b1f4d;
+  --feat-from: #0b1f4d;
+  --feat-to: #1d4ed8;
+  --feat-ink: #ffffff;
+  --feat-sub: #dbeafe;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,6 +35,14 @@
     --border-strong: #66728f;
     --info-bg: #1b2a4a;
     --offer-bg: #1c2130;
+    --ad-tile: #3a2f12;
+    --ad-ink: #fde68a;
+    --ad-btn: #f59e0b;
+    --ad-btn-ink: #0b1f4d;
+    --feat-from: #0b1f4d;
+    --feat-to: #1d4ed8;
+    --feat-ink: #ffffff;
+    --feat-sub: #dbeafe;
   }
 }
 

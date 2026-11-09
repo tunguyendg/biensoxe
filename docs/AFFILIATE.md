@@ -8,14 +8,14 @@ Chỉ hiện danh mục (icon + tên + mô tả + nút "Xem trên Shopee"), khô
 - Tạo `.env` ở thư mục gốc (đã gitignore; mẫu: `.env.example`): `ACCESSTRADE_TOKEN=<token>`. Không dán token vào chat, code hay commit.
 
 ## Quy trình
-1. Sửa `data/offers.config.json` (id, title, blurb ≤ 60 ký tự, keyword, active). Blurb mô tả công dụng, không nhắc giá/giảm giá/chất lượng.
+1. Sửa `data/offers.config.json` (id, label ≤ 30, title ≤ 45, blurb ≤ 50 ký tự, keyword, active). Chữ hiển thị lấy từ file này; không ghi giá, %, giảm, sale, giá sốc, rẻ nhất, free ship, voucher (thẻ danh mục không có ngày kết thúc; build sẽ fail).
 2. `npm run offers:links` — tạo link (campaign Shopee Smartlink, sub1 = vị trí `result`/`tinh`, sub2 = id danh mục) → ghi `data/offers.json`. Lỗi bất kỳ thì file cũ được giữ nguyên.
 3. `npm run offers:check` — theo redirect, xác nhận đích cuối là Shopee, ghi `checkedAt` + `status` (ok/failed). Lệnh này cũng bấm vào link affiliate một lần mỗi link.
 4. Commit `data/offers.json`, rồi build/deploy (sau khi được duyệt).
 
 ## Chu kỳ
 - Chạy lại `offers:check` **mỗi 2 tuần**. Build chỉ hiển thị offer `ok` có `checkedAt` ≤ 30 ngày; quá hạn thì tự ẩn.
-- Đổi keyword/blurb → chạy lại bước 2 và 3.
+- Đổi keyword → chạy lại bước 2 và 3 (link tìm kiếm có `&sortBy=sales`; dòng "Bán chạy trên Shopee" chỉ hiện khi link đã lưu có tham số này, nên phải chạy lại `offers:links` sau khi đổi). Đổi title/blurb/label thì không cần tạo lại link.
 
 ## Xác minh hoa hồng
 1. Mở trang bằng trình duyệt sạch, bấm một thẻ, đặt 1 đơn thử trên Shopee.
@@ -35,3 +35,5 @@ Tối đa **2** banner, hiện ở cuối nội dung trang chủ, `/[code]`, `/t
 - Build tự **loại** banner ngoài khoảng `startAt`–`endAt`, hoặc `status` ≠ ok, hoặc `checkedAt` cũ hơn **30 ngày** (giống thẻ danh mục: chạy `offers:check` mỗi 2 tuần, nếu không banner sẽ tự ẩn). Site tĩnh không tự build lại khi hết hạn, nên có thêm script nhỏ (≈ 200 byte) ẩn banner đã quá `endAt` theo giờ trình duyệt; hết banner thì cả khu ẩn. Vẫn nên gỡ banner khỏi config và deploy lại sau khi kết thúc chương trình.
 - Build **fail** nếu: > 2 mục `active`; `targetUrl` của mục active không phải shopee.vn/shp.ee (https); tiêu đề/mô tả có `%`, "giảm", "đ", "k", "free ship", "voucher" mà không có `endAt`; ảnh sai đường dẫn/quá 60 KB.
 - Không hiện giá cụ thể trong chữ nếu không chắc còn đúng; chữ có thời hạn thì luôn đặt `endAt`.
+
+Banner nổi bật: chip vàng "Đến hết dd/mm" tính từ `endAt` (ngày cuối = ngày trước mốc endAt). Từ như sale, giảm, %, voucher, free ship, giá sốc, rẻ nhất chỉ được dùng khi banner có `endAt`.

@@ -5,7 +5,7 @@ import { DISCLOSURE, offerSlots, pickOffers, type Offer, type OfferConfigItem, t
 import { offerConfig, offers as stored } from '../lib/offers-data';
 
 // Allowed only on: home + /[code] (placement="result") and /tinh/[slug] (placement="tinh").
-// Never on /nguon, /bang-ma or /404. Renders nothing when there is no valid offer.
+// Never on /nguon, /bang-ma, /404 or /kien-thuc/*. Renders nothing when there is no valid offer.
 interface Props {
   placement: Placement;
   /** Stable per-page key (e.g. code or slug) → deterministic rotation. */
@@ -20,6 +20,14 @@ const { placement, pageKey, offers = stored, config = offerConfig, now = new Dat
 // At most 2 ad blocks per page in total: valid featured banners take the slots first.
 const featuredCount = activeFeatured(featured?.config ?? featuredConfig, featured?.links ?? featuredLinks, now).length;
 const shown = pickOffers(offers, config, placement, pageKey, now, offerSlots(featuredCount));
+// "Bán chạy trên Shopee" is only claimed when the stored link really targets the sales-sorted search.
+const bySales = (href: string) => {
+  try {
+    return decodeURIComponent(href).includes('sortBy=sales');
+  } catch {
+    return false;
+  }
+};
 ---
 
 {
@@ -36,18 +44,24 @@ const shown = pickOffers(offers, config, placement, pageKey, now, offerSlots(fea
               rel="sponsored noopener noreferrer"
               referrerpolicy="no-referrer"
             >
-              <svg class="offer__icon" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                {o.id === 'camera-hanh-trinh' && (<><rect x="3" y="7" width="18" height="12" rx="2" /><circle cx="12" cy="13" r="3.5" /><path d="M8 7l1.5-2h5L16 7" /></>)}
-                {o.id === 'bom-lop-mini' && (<><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.5" /><path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21" /></>)}
-                {o.id === 'gia-do-dien-thoai-xe-may' && (<><rect x="7" y="3" width="10" height="18" rx="2" /><path d="M11 18h2" /></>)}
-                {o.id === 'cam-bien-ap-suat-lop' && (<><path d="M4 16a8 8 0 1 1 16 0" /><path d="M12 16l4-5" /><path d="M4 20h16" /></>)}
-                {!['camera-hanh-trinh', 'bom-lop-mini', 'gia-do-dien-thoai-xe-may', 'cam-bien-ap-suat-lop'].includes(o.id) && <circle cx="12" cy="12" r="8" />}
-              </svg>
-              <span class="offer__text">
-                <strong>{o.title}</strong>
-                <span>{o.blurb}</span>
+              <span class="offer__tile">
+                <svg class="offer__icon" viewBox="0 0 28 28" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  {o.id === 'camera-hanh-trinh' && (<><rect x="3" y="8" width="22" height="14" rx="3" /><circle cx="14" cy="15" r="4" /><path d="M9 8l1.6-3h6.8L19 8" /><circle cx="21.5" cy="12" r="0.8" fill="currentColor" /></>)}
+                  {o.id === 'bom-lop-mini' && (<><circle cx="14" cy="14" r="10" /><circle cx="14" cy="14" r="3" /><path d="M14 4v7M14 17v7M4 14h7M17 14h7" /></>)}
+                  {o.id === 'gia-do-dien-thoai-xe-may' && (<><rect x="8" y="3" width="12" height="19" rx="2.5" /><path d="M12 19h4" /><path d="M14 22v3M8 25h12" /></>)}
+                  {o.id === 'cam-bien-ap-suat-lop' && (<><path d="M5 21a10 10 0 1 1 18 0" /><path d="M14 21l5-7" /><circle cx="14" cy="21" r="1.2" fill="currentColor" /><path d="M5 25h18" /></>)}
+                  {!['camera-hanh-trinh', 'bom-lop-mini', 'gia-do-dien-thoai-xe-may', 'cam-bien-ap-suat-lop'].includes(o.id) && <circle cx="14" cy="14" r="9" />}
+                </svg>
               </span>
-              <span class="offer__cta">Xem trên Shopee</span>
+              <span class="offer__text">
+                <span class="offer__kind">{o.label}</span>
+                <strong class="offer__title">{o.title}</strong>
+                <span class="offer__blurb">{o.blurb}</span>
+              </span>
+              <span class="offer__action">
+                <span class="offer__cta">Xem giá hôm nay →</span>
+                {bySales(o.links[placement]) && <span class="offer__note">Bán chạy trên Shopee</span>}
+              </span>
             </a>
           </li>
         ))}
@@ -59,19 +73,29 @@ const shown = pickOffers(offers, config, placement, pageKey, now, offerSlots(fea
 <style is:global>
   .offers { margin: 1rem 0; padding: 0.75rem; background: var(--offer-bg); border-radius: 1rem; }
   .offers__label { margin: 0 0 0.375rem; font-size: 0.75rem; line-height: 1; letter-spacing: 0.02em; color: var(--muted); }
-  .offers ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .offers ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.625rem; }
   .offer {
-    display: flex; align-items: center; gap: 0.75rem; min-height: 3.5rem; padding: 0.5rem 0.75rem;
-    color: var(--fg); text-decoration: none; background: var(--card);
-    border: 1px solid var(--border-strong); border-radius: 0.75rem;
+    display: grid; grid-template-columns: 56px 1fr; grid-template-areas: 'tile text' 'action action'; gap: 0.75rem 0.875rem; align-items: center;
+    padding: 0.875rem; color: var(--fg); text-decoration: none; background: var(--card);
+    border: 1px solid var(--border); border-radius: 0.875rem; box-shadow: 0 1px 3px rgb(11 31 77 / 0.1);
   }
-  .offer__icon { flex: none; color: var(--muted); }
-  .offer__text { display: grid; gap: 0.125rem; flex: 1; min-width: 0; }
-  .offer__text span { font-size: 0.875rem; color: var(--muted); }
-  .offer__cta {
-    flex: none; box-sizing: border-box; display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.875rem;
-    font-size: 0.875rem; font-weight: 700; color: var(--card); background: var(--fg); border-radius: 0.5rem;
-  }
+  .offer:hover { border-color: var(--ad-btn); box-shadow: 0 3px 10px rgb(11 31 77 / 0.16); }
   .offer:focus-visible { outline: 3px solid var(--fg); outline-offset: 2px; }
-  @media (max-width: 26rem) { .offer { flex-wrap: wrap; } .offer__cta { width: 100%; justify-content: center; } }
+  .offer__tile { grid-area: tile; display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 0.875rem; background: var(--ad-tile); color: var(--ad-ink); }
+  .offer__icon { display: block; }
+  .offer__text { grid-area: text; display: grid; gap: 0.125rem; min-width: 0; }
+  .offer__kind { font-size: 12px; line-height: 1.3; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+  .offer__title { font-size: 17px; line-height: 1.3; font-weight: 700; }
+  .offer__blurb { font-size: 14px; line-height: 1.4; color: var(--muted); }
+  .offer__action { grid-area: action; display: grid; gap: 0.375rem; justify-items: center; }
+  .offer__cta {
+    box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 2.75rem; padding: 0 1rem;
+    font-size: 0.9375rem; font-weight: 700; color: var(--ad-btn-ink); background: var(--ad-btn); border-radius: 0.625rem;
+  }
+  .offer__note { font-size: 12px; line-height: 1.2; color: var(--muted); }
+  @media (min-width: 40rem) {
+    .offer { grid-template-columns: 56px 1fr auto; grid-template-areas: 'tile text action'; gap: 1rem; }
+    .offer__action { justify-items: center; }
+    .offer__cta { width: auto; white-space: nowrap; }
+  }
 </style>

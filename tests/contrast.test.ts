@@ -22,7 +22,9 @@ const ratio = (a: string, b: string) => {
 const PAIRS: [string, string][] = [
   ['fg', 'bg'], ['fg', 'card'], ['muted', 'bg'], ['muted', 'card'], ['muted', 'info-bg'], ['muted', 'offer-bg'],
   ['fg', 'info-bg'], ['accent', 'bg'], ['accent', 'card'], ['accent', 'info-bg'], ['on-accent', 'accent'],
-  ['card', 'fg'], ['brand-ink', 'bg'], // header "Biển Số" (slogan uses muted on bg, already above)
+  ['card', 'fg'], ['ad-ink', 'ad-tile'], ['ad-btn-ink', 'ad-btn'], // ad cards: icon on tile, button text
+  ['feat-ink', 'feat-from'], ['feat-ink', 'feat-to'], ['feat-sub', 'feat-from'], ['feat-sub', 'feat-to'], // featured banner on its gradient
+  ['brand-ink', 'bg'], // header "Biển Số" (slogan uses muted on bg, already above)
 ];
 
 describe.each([['light', light], ['dark', dark]] as const)('WCAG AA text contrast (%s)', (_name, v) => {

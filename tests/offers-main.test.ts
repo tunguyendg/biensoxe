@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { main as checkMain } from '../scripts/offers-check';
 import { main as linksMain } from '../scripts/offers-links';
 
-const CONFIG = [{ id: 'camera-hanh-trinh', title: 'Camera', blurb: 'Ghi lại hình ảnh.', keyword: 'camera', active: true }];
+const CONFIG = [{ id: 'camera-hanh-trinh', label: 'L', title: 'Camera', blurb: 'Ghi lại hình ảnh.', keyword: 'camera', active: true }];
 const OLD = '[{"id":"old","marker":"keep-me"}]\n';
 
 function project(offersJson = OLD) {
@@ -65,7 +65,7 @@ describe('offers:check main()', () => {
     expect(read(root)).toBe('[]');
   });
 
-  const offer = { id: 'a', title: 'A', blurb: 'b', links: { result: 'https://go.isclix.com/r', tinh: 'https://go.isclix.com/t' }, generatedAt: 'x', checkedAt: null, status: 'unchecked' };
+  const offer = { id: 'a', label: 'L', title: 'A', blurb: 'b', links: { result: 'https://go.isclix.com/r', tinh: 'https://go.isclix.com/t' }, generatedAt: 'x', checkedAt: null, status: 'unchecked' };
   const redirectTo = (host: string) =>
     (async (url: string) => (new URL(url).hostname === 'go.isclix.com' ? new Response(null, { status: 302, headers: { location: `https://${host}/search?x=1` } }) : new Response('', { status: 200 }))) as never;
 

@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import configFile from '../data/featured.config.json';
 import linksFile from '../data/featured.json';
 import {
-  HIDE_EXPIRED_SCRIPT, IMAGE_MAX_BYTES, activeFeatured, isShopeeTarget, validateFeaturedConfig, validateFeaturedLinks,
+  HIDE_EXPIRED_SCRIPT, IMAGE_MAX_BYTES, activeFeatured, endChip, isShopeeTarget, validateFeaturedConfig, validateFeaturedLinks,
   type FeaturedConfigItem, type FeaturedLink,
 } from '../src/lib/featured';
 
@@ -19,7 +19,7 @@ const link = (id: string, over: Partial<FeaturedLink> = {}): FeaturedLink => ({
 describe('shipped data', () => {
   it('sample config: 1 item, inactive, url TODO, ends 2026-11-12 (+07:00); featured.json is []', () => {
     expect(configFile).toHaveLength(1);
-    expect(configFile[0]).toMatchObject({ id: 'sieu-sale-11-11', title: 'Siêu sale 11.11', targetUrl: 'TODO', endAt: '2026-11-12T00:00:00+07:00', active: false });
+    expect(configFile[0]).toMatchObject({ id: 'sale-1111', title: 'Sale 11.11 trên Shopee', subtitle: 'Phụ kiện ô tô, xe máy', targetUrl: 'TODO', startAt: '2026-11-09T00:00:00+07:00', endAt: '2026-11-12T00:00:00+07:00', active: false });
     expect(() => validateFeaturedConfig(configFile as FeaturedConfigItem[])).not.toThrow();
     expect(linksFile).toEqual([]);
   });
@@ -49,7 +49,7 @@ describe('validateFeaturedConfig (build gate)', () => {
   });
   it('promo wording (%, giảm, đ, k, free ship, voucher) is only allowed with an endAt', () => {
     const END = '2026-11-12T00:00:00+07:00';
-    for (const text of ['Giảm sâu hôm nay', 'Sale 50%', 'Chỉ từ 99k', 'Từ 99.000đ', '99 đ', 'Free ship toàn quốc', 'Freeship', 'Nhận voucher', 'Mua 5 k', 'Giá chỉ 50K']) {
+    for (const text of ['Giảm sâu hôm nay', 'Sale 50%', 'Chỉ từ 99k', 'Từ 99.000đ', '99 đ', 'Free ship toàn quốc', 'Freeship', 'Nhận voucher', 'Mua 5 k', 'Giá chỉ 50K', 'Giá sốc', 'Rẻ nhất hôm nay', 'Sale 11.11']) {
       bad({ title: text }, /endAt/);
       bad({ subtitle: text }, /endAt/);
       expect(() => validateFeaturedConfig([item('a', { title: text, endAt: END })]), text).not.toThrow();
@@ -134,5 +134,16 @@ describe('expiry script', () => {
   it('is only used by the component (no featured code in the lookup bundle)', () => {
     const src = readFileSync('src/scripts/search.ts', 'utf8') + readFileSync('src/scripts/share.ts', 'utf8');
     expect(src).not.toMatch(/featured/i);
+  });
+});
+
+describe('endChip', () => {
+  it('"Đến hết dd/mm" is the day before the exclusive endAt, in the offset written in endAt', () => {
+    expect(endChip('2026-11-12T00:00:00+07:00')).toBe('Đến hết 11/11');
+    expect(endChip('2026-11-11T23:59:59+07:00')).toBe('Đến hết 11/11');
+    expect(endChip('2026-11-11T12:00:00+07:00')).toBe('Đến hết 11/11');
+    expect(endChip('2026-12-01T00:00:00Z')).toBe('Đến hết 30/11');
+    expect(endChip('2026-01-01T00:00:00-05:00')).toBe('Đến hết 31/12');
+    expect(endChip(undefined)).toBeNull();
   });
 });

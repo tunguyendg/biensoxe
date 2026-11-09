@@ -122,3 +122,6 @@
 
 ## Header logo fix
 - Header: logo-mark.svg (40px, 44px ≥640px, alt="") + HTML text "Biển Số" (22/26px, 700) and slogan (13/14px, 600 — 500 is not self-hosted) in one link to / with aria-label; `--brand-ink` token (#0B1F4D / white) added to contrast tests. logo-horizontal removed from public/ and from the header (kept in brand/, still used by the OG generator). No JS, no new font request. At 360×640 the province name sits at ~y=355 after a lookup.
+
+## Ads redesign
+- OfferCards: label → title → blurb from data/offers.config.json (text no longer read from offers.json; only links are), 56px yellow tile + redrawn icons, yellow full-width CTA "Xem giá hôm nay →" (right side ≥640px), one link per card, "Bán chạy trên Shopee" only when the stored link has sortBy=sales. FeaturedBanner: navy→blue gradient, white 20px title, yellow chip "Đến hết dd/mm" from endAt, yellow CTA "Xem chương trình →"; sample config sale-1111 (inactive, targetUrl TODO). offers-links searchUrl adds &sortBy=sales (not run with the real token → Founder re-runs offers:links). Build gate: label/title/blurb reject price/promo words (+ prices); featured needs endAt for them. New tokens (ad-*, feat-*) in the contrast test. No new JS.

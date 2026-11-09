@@ -9,7 +9,7 @@ const NOW = new Date('2026-11-08T00:00:00Z');
 const days = (n: number) => new Date(NOW.getTime() - n * 86_400_000).toISOString();
 const IDS = ['camera-hanh-trinh', 'bom-lop-mini', 'gia-do-dien-thoai-xe-may', 'cam-bien-ap-suat-lop'];
 const config = (over: Record<string, Partial<OfferConfigItem>> = {}): OfferConfigItem[] =>
-  IDS.map((id) => ({ id, title: `T-${id}`, blurb: `B-${id}`, keyword: id, active: true, ...over[id] }));
+  IDS.map((id) => ({ id, label: `L-${id}`, title: `T-${id}`, blurb: `B-${id}`, keyword: id, active: true, ...over[id] }));
 const offer = (id: string, over: Partial<Offer> = {}): Offer => ({
   id, title: `T-${id}`, blurb: `B-${id}`,
   links: { result: `https://go.isclix.com/${id}?sub1=result`, tinh: `https://go.isclix.com/${id}?sub1=tinh` },
@@ -46,7 +46,31 @@ describe('<OfferCards>', () => {
     expect(html.match(/target="_blank"/g)).toHaveLength(2);
     expect(html).toContain('sub1=tinh');
     expect(html).not.toContain('sub1=result');
-    expect(html.match(/Xem trên Shopee/g)).toHaveLength(2);
+    expect(html.match(/Xem giá hôm nay →/g)).toHaveLength(2);
+    expect(html).not.toContain('Xem trên Shopee');
+  });
+
+  it('card content: label above title above blurb, from the config (not from offers.json), one link, no nested links', async () => {
+    const stale = IDS.map((i) => offer(i, { title: 'OLD TITLE', blurb: 'OLD BLURB' }));
+    const html = await render({ placement: 'result', pageKey: 'home', offers: stale, config: config() });
+    expect(html).not.toContain('OLD');
+    const card = /<a class="offer"[\s\S]*?<\/a>/.exec(html)?.[0] ?? '';
+    expect(card.indexOf('class="offer__kind"')).toBeLessThan(card.indexOf('class="offer__title"'));
+    expect(card.indexOf('class="offer__title"')).toBeLessThan(card.indexOf('class="offer__blurb"'));
+    expect(card.indexOf('class="offer__blurb"')).toBeLessThan(card.indexOf('class="offer__cta"'));
+    expect(card).toMatch(/L-[a-z-]+<\/span>/);
+    expect(card.match(/<a /g)).toHaveLength(1);
+    expect(html.match(/<a /g)).toHaveLength(2);
+  });
+
+  it('"Bán chạy trên Shopee" appears only when the stored link targets the sales-sorted search', async () => {
+    const enc = (id: string) => `https://go.isclix.com/${id}?url=${encodeURIComponent('https://shopee.vn/search?keyword=x&sortBy=sales')}&sub1=result`;
+    const sorted = IDS.map((i) => offer(i, { links: { result: enc(i), tinh: enc(i) } }));
+    const html = await render({ placement: 'result', pageKey: 'home', offers: sorted, config: config() });
+    expect(html.match(/Bán chạy trên Shopee/g)).toHaveLength(2);
+    expect(html).toContain('sortBy%3Dsales');
+    const plain = await render({ placement: 'result', pageKey: 'home', offers: IDS.map((i) => offer(i)), config: config() });
+    expect(plain).not.toContain('Bán chạy trên Shopee');
   });
 
   it('has no price, discount, voucher or product image; icons are inline SVG', async () => {
