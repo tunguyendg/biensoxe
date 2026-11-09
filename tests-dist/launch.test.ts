@@ -84,13 +84,19 @@ describe('icons & manifest', () => {
     ]);
     for (const i of m.icons) expect(existsSync(`dist${i.src}`), i.src).toBe(true);
   });
-  it('header shows the brand logo (light + dark) with alt text, files served from public/', () => {
+  it('header: one link to / with aria-label, decorative icon, text name + slogan; no logo-horizontal reference', () => {
     for (const f of htmlFiles) {
       const h = read(f);
-      expect(h, f).toContain('<img src="/brand/logo-horizontal.svg" alt="Biển Số"');
-      expect(h, f).toContain('srcset="/brand/logo-horizontal-dark.svg" media="(prefers-color-scheme: dark)"');
+      const head = /<header class="site-head">[\s\S]*?<\/header>/.exec(h)?.[0] ?? '';
+      expect(head, f).toContain('<a class="brand" href="/" aria-label="Biển Số – Tra cứu mã biển số xe">');
+      expect(head, f).toContain('src="/brand/logo-mark.svg" alt="" width="40" height="40"');
+      expect(head, f).toContain('>Biển Số</span>');
+      expect(head, f).toContain('>Tra cứu mã biển số xe</span>');
+      expect(head.match(/<a /g), f).toHaveLength(1);
+      expect(h, f).not.toContain('logo-horizontal');
     }
-    for (const f of ['logo-horizontal.svg', 'logo-horizontal-dark.svg']) expect(existsSync(`dist/brand/${f}`), f).toBe(true);
+    expect(existsSync('dist/brand/logo-mark.svg')).toBe(true);
+    expect(readFileSync('dist/brand/logo-mark.svg').equals(readFileSync('brand/logo-mark.svg'))).toBe(true);
     // Only the copied files are served from brand/: no Facebook cover, no sources.
     expect(existsSync('dist/facebook-cover.png')).toBe(false);
     expect(existsSync('dist/brand/facebook-cover.png')).toBe(false);

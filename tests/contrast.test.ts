@@ -22,7 +22,7 @@ const ratio = (a: string, b: string) => {
 const PAIRS: [string, string][] = [
   ['fg', 'bg'], ['fg', 'card'], ['muted', 'bg'], ['muted', 'card'], ['muted', 'info-bg'], ['muted', 'offer-bg'],
   ['fg', 'info-bg'], ['accent', 'bg'], ['accent', 'card'], ['accent', 'info-bg'], ['on-accent', 'accent'],
-  ['card', 'fg'],
+  ['card', 'fg'], ['brand-ink', 'bg'], // header "Biển Số" (slogan uses muted on bg, already above)
 ];
 
 describe.each([['light', light], ['dark', dark]] as const)('WCAG AA text contrast (%s)', (_name, v) => {
@@ -40,5 +40,14 @@ describe('dark mode wiring', () => {
     const l = Object.keys(vars(block(':root {')));
     const d = Object.keys(vars(css.slice(css.indexOf('prefers-color-scheme: dark'), css.indexOf('body {'))));
     expect(d.sort()).toEqual(l.sort());
+  });
+});
+
+describe('header brand', () => {
+  it('"Biển Số" uses #0B1F4D (light) / white (dark); header is max 64px on mobile with sizes per brief', () => {
+    expect(light['brand-ink']).toBe('#0b1f4d');
+    expect(dark['brand-ink']).toBe('#ffffff');
+    const t = readFileSync('src/styles/theme.css', 'utf8');
+    for (const k of ['width: 40px', 'font-size: 22px', 'font-size: 13px', 'gap: 10px', 'width: 44px', 'font-size: 26px', 'font-size: 14px', 'line-height: 1.1', 'line-height: 1.3']) expect(t, k).toContain(k);
   });
 });

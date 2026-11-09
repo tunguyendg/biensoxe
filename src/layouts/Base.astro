@@ -72,11 +72,12 @@ const image = new URL(ogImage, Astro.site).href;
   </head>
   <body>
     <header class="site-head">
-      <a href="/" aria-label="Biển Số — trang chủ">
-        <picture>
-          <source srcset="/brand/logo-horizontal-dark.svg" media="(prefers-color-scheme: dark)" />
-          <img src="/brand/logo-horizontal.svg" alt="Biển Số" width="96" height="32" />
-        </picture>
+      <a class="brand" href="/" aria-label="Biển Số – Tra cứu mã biển số xe">
+        <img class="brand__mark" src="/brand/logo-mark.svg" alt="" width="40" height="40" />
+        <span class="brand__text">
+          <span class="brand__name">Biển Số</span>
+          <span class="brand__tag">Tra cứu mã biển số xe</span>
+        </span>
       </a>
     </header>
     <slot />

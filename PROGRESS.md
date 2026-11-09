@@ -119,3 +119,6 @@
 
 ## V1 review fixes
 - codeExplanation per province (changed: "[Tỉnh cũ] được hợp nhất vào [tỉnh nay] theo NQ 202/2025/QH15."; same-name merged: "Mã X vẫn thuộc [tỉnh] như trước 01/07/2025."; unchanged: unchanged). Facts for same-name merged codes now only give the code count (no repeat of the explanation). Articles: per-article `publishedAt` 2026-11-09 (knowledge.ts), "Đăng ngày … · Cập nhật …" (hidden when equal), datePublished/dateModified rule + tests. Removed "cần kiểm chứng thêm" from the default-sentence section.
+
+## Header logo fix
+- Header: logo-mark.svg (40px, 44px ≥640px, alt="") + HTML text "Biển Số" (22/26px, 700) and slogan (13/14px, 600 — 500 is not self-hosted) in one link to / with aria-label; `--brand-ink` token (#0B1F4D / white) added to contrast tests. logo-horizontal removed from public/ and from the header (kept in brand/, still used by the OG generator). No JS, no new font request. At 360×640 the province name sits at ~y=355 after a lookup.
