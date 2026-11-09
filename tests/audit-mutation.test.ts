@@ -50,3 +50,45 @@ describe('data:audit mutation tests', () => {
     expect(r.report).toMatch(/code:80.*MISMATCH/);
   });
 });
+
+describe('data:audit --check and write-only-on-change', () => {
+  const run = (root: string, ...flags: string[]) => spawnSync(process.execPath, ['scripts/audit-data.mjs', ...flags, '--root', root], { encoding: 'utf8' });
+  const fresh = () => {
+    const root = mkdtempSync(join(tmpdir(), 'audit-'));
+    dirs.push(root);
+    mkdirSync(join(root, 'data'));
+    cpSync('data/sources', join(root, 'data/sources'), { recursive: true });
+    cpSync('data/plate-codes.json', join(root, 'data/plate-codes.json'));
+    return root;
+  };
+  it('--check fails when the audit file is missing, passes after a write, and writes nothing itself', () => {
+    const root = fresh();
+    const missing = run(root, '--check');
+    expect(missing.status).toBe(1);
+    expect(missing.stderr).toContain('npm run data:audit');
+    expect(run(root).status).toBe(0);
+    const before = readFileSync(join(root, 'data/audit-result.json'), 'utf8');
+    expect(run(root, '--check').status).toBe(0);
+    expect(readFileSync(join(root, 'data/audit-result.json'), 'utf8')).toBe(before);
+  });
+  it('re-running without changes rewrites nothing (auditedAt is ignored)', () => {
+    const root = fresh();
+    run(root);
+    const a = [readFileSync(join(root, 'data/audit-result.json'), 'utf8'), readFileSync(join(root, 'docs/DATA_AUDIT.md'), 'utf8')];
+    run(root);
+    run(root, '--check');
+    expect([readFileSync(join(root, 'data/audit-result.json'), 'utf8'), readFileSync(join(root, 'docs/DATA_AUDIT.md'), 'utf8')]).toEqual(a);
+  });
+  it('changing one record makes --check fail because the stored hash is old', () => {
+    const root = fresh();
+    run(root);
+    const f = join(root, 'data/plate-codes.json');
+    const d = JSON.parse(readFileSync(f, 'utf8')) as { provinces: { verified: boolean }[] };
+    d.provinces[0]!.verified = true; // harmless for the audit verdict, but the sha changes
+    writeFileSync(f, JSON.stringify(d, null, 2));
+    const r = run(root, '--check');
+    expect(r.status).toBe(1);
+    expect(r.stderr).toContain('dataSha256');
+    expect(r.stderr).toContain('npm run data:audit');
+  });
+});

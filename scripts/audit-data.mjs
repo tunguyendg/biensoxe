@@ -4,13 +4,16 @@
 //   tt51-2025-phu-luc-02.json  (current code table, effective 01/07/2025)
 //   tt79-2024-phu-luc-02.json  (pre-merger code table → "former province")
 //   nq202-2025.json            (which former units merged into which new unit)
-// Writes docs/DATA_AUDIT.md + data/audit-result.json. Exit 1 if any MISMATCH.
-// Usage: node scripts/audit-data.mjs [--root .]
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+// Default: writes docs/DATA_AUDIT.md + data/audit-result.json (only when the content differs from the
+// stored result, ignoring auditedAt). Exit 1 if any MISMATCH or coverage issue.
+// --check: writes nothing; also fails if data/audit-result.json is missing or stale (dataSha256 / content).
+// Usage: node scripts/audit-data.mjs [--check] [--root .]
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
 
 const root = process.argv.includes("--root") ? process.argv[process.argv.indexOf("--root") + 1] : ".";
+const CHECK = process.argv.includes("--check");
 const rd = (p) => JSON.parse(readFileSync(join(root, p), "utf8"));
 const rawData = readFileSync(join(root, "data/plate-codes.json"), "utf8");
 const data = JSON.parse(rawData);
@@ -126,9 +129,29 @@ const summary = {
   verdicts: Object.fromEntries(["MATCH", "MATCH_NEEDS_DECISION", "MISMATCH"].map((v) => [v, { code: count("code", v), province: count("province", v) }])),
   coverage, sources: { tt51: tt51.meta, tt79: tt79.meta, nq202: nq.meta },
 };
-mkdirSync(join(root, "docs"), { recursive: true });
-writeFileSync(join(root, "data/audit-result.json"), JSON.stringify({ summary, results }, null, 2) + "\n");
+const fresh = { summary, results };
+const resultPath = join(root, "data/audit-result.json");
+const stored = existsSync(resultPath) ? JSON.parse(readFileSync(resultPath, "utf8")) : null;
+const withoutTime = (o) => JSON.stringify({ ...o, summary: { ...o.summary, auditedAt: undefined } });
+const sameAsStored = stored !== null && withoutTime(stored) === withoutTime(fresh);
+const failed = results.some((r) => r.verdict === "MISMATCH") || coverage.length > 0;
+const line = `records=${summary.totals.records} MATCH=${summary.verdicts.MATCH.code + summary.verdicts.MATCH.province} NEEDS_DECISION=${summary.verdicts.MATCH_NEEDS_DECISION.code + summary.verdicts.MATCH_NEEDS_DECISION.province} MISMATCH=${summary.verdicts.MISMATCH.code + summary.verdicts.MISMATCH.province} coverage_issues=${coverage.length}`;
+if (CHECK) {
+  console.log(line);
+  if (failed) { console.error("✗ Audit còn MISMATCH hoặc lỗi độ phủ (xem docs/DATA_AUDIT.md sau khi chạy npm run data:audit)."); process.exit(1); }
+  if (!stored) { console.error("✗ Thiếu data/audit-result.json — chạy npm run data:audit."); process.exit(1); }
+  if (stored.summary?.dataSha256 !== sha) { console.error("✗ data/audit-result.json cũ: dataSha256 không khớp data/plate-codes.json — chạy npm run data:audit."); process.exit(1); }
+  if (!sameAsStored) { console.error("✗ data/audit-result.json không khớp kết quả audit hiện tại (nguồn hoặc script đã đổi) — chạy npm run data:audit."); process.exit(1); }
+  process.exit(0);
+}
 
+if (sameAsStored && existsSync(join(root, "docs/DATA_AUDIT.md"))) {
+  console.log(line + " (không đổi, không ghi file)");
+  process.exit(failed ? 1 : 0);
+}
+mkdirSync(join(root, "docs"), { recursive: true });
+mkdirSync(join(root, "data"), { recursive: true });
+writeFileSync(resultPath, JSON.stringify(fresh, null, 2) + "\n");
 const L = [];
 L.push("# Báo cáo kiểm tra dữ liệu (tự động)", "", `Thời điểm: ${summary.auditedAt} · SHA-256 data/plate-codes.json: \`${sha.slice(0, 16)}…\``, "");
 L.push("> Công cụ chỉ ĐỌC dữ liệu. Kết quả MATCH nghĩa là khớp với bản chép nguồn trong `data/sources/`. Bản chép là nguồn thứ cấp (toàn văn trên LuatVietnam/Thư Viện Pháp Luật) cho tới khi Founder đối chiếu PDF Công báo.", "");
@@ -147,5 +170,5 @@ L.push("", "## Nguồn", "");
 for (const s of Object.values(summary.sources)) L.push(`- ${s.document} — ${s.status}${s.transcribedFrom ? ` — ${s.transcribedFrom}` : ""}${s.gazetteUrl ? ` — Công báo: ${s.gazetteUrl}` : ""}${s.pdf ? ` — ${s.pdf}` : ""}`);
 writeFileSync(join(root, "docs/DATA_AUDIT.md"), L.join("\n") + "\n");
 
-console.log(`records=${summary.totals.records} MATCH=${summary.verdicts.MATCH.code + summary.verdicts.MATCH.province} NEEDS_DECISION=${summary.verdicts.MATCH_NEEDS_DECISION.code + summary.verdicts.MATCH_NEEDS_DECISION.province} MISMATCH=${summary.verdicts.MISMATCH.code + summary.verdicts.MISMATCH.province} coverage_issues=${coverage.length}`);
-process.exit(results.some((r) => r.verdict === "MISMATCH") || coverage.length ? 1 : 0);
+console.log(line);
+process.exit(failed ? 1 : 0);

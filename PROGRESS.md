@@ -104,3 +104,6 @@
 - Docs: SOURCES.md rows 1, 9 (TT 79/2024), 10 (VBHN 41/VBHN-BCA), SECONDARY_FULLTEXT status; LAUNCH.md §5 → FOUNDER_DATA_REVIEW.md. committed docs/DATA_AUDIT.md + data/audit-result.json.
 - Real-data audit: 115 records, MATCH 113, NEEDS_DECISION 2 (code:75, province:hue), MISMATCH 0, coverage 0. verified unchanged (all false); approve never run.
 - Note: every `verify` rewrites the audit timestamp (auditedAt) in the two audit files.
+
+## Audit: --check mode
+- `verify` now runs `node scripts/audit-data.mjs --check` (writes nothing; fails on MISMATCH/coverage, or audit-result.json missing/stale by sha or content → "chạy npm run data:audit"). `npm run data:audit` writes docs/DATA_AUDIT.md + data/audit-result.json only when content differs (auditedAt ignored). Tests: 3 new (missing/stale/no-rewrite); two consecutive verifies leave `git status` clean of audit files.
