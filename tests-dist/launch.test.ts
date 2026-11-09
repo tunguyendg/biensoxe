@@ -38,13 +38,21 @@ describe('fonts: self-hosted, subset, swap, only 700 preloaded', () => {
 describe('icons & manifest', () => {
   const files = ['favicon.svg', 'favicon.ico', 'favicon-16.png', 'favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'site.webmanifest'];
   it('files exist, match brand/ exactly, and every page links them', () => {
+    // Small favicons come from brand/favicon-v2/, large icons (apple-touch, 192/512, maskable) from brand/.
+    const v2 = ['favicon.svg', 'favicon.ico', 'favicon-16.png', 'favicon-32.png'];
     for (const f of files.filter((x) => x !== 'site.webmanifest')) {
       expect(existsSync(`dist/${f}`), f).toBe(true);
-      expect(readFileSync(`dist/${f}`).equals(readFileSync(`brand/${f}`)), `${f} differs from brand/`).toBe(true);
+      const src = v2.includes(f) ? `brand/favicon-v2/${f}` : `brand/${f}`;
+      expect(readFileSync(`dist/${f}`).equals(readFileSync(src)), `${f} differs from ${src}`).toBe(true);
     }
+    expect(existsSync('dist/favicon-48.png')).toBe(true);
+    expect(readFileSync('dist/favicon-48.png').equals(readFileSync('brand/favicon-v2/favicon-48.png'))).toBe(true);
     for (const f of htmlFiles) {
       const h = read(f);
-      for (const k of ['rel="icon" href="/favicon.svg"', 'href="/favicon-32.png"', 'href="/favicon-16.png"', 'rel="icon" href="/favicon.ico"', 'rel="apple-touch-icon" href="/apple-touch-icon.png"', 'rel="manifest" href="/site.webmanifest"', 'content="#1D4ED8" media="(prefers-color-scheme: light)"', 'content="#0B1F4D" media="(prefers-color-scheme: dark)"']) {
+      expect(h.indexOf('favicon.svg?v=2'), f).toBeLessThan(h.indexOf('favicon-32.png?v=2'));
+      expect(h.indexOf('favicon-32.png?v=2'), f).toBeLessThan(h.indexOf('favicon-16.png?v=2'));
+      expect(h.indexOf('favicon-16.png?v=2'), f).toBeLessThan(h.indexOf('favicon.ico?v=2'));
+      for (const k of ['rel="icon" href="/favicon.svg?v=2"', 'href="/favicon-32.png?v=2"', 'href="/favicon-16.png?v=2"', 'rel="icon" href="/favicon.ico?v=2"', 'rel="apple-touch-icon" href="/apple-touch-icon.png"', 'rel="manifest" href="/site.webmanifest"', 'content="#1D4ED8" media="(prefers-color-scheme: light)"', 'content="#0B1F4D" media="(prefers-color-scheme: dark)"']) {
         expect(h, `${f} ${k}`).toContain(k);
       }
     }

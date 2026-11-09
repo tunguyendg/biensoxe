@@ -1,0 +1,22 @@
+---
+import { SOURCE_DOCS } from '../lib/content';
+---
+
+<section aria-labelledby="sources-h" class="sources">
+  <h2 id="sources-h">Nguồn</h2>
+  <ul>
+    {
+      SOURCE_DOCS.map((d) => (
+        <li>
+          {d.name}.{' '}
+          {d.links.map((l, i) => (
+            <>
+              {i > 0 && ' · '}
+              <a href={l.url} rel="noopener noreferrer">{l.label}</a>
+            </>
+          ))}
+        </li>
+      ))
+    }
+  </ul>
+</section>

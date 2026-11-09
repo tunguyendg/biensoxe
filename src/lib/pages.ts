@@ -1,5 +1,6 @@
 import { SOURCE_NAME } from './copy';
 import { data, type Province } from './data';
+import { REVIEW_YEAR } from './content';
 import { formatDate, joinVi } from './format';
 import type { LookupResult } from './lookup';
 
@@ -65,7 +66,9 @@ export function codeExplanation(r: Found): string {
     return `Mã ${r.code} không gắn với tỉnh hay thành phố nào. Theo bảng mã (${SOURCE_NAME}), đây là mã của ${r.label}.`;
   }
   const former = r.changed ? ` Trước ${formatDate(data.meta.dataVersion)}, mã này thuộc ${r.former}.` : '';
-  return `Biển ${r.code} là xe đăng ký tại ${r.province.name}.${former} ${mergerSentence(r.province)}`;
+  // The code appears again in the last sentence: code pages of one province (e.g. 13 for TP. Hồ Chí Minh) must not share long identical runs.
+  const merger = r.province.mergedFrom.length > 0 ? `Mã ${r.code} thuộc diện hợp nhất theo Nghị quyết 202/2025/QH15.` : mergerSentence(r.province);
+  return `Biển ${r.code} là xe đăng ký tại ${r.province.name}.${former} ${merger}`;
 }
 
 export function provinceTitle(p: Province): string {
@@ -84,7 +87,8 @@ export function provinceDescription(p: Province): string {
 export const HOME_TITLE = 'Biển số xe là tỉnh nào? Tra cứu mã biển số sau sáp nhập';
 export const HOME_DESC =
   'Gõ 2 số đầu của biển để biết xe đăng ký ở tỉnh, thành nào sau sáp nhập 01/07/2025 và tỉnh trước đây. Có nguồn, có nói rõ giới hạn.';
-export const BANGMA_TITLE = 'Bảng tra cứu biển số xe 34 tỉnh thành (từ 01/07/2025)';
+export const BANGMA_H1 = `Bảng biển số xe ${data.provinces.length} tỉnh thành`;
+export const BANGMA_TITLE = `${BANGMA_H1} (cập nhật ${REVIEW_YEAR})`;
 export const BANGMA_DESC =
   'Bảng đầy đủ mã biển số xe theo 34 tỉnh, thành sau sáp nhập 01/07/2025, chia theo vùng, kèm tỉnh trước đây. Lọc nhanh theo mã hoặc tên tỉnh.';
 export const NGUON_TITLE = 'Nguồn và giới hạn của dữ liệu biển số xe';

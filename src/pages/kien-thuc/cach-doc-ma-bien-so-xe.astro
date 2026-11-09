@@ -1,0 +1,79 @@
+---
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Sources from '../../components/Sources.astro';
+import Base from '../../layouts/Base.astro';
+import { special80 } from '../../lib/content';
+import { LIMITS, SOURCE_NAME } from '../../lib/copy';
+import { crumbsLd, type Crumb } from '../../lib/crumbs';
+import { data } from '../../lib/data';
+import { formatDate } from '../../lib/format';
+import { articleLd, ARTICLE_DOCMA as A, ARTICLE_SAPNHAP, KB_INDEX } from '../../lib/knowledge';
+import { lookup } from '../../lib/lookup';
+import '../../styles/home.css';
+import '../../styles/pages.css';
+
+const since = formatDate(data.meta.dataVersion);
+const examples = ['83', '61', '92', '27'].flatMap((c) => {
+  const r = lookup(c);
+  return r.kind === 'province' ? [r] : [];
+});
+const multi = lookup('83');
+const multiProvince = multi.kind === 'province' ? multi.province : null;
+const crumbs: Crumb[] = [
+  { name: 'Trang chủ', path: '/' },
+  { name: 'Kiến thức', path: KB_INDEX.path },
+  { name: A.h1, path: A.path },
+];
+---
+
+<Base title={A.title} description={A.description} path={A.path} jsonLd={[crumbsLd(crumbs, Astro.site as URL), articleLd(A, Astro.site as URL)]}>
+  <main class="home page prose">
+    <Breadcrumb crumbs={crumbs} />
+    <h1>{A.h1}</h1>
+    <p class="meta">Cập nhật <time datetime={data.meta.lastReviewed}>{formatDate(data.meta.lastReviewed)}</time></p>
+
+    <p class="intro">
+      Hai chữ số đầu của biển số xe là ký hiệu địa phương nơi xe được đăng ký, theo {SOURCE_NAME}, hiệu lực từ {since}.
+    </p>
+
+    <section aria-labelledby="s1">
+      <h2 id="s1">Cách tra trên BIEN SO</h2>
+      <p>
+        Gõ 2 số đầu, hoặc cả biển số, vào <a href="/">ô tra cứu biển số xe</a>. BIEN SO lấy hai chữ số đầu và cho biết tỉnh, thành hiện hành, tỉnh cũ trước {since} và các mã khác của cùng tỉnh.
+        Mọi tra cứu chạy trong trình duyệt của bạn, biển số không được gửi đi.
+      </p>
+    </section>
+
+    <section aria-labelledby="s2">
+      <h2 id="s2">Ví dụ từ bảng mã</h2>
+      <ul>
+        {
+          examples.map((r) => (
+            <li>
+              <a href={`/${r.code}`} aria-label={`Biển số ${r.code}`}>Biển số {r.code}</a>:{' '}
+              {r.province.name}{r.changed ? `, trước ${since} là ${r.former}` : `, không đổi so với trước ${since}`}.
+            </li>
+          ))
+        }
+        <li><a href="/80" aria-label="Biển số 80">Biển số 80</a>: không thuộc tỉnh nào. Theo {SOURCE_NAME}, ký hiệu 80 dành cho {special80}.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="s3">
+      <h2 id="s3">Một tỉnh có thể có nhiều mã</h2>
+      <p>
+        {multiProvince ? `${multiProvince.name} dùng ${multiProvince.codes.length} mã: ${multiProvince.codes.join(', ')}. ` : ''}
+        Vì vậy hai biển số có hai chữ số đầu khác nhau vẫn có thể cùng một tỉnh. Trang của mỗi tỉnh liệt kê đủ các mã, ví dụ <a href={`/tinh/${multiProvince?.slug}`}>biển số xe {multiProvince?.name}</a>; toàn bộ nằm ở <a href="/bang-ma">bảng biển số xe {data.provinces.length} tỉnh thành</a>.
+      </p>
+    </section>
+
+    <section aria-labelledby="s4">
+      <h2 id="s4">Mã biển không cho biết gì</h2>
+      <p class="limits">{LIMITS}</p>
+      <p>Bài này chỉ nói về hai chữ số đầu. Phần chữ cái và màu biển chưa có nguồn trong bảng mã của BIEN SO nên chưa được đề cập.</p>
+      <p>Mã đổi theo sáp nhập thế nào, xem bài <a href={ARTICLE_SAPNHAP.path}>{ARTICLE_SAPNHAP.h1.toLowerCase()}</a>.</p>
+    </section>
+
+    <Sources />
+  </main>
+</Base>

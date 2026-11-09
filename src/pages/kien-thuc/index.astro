@@ -1,0 +1,29 @@
+---
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Base from '../../layouts/Base.astro';
+import { crumbsLd, type Crumb } from '../../lib/crumbs';
+import { ARTICLES, KB_INDEX } from '../../lib/knowledge';
+import '../../styles/home.css';
+import '../../styles/pages.css';
+
+// No offers on /kien-thuc/*, same as /nguon.
+const crumbs: Crumb[] = [{ name: 'Trang chủ', path: '/' }, { name: 'Kiến thức', path: KB_INDEX.path }];
+---
+
+<Base title={KB_INDEX.title} description={KB_INDEX.description} path={KB_INDEX.path} jsonLd={[crumbsLd(crumbs, Astro.site as URL)]}>
+  <main class="home page prose">
+    <Breadcrumb crumbs={crumbs} />
+    <h1>{KB_INDEX.h1}</h1>
+    <p class="intro">Hai bài ngắn, mỗi bài có mục nguồn ở cuối. Muốn tra một mã cụ thể, hãy dùng <a href="/">ô tra cứu biển số xe</a> hoặc <a href="/bang-ma">bảng biển số xe theo tỉnh thành</a>.</p>
+    <ul class="kb-list">
+      {
+        ARTICLES.map((a) => (
+          <li>
+            <a href={a.path}><strong>{a.h1}</strong></a>
+            <p>{a.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Base>

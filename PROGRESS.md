@@ -110,3 +110,9 @@
 
 ## Post-approval test fix
 - Founder approved all 115 records (verified:true) + data/DECISIONS.json. 7 unit tests and 1 dist test assumed production data is draft → now use all-unverified / all-verified fixtures (clones of the data) for draft behaviour; dist smoke test follows the data's state (noindex + note when draft, index + no note when approved). No production logic changed; strict/audit gates, noindex and draft-note mechanism untouched. Strict build (SITE_URL=https://bienso.org) passes: 119 pages, robots index,follow, /75 and /tinh/hue show the appendix-name note.
+
+## Favicon v2 + SEO content V1
+- Favicon v2 (brand/favicon-v2) replaces public/favicon.svg/.ico/-16/-32 (+ favicon-48); `<head>` order svg → png32 → png16 → ico with `?v=2`; apple-touch/192/512/maskable and header logo unchanged. README + dist tests updated.
+- Content: home "about" block (≤120 words), /bang-ma (H1 "Bảng biển số xe 34 tỉnh thành", title "(cập nhật 2026)", intro, 3-step how-to), /80 direct answer + source URLs, `/[code]` data-generated 1–3 sentences (`src/lib/content.ts`), /tinh summary sentence; `/kien-thuc` index + 2 articles (Article + BreadcrumbList JSON-LD, Nguồn from data/sources meta, no ads); sitemap 121 URLs, footer link.
+- Decision: codeExplanation for merged provinces now says "Mã X thuộc diện hợp nhất theo NQ 202/2025/QH15" (the list of merged units is on the card badge) so 13 TP.HCM code pages don't share ≥20-word runs. datePublished = dateModified = meta.lastReviewed (no separate publish date in the data).
+- Tests: tests-dist/content.test.ts (words limits, 83/27/75 sentences, no ≥20-word identical run on >10 code pages, article sources/links/no-ads/no affirmative "bắt buộc đổi biển", codes exist).

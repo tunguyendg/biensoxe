@@ -42,10 +42,11 @@ const image = new URL(ogImage, Astro.site).href;
     <meta name="description" content={description} />
     <meta name="theme-color" content="#1D4ED8" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0B1F4D" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
-    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    {/* Favicon v2 (?v=2 busts old browser caches). Order: svg → png 32 → png 16 → ico. */}
+    <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png?v=2" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png?v=2" sizes="16x16" type="image/png" />
+    <link rel="icon" href="/favicon.ico?v=2" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     {/* Only the weight used for province names (700), latin + vietnamese subsets. */}
@@ -81,7 +82,7 @@ const image = new URL(ogImage, Astro.site).href;
     <slot />
     <footer>
       <nav aria-label="Liên kết chân trang">
-        <a href="/">Tra cứu</a> · <a href="/bang-ma">Bảng mã</a> · <a href="/nguon">Nguồn &amp; giới hạn</a>
+        <a href="/">Tra cứu</a> · <a href="/bang-ma">Bảng mã</a> · <a href="/kien-thuc">Kiến thức</a> · <a href="/nguon">Nguồn &amp; giới hạn</a>
       </nav>
       <p>Trang web độc lập, không phải trang của cơ quan nhà nước.</p>
       <p>Bảng mã hiệu lực từ {formatDate(data.meta.dataVersion)}</p>

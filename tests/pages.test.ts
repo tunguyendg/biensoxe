@@ -27,7 +27,7 @@ describe('titles & copy', () => {
     expect(codeDescription(found('83'))).toContain('trước 01/07/2025 là Sóc Trăng');
     expect(codeDescription(found('27'))).not.toContain('trước');
     expect(codeDescription(found('80'))).toContain('không gắn với tỉnh');
-    expect(codeExplanation(found('83'))).toContain('Cần Thơ, Sóc Trăng và Hậu Giang hợp nhất thành Cần Thơ');
+    expect(codeExplanation(found('83'))).toContain('Mã 83 thuộc diện hợp nhất theo Nghị quyết 202/2025/QH15.');
     expect(codeExplanation(found('27'))).toContain('không thuộc diện sắp xếp');
     expect(codeExplanation(found('80'))).toContain('Cục Cảnh sát giao thông');
     for (const c of data.codes) expect(codeExplanation(found(c.code))).not.toMatch(/không phải đổi/i);

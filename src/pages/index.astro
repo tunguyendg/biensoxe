@@ -4,6 +4,9 @@ import FeaturedBanner from '../components/FeaturedBanner.astro';
 import OfferCards from '../components/OfferCards.astro';
 import ResultCard from '../components/ResultCard.astro';
 import { lookup } from '../lib/lookup';
+import { SOURCE_NAME } from '../lib/copy';
+import { ARTICLE_DOCMA, ARTICLE_SAPNHAP } from '../lib/knowledge';
+import { data } from '../lib/data';
 import { HOME_DESC, HOME_TITLE } from '../lib/pages';
 import { websiteLd } from '../lib/jsonld';
 import '../styles/home.css';
@@ -14,6 +17,7 @@ const confusing = CONFUSING.flatMap((code) => {
   const r = lookup(code);
   return r.kind === 'province' ? [{ code, name: r.province.name, former: r.former }] : [];
 });
+const sample = lookup('83');
 ---
 
 <Base title={HOME_TITLE} description={HOME_DESC} path="/" jsonLd={[websiteLd(Astro.site as URL)]}>
@@ -44,6 +48,15 @@ const confusing = CONFUSING.flatMap((code) => {
         </p>
       </noscript>
     </ResultCard>
+
+    <section class="about" aria-labelledby="about-h">
+      <h2 id="about-h">Tra mã biển số theo 34 tỉnh, thành hiện hành</h2>
+      <p>
+        BIEN SO tra mã biển số xe theo {data.provinces.length} tỉnh, thành hiện hành từ 01/07/2025 và hiện cả tỉnh cũ trước sáp nhập{sample.kind === 'province' && sample.changed ? `: biển ${sample.code} nay là ${sample.province.name}, trước là ${sample.former}` : ''}.
+        Dữ liệu lấy từ {SOURCE_NAME}.
+        Xem <a href="/bang-ma">bảng biển số xe theo tỉnh thành</a>, bài <a href={ARTICLE_SAPNHAP.path}>{ARTICLE_SAPNHAP.h1.toLowerCase()}</a> hoặc bài <a href={ARTICLE_DOCMA.path}>{ARTICLE_DOCMA.h1.toLowerCase()}</a>.
+      </p>
+    </section>
 
     <OfferCards placement="result" pageKey="home" />
 

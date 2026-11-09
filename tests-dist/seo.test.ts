@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import data from '../data/plate-codes.json';
 
-// SEO audit over every built page (119). Runs after `npm run build`.
+// SEO audit over every built page (122). Runs after `npm run build`.
 const all = readdirSync('dist', { recursive: true, encoding: 'utf8' });
 const files = all.filter((f) => f.endsWith('.html'));
 const read = (f: string) => readFileSync(join('dist', f), 'utf8');
@@ -41,7 +41,7 @@ describe('1. headings', () => {
     expect(h1('83.html')).toBe('Biển số 83 là tỉnh nào?');
     expect(h1('80.html')).toBe('Biển số 80 là mã gì?');
     expect(h1('tinh/can-tho.html')).toBe('Biển số xe Cần Thơ');
-    expect(h1('bang-ma.html')).toBe('Bảng tra cứu biển số xe 34 tỉnh thành');
+    expect(h1('bang-ma.html')).toBe('Bảng biển số xe 34 tỉnh thành');
     expect(h1('nguon.html')).toContain('biển số xe');
     expect(h1('index.html')).toContain('Biển số xe');
     for (const c of data.codes) if (c.type === 'province') expect(h1(`${c.code}.html`)).toBe(`Biển số ${c.code} là tỉnh nào?`);
@@ -182,12 +182,12 @@ describe('5. robots.txt & sitemap.xml', () => {
     expect(r).not.toMatch(/^Disallow: \/\s*$/m);
     expect(r).toContain(`Sitemap: ${SITE}/sitemap.xml`);
   });
-  it('sitemap: 118 absolute URLs, lastmod = meta.lastReviewed, no 404, no duplicates', () => {
-    expect(locs).toHaveLength(118);
-    expect(new Set(locs).size).toBe(118);
+  it('sitemap: 121 absolute URLs, lastmod = meta.lastReviewed, no 404, no duplicates', () => {
+    expect(locs).toHaveLength(121);
+    expect(new Set(locs).size).toBe(121);
     for (const l of locs) expect(l.startsWith('http')).toBe(true);
     const mods = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((m) => m[1]);
-    expect(mods).toHaveLength(118);
+    expect(mods).toHaveLength(121);
     expect(new Set(mods)).toEqual(new Set([data.meta.lastReviewed]));
     expect(sitemap).not.toContain('404');
   });

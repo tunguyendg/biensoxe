@@ -1,7 +1,10 @@
 ---
 import Breadcrumb from '../components/Breadcrumb.astro';
 import Base from '../layouts/Base.astro';
-import { BANGMA_DESC, BANGMA_TITLE } from '../lib/pages';
+import { FORMER_COUNT } from '../lib/content';
+import { LIMITS, SOURCE_NAME } from '../lib/copy';
+import { formatDate } from '../lib/format';
+import { BANGMA_DESC, BANGMA_H1, BANGMA_TITLE } from '../lib/pages';
 import { data } from '../lib/data';
 import { foldText } from '../lib/format';
 import { footerHtml } from '../lib/result-html';
@@ -35,8 +38,19 @@ const groups = [
 <Base title={BANGMA_TITLE} description={BANGMA_DESC} path="/bang-ma">
   <main class="home page">
     <Breadcrumb crumbs={[{ name: 'Trang chủ', path: '/' }, { name: 'Bảng mã', path: '/bang-ma' }]} />
-    <h1>Bảng tra cứu biển số xe {data.provinces.length} tỉnh thành</h1>
-    <p class="intro">{data.codes.length} mã cho {data.provinces.length} tỉnh, thành, theo bảng mã hiệu lực từ 01/07/2025. Bấm một mã để xem chi tiết.</p>
+    <h1>{BANGMA_H1}</h1>
+    <p class="intro">
+      Bảng gồm {data.codes.length} mã biển số xe của {data.provinces.length} tỉnh, thành hiện hành, theo {SOURCE_NAME}, hiệu lực từ {formatDate(data.meta.dataVersion)}.
+      Mỗi mã kèm tỉnh trước sáp nhập (trong {FORMER_COUNT} đơn vị cũ) khi có thay đổi. Mã 80 là ký hiệu của Cục Cảnh sát giao thông, không thuộc tỉnh nào.
+    </p>
+    <section aria-labelledby="howto-h" class="howto">
+      <h2 id="howto-h">Cách dùng bảng</h2>
+      <ol>
+        <li>Gõ mã hoặc tên tỉnh vào ô lọc, hoặc tìm mã theo vùng bên dưới.</li>
+        <li>Bấm mã để xem tỉnh hiện hành, tỉnh cũ và các mã khác cùng tỉnh. Cuối trang có danh sách tỉnh, thành để mở trang riêng của từng tỉnh.</li>
+        <li>Đọc kỹ giới hạn: {LIMITS}</li>
+      </ol>
+    </section>
 
     <form class="filter search" role="search" onsubmit="return false">
       <label for="filter-input">Lọc theo mã hoặc tên tỉnh</label>

@@ -7,6 +7,7 @@ import { SHOW_AREA_POPULATION, areaPopulationLine, mergeBadge, metaLine } from '
 import { data } from '../../lib/data';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { crumbsLd, type Crumb } from '../../lib/crumbs';
+import { provinceSummary } from '../../lib/content';
 import { appendixNameNote } from '../../lib/decisions';
 import { lookup } from '../../lib/lookup';
 import { mergerSentence, provinceDescription, provinceTitle } from '../../lib/pages';
@@ -35,6 +36,7 @@ const crumbs: Crumb[] = [
   <main class="home page">
     <Breadcrumb crumbs={crumbs} />
     <h1>Biển số xe {p.name}</h1>
+    <p class="merger">{provinceSummary(p)}</p>
     <p class="merger">{mergerSentence(p)}</p>
     <p class={badge.merged ? 'badge badge--merged' : 'badge'}>{badge.text}</p>
     <p class="meta">{metaLine(p)}</p>

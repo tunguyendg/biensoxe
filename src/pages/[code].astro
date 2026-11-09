@@ -9,6 +9,8 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import { crumbsLd, type Crumb } from '../lib/crumbs';
 import { appendixNameNote } from '../lib/decisions';
 import { lookup } from '../lib/lookup';
+import { codeFacts, specialAnswer } from '../lib/content';
+import { SOURCE_DOCS } from '../lib/content';
 import { codeDescription, codeExplanation, codeTitle } from '../lib/pages';
 import '../styles/home.css';
 import '../styles/pages.css';
@@ -19,6 +21,8 @@ const { code } = Astro.params;
 const r = lookup(code as string);
 if (r.kind === 'unknown') throw new Error(`No page for unknown code ${code}`); // never generated
 const nameNote = r.kind === 'province' ? appendixNameNote(`code:${r.code}`, r.province.name, [r.code]) : null;
+const facts = r.kind === 'province' ? codeFacts(r) : [];
+const answer = r.kind === 'special' ? specialAnswer(r.code) : null;
 const site = Astro.site as URL;
 const crumbs: Crumb[] = [
   { name: 'Trang chủ', path: '/' },
@@ -38,7 +42,19 @@ const crumbs: Crumb[] = [
     <Breadcrumb crumbs={crumbs} />
     <h1>{r.kind === 'province' ? `Biển số ${r.code} là tỉnh nào?` : `Biển số ${r.code} là mã gì?`}</h1>
 
+    {answer && <p class="answer">{answer}</p>}
+
     <ResultCard state={{ kind: 'result', result: r }} plate={r.code} />
+
+    {facts.length > 0 && <p class="facts">{facts.join(' ')}</p>}
+    {
+      answer && (
+        <p class="facts">
+          Nguồn: {SOURCE_DOCS[0]?.name.replace(/ \(.*\)$/, '')} —{' '}
+          {SOURCE_DOCS[0]?.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.url} rel="noopener noreferrer">{l.label}</a></>)}.
+        </p>
+      )
+    }
 
     {nameNote && <p class="meta name-note">{nameNote}</p>}
 
