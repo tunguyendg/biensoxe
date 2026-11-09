@@ -100,12 +100,12 @@ describe('province facts (NQ 202/2025/QH15)', () => {
     for (const p of provinces) expect(p.adminCenter, p.slug).toBeNull();
   });
 
-  it('area and population are present exactly for merged provinces; records stay unverified', () => {
+  it('area and population are present exactly for merged provinces; values are consistent', () => {
     for (const p of provinces) {
       const merged = p.mergedFrom.length > 0;
       expect(p.areaKm2 !== null, p.slug).toBe(merged);
       expect(p.population !== null, p.slug).toBe(merged);
-      expect(p.verified).toBe(false);
+      expect(typeof p.verified).toBe('boolean');
     }
   });
 });
@@ -113,9 +113,22 @@ describe('province facts (NQ 202/2025/QH15)', () => {
 describe('strict gate', () => {
   const clone = (): PlateData => structuredClone(data);
 
-  it('the shipped draft data is flagged as draft', () => {
-    expect(isDraft()).toBe(true);
-    expect(countUnverified()).toBeGreaterThan(0);
+  // Draft/approved states come from fixtures, so these tests do not depend on the production data's verified flags.
+  const draft = (): PlateData => {
+    const d = clone();
+    d.provinces.forEach((p) => (p.verified = false));
+    d.codes.forEach((c) => (c.verified = false));
+    return d;
+  };
+
+  it('fixtures: all-unverified is a draft, all-verified is not; production data is consistent with its flags', () => {
+    expect(isDraft(draft())).toBe(true);
+    expect(countUnverified(draft())).toBe(provinces.length + codes.length);
+    const approved = draft();
+    approved.provinces.forEach((p) => (p.verified = true));
+    approved.codes.forEach((c) => (c.verified = true));
+    expect(isDraft(approved)).toBe(false);
+    expect(isDraft()).toBe(countUnverified() > 0);
   });
 
   it('is a no-op when the flag is not "1"', () => {
@@ -124,7 +137,7 @@ describe('strict gate', () => {
   });
 
   it('throws under BIEN_SO_STRICT=1 while any record is unverified', () => {
-    expect(() => assertStrictBuild(data, '1', 'https://bienso.example', OK)).toThrow(/verified:false/);
+    expect(() => assertStrictBuild(draft(), '1', 'https://bienso.example', OK)).toThrow(/verified:false/);
   });
 
   it('passes under strict once everything is verified', () => {

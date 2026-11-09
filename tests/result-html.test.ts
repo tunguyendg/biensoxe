@@ -71,11 +71,10 @@ describe('renderResult (the single result-card renderer)', () => {
   });
 
   it('draft note: shown at the END of the source line while any record is unverified, gone when all are verified', () => {
-    expect(isDraft()).toBe(true);
-    const draft = footerHtml(); // default = the real data (still draft)
+    const draft = footerHtml(true); // explicit draft state, independent of the production data
     expect(draft).toContain('<span class="draft-note"> · đang đối chiếu bản gốc</span></p>');
     expect(DRAFT_NOTE).toBe(' · đang đối chiếu bản gốc');
-    expect(html('83')).toContain('draft-note');
+    expect(html('83').includes('draft-note')).toBe(isDraft()); // follows the real data's state
     expect(footerHtml(false)).not.toContain('draft-note');
     expect(footerHtml(false)).not.toContain('đối chiếu');
     // the note comes after the "Nguồn & giới hạn" link, inside the same paragraph
@@ -86,9 +85,13 @@ describe('renderResult (the single result-card renderer)', () => {
     const all = structuredClone(data);
     all.provinces.forEach((p) => (p.verified = true));
     all.codes.forEach((c) => (c.verified = true));
-    expect(robotsContent(isDraft())).toBe('noindex,follow');
+    const none = structuredClone(data);
+    none.provinces.forEach((p) => (p.verified = false));
+    none.codes.forEach((c) => (c.verified = false));
+    expect(robotsContent(isDraft(none))).toBe('noindex,follow');
+    expect(footerHtml(isDraft(none))).toContain('draft-note');
     expect(robotsContent(isDraft(all))).toBe('index,follow');
     expect(footerHtml(isDraft(all))).not.toContain('draft-note');
-    expect(robotsContent()).toBe('noindex,follow');
+    expect(robotsContent()).toBe(isDraft() ? 'noindex,follow' : 'index,follow');
   });
 });

@@ -1,13 +1,13 @@
 # Báo cáo kiểm tra dữ liệu (tự động)
 
-Thời điểm: 2026-11-09T05:21:40.746Z · SHA-256 data/plate-codes.json: `a457d0984fad13f4…`
+Thời điểm: 2026-11-09T06:01:00.165Z · SHA-256 data/plate-codes.json: `7bd9ca6a6117c2f5…`
 
 > Công cụ chỉ ĐỌC dữ liệu. Kết quả MATCH nghĩa là khớp với bản chép nguồn trong `data/sources/`. Bản chép là nguồn thứ cấp (toàn văn trên LuatVietnam/Thư Viện Pháp Luật) cho tới khi Founder đối chiếu PDF Công báo.
 
 ## Tổng quan
 
 - Tổng bản ghi: **115** = 81 mã (80 mã tỉnh + 1 mã đặc biệt) + 34 tỉnh/thành
-- Đã verified:true: 0
+- Đã verified:true: 115
 - MATCH: 80 mã, 33 tỉnh
 - MATCH_NEEDS_DECISION: 1 mã, 1 tỉnh
 - MISMATCH: 0 mã, 0 tỉnh

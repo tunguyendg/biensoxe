@@ -1,14 +1,14 @@
 {
   "summary": {
-    "auditedAt": "2026-11-09T05:21:40.746Z",
-    "dataSha256": "a457d0984fad13f40e545a2f3570d355204dbc0f36df55a58097f226aeafd226",
+    "auditedAt": "2026-11-09T06:01:00.165Z",
+    "dataSha256": "7bd9ca6a6117c2f5d9e3c9e242b53e11fbd81b3dedba328a026173f51ce41d6d",
     "totals": {
       "records": 115,
       "codes": 81,
       "provinces": 34,
       "codeProvince": 80,
       "codeSpecial": 1,
-      "verifiedTrue": 0
+      "verifiedTrue": 115
     },
     "verdicts": {
       "MATCH": {
@@ -69,7 +69,7 @@
     {
       "id": "code:11",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -79,7 +79,7 @@
     {
       "id": "code:12",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -89,7 +89,7 @@
     {
       "id": "code:14",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -99,7 +99,7 @@
     {
       "id": "code:15",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -109,7 +109,7 @@
     {
       "id": "code:16",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -119,7 +119,7 @@
     {
       "id": "code:17",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -129,7 +129,7 @@
     {
       "id": "code:18",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -139,7 +139,7 @@
     {
       "id": "code:19",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -149,7 +149,7 @@
     {
       "id": "code:20",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -159,7 +159,7 @@
     {
       "id": "code:21",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -169,7 +169,7 @@
     {
       "id": "code:22",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -179,7 +179,7 @@
     {
       "id": "code:23",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -189,7 +189,7 @@
     {
       "id": "code:24",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -199,7 +199,7 @@
     {
       "id": "code:25",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -209,7 +209,7 @@
     {
       "id": "code:26",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -219,7 +219,7 @@
     {
       "id": "code:27",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -229,7 +229,7 @@
     {
       "id": "code:28",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -239,7 +239,7 @@
     {
       "id": "code:29",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -249,7 +249,7 @@
     {
       "id": "code:30",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -259,7 +259,7 @@
     {
       "id": "code:31",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -269,7 +269,7 @@
     {
       "id": "code:32",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -279,7 +279,7 @@
     {
       "id": "code:33",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -289,7 +289,7 @@
     {
       "id": "code:34",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -299,7 +299,7 @@
     {
       "id": "code:35",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -309,7 +309,7 @@
     {
       "id": "code:36",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -319,7 +319,7 @@
     {
       "id": "code:37",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -329,7 +329,7 @@
     {
       "id": "code:38",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -339,7 +339,7 @@
     {
       "id": "code:39",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -349,7 +349,7 @@
     {
       "id": "code:40",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -359,7 +359,7 @@
     {
       "id": "code:41",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -369,7 +369,7 @@
     {
       "id": "code:43",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -379,7 +379,7 @@
     {
       "id": "code:47",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -389,7 +389,7 @@
     {
       "id": "code:48",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -399,7 +399,7 @@
     {
       "id": "code:49",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -409,7 +409,7 @@
     {
       "id": "code:50",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -419,7 +419,7 @@
     {
       "id": "code:51",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -429,7 +429,7 @@
     {
       "id": "code:52",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -439,7 +439,7 @@
     {
       "id": "code:53",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -449,7 +449,7 @@
     {
       "id": "code:54",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -459,7 +459,7 @@
     {
       "id": "code:55",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -469,7 +469,7 @@
     {
       "id": "code:56",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -479,7 +479,7 @@
     {
       "id": "code:57",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -489,7 +489,7 @@
     {
       "id": "code:58",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -499,7 +499,7 @@
     {
       "id": "code:59",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -509,7 +509,7 @@
     {
       "id": "code:60",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -519,7 +519,7 @@
     {
       "id": "code:61",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -529,7 +529,7 @@
     {
       "id": "code:62",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -539,7 +539,7 @@
     {
       "id": "code:63",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -549,7 +549,7 @@
     {
       "id": "code:64",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -559,7 +559,7 @@
     {
       "id": "code:65",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -569,7 +569,7 @@
     {
       "id": "code:66",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -579,7 +579,7 @@
     {
       "id": "code:67",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -589,7 +589,7 @@
     {
       "id": "code:68",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -599,7 +599,7 @@
     {
       "id": "code:69",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -609,7 +609,7 @@
     {
       "id": "code:70",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -619,7 +619,7 @@
     {
       "id": "code:71",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -629,7 +629,7 @@
     {
       "id": "code:72",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -639,7 +639,7 @@
     {
       "id": "code:73",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -649,7 +649,7 @@
     {
       "id": "code:74",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -659,7 +659,7 @@
     {
       "id": "code:75",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH_NEEDS_DECISION",
       "issues": [],
       "notes": [
@@ -670,7 +670,7 @@
     {
       "id": "code:76",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -680,7 +680,7 @@
     {
       "id": "code:77",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -690,7 +690,7 @@
     {
       "id": "code:78",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -700,7 +700,7 @@
     {
       "id": "code:79",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -710,7 +710,7 @@
     {
       "id": "code:80",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -720,7 +720,7 @@
     {
       "id": "code:81",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -730,7 +730,7 @@
     {
       "id": "code:82",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -740,7 +740,7 @@
     {
       "id": "code:83",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -750,7 +750,7 @@
     {
       "id": "code:84",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -760,7 +760,7 @@
     {
       "id": "code:85",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -770,7 +770,7 @@
     {
       "id": "code:86",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -780,7 +780,7 @@
     {
       "id": "code:88",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -790,7 +790,7 @@
     {
       "id": "code:89",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -800,7 +800,7 @@
     {
       "id": "code:90",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -810,7 +810,7 @@
     {
       "id": "code:92",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -820,7 +820,7 @@
     {
       "id": "code:93",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -830,7 +830,7 @@
     {
       "id": "code:94",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -840,7 +840,7 @@
     {
       "id": "code:95",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -850,7 +850,7 @@
     {
       "id": "code:97",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -860,7 +860,7 @@
     {
       "id": "code:98",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -870,7 +870,7 @@
     {
       "id": "code:99",
       "kind": "code",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [
@@ -880,7 +880,7 @@
     {
       "id": "province:ha-noi",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -891,7 +891,7 @@
     {
       "id": "province:hai-phong",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -903,7 +903,7 @@
     {
       "id": "province:quang-ninh",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -914,7 +914,7 @@
     {
       "id": "province:bac-ninh",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -926,7 +926,7 @@
     {
       "id": "province:hung-yen",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -938,7 +938,7 @@
     {
       "id": "province:ninh-binh",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -950,7 +950,7 @@
     {
       "id": "province:phu-tho",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -962,7 +962,7 @@
     {
       "id": "province:thai-nguyen",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -974,7 +974,7 @@
     {
       "id": "province:tuyen-quang",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -986,7 +986,7 @@
     {
       "id": "province:lao-cai",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -998,7 +998,7 @@
     {
       "id": "province:cao-bang",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1009,7 +1009,7 @@
     {
       "id": "province:lang-son",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1020,7 +1020,7 @@
     {
       "id": "province:dien-bien",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1031,7 +1031,7 @@
     {
       "id": "province:lai-chau",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1042,7 +1042,7 @@
     {
       "id": "province:son-la",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1053,7 +1053,7 @@
     {
       "id": "province:thanh-hoa",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1064,7 +1064,7 @@
     {
       "id": "province:nghe-an",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1075,7 +1075,7 @@
     {
       "id": "province:ha-tinh",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1086,7 +1086,7 @@
     {
       "id": "province:quang-tri",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1098,7 +1098,7 @@
     {
       "id": "province:hue",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH_NEEDS_DECISION",
       "issues": [],
       "notes": [
@@ -1111,7 +1111,7 @@
     {
       "id": "province:da-nang",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1123,7 +1123,7 @@
     {
       "id": "province:quang-ngai",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1135,7 +1135,7 @@
     {
       "id": "province:gia-lai",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1147,7 +1147,7 @@
     {
       "id": "province:dak-lak",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1159,7 +1159,7 @@
     {
       "id": "province:khanh-hoa",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1171,7 +1171,7 @@
     {
       "id": "province:lam-dong",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1183,7 +1183,7 @@
     {
       "id": "province:ho-chi-minh",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1195,7 +1195,7 @@
     {
       "id": "province:dong-nai",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1207,7 +1207,7 @@
     {
       "id": "province:tay-ninh",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1219,7 +1219,7 @@
     {
       "id": "province:can-tho",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1231,7 +1231,7 @@
     {
       "id": "province:vinh-long",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1243,7 +1243,7 @@
     {
       "id": "province:dong-thap",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1255,7 +1255,7 @@
     {
       "id": "province:an-giang",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],
@@ -1267,7 +1267,7 @@
     {
       "id": "province:ca-mau",
       "kind": "province",
-      "verified": false,
+      "verified": true,
       "verdict": "MATCH",
       "issues": [],
       "notes": [],

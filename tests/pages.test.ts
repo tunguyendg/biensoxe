@@ -98,14 +98,22 @@ describe('FAQ & JSON-LD', () => {
   });
 });
 
+const asDraft = () => {
+  const d = structuredClone(data);
+  d.provinces.forEach((p) => (p.verified = false));
+  d.codes.forEach((c) => (c.verified = false));
+  return d;
+};
+
 describe('strict build also needs the real https SITE_URL', () => {
+  const draftData = asDraft();
   const verified = structuredClone(data);
   verified.provinces.forEach((p) => (p.verified = true));
   verified.codes.forEach((c) => (c.verified = true));
   it('fails only for unverified records and/or SITE_URL, and says both when both apply', () => {
-    expect(() => assertStrictBuild(data, '1', undefined, OK)).toThrow(/verified:false[\s\S]*SITE_URL/);
-    expect(() => assertStrictBuild(data, '1', 'https://x.example', OK)).toThrow(/verified:false/);
-    expect(() => assertStrictBuild(data, '1', 'https://x.example', OK)).not.toThrow(/SITE_URL/);
+    expect(() => assertStrictBuild(draftData, '1', undefined, OK)).toThrow(/verified:false[\s\S]*SITE_URL/);
+    expect(() => assertStrictBuild(draftData, '1', 'https://x.example', OK)).toThrow(/verified:false/);
+    expect(() => assertStrictBuild(draftData, '1', 'https://x.example', OK)).not.toThrow(/SITE_URL/);
   });
   it('fails without https SITE_URL, passes with it', () => {
     expect(() => assertStrictBuild(verified, '1', undefined, OK)).toThrow(/SITE_URL/);
@@ -147,7 +155,7 @@ describe('strict build also needs a fresh, clean data audit', () => {
     expect(() => assertStrictBuild(verified, '1', SITE, gate({ coverageIssues: 2 }))).toThrow(/2 coverage/);
   });
   it('lists every reason together and is a no-op without the strict flag', () => {
-    expect(() => assertStrictBuild(data, '1', undefined, gate(null))).toThrow(/verified:false[\s\S]*SITE_URL[\s\S]*audit-result/);
+    expect(() => assertStrictBuild(asDraft(), '1', undefined, gate(null))).toThrow(/verified:false[\s\S]*SITE_URL[\s\S]*audit-result/);
     expect(() => assertStrictBuild(data, undefined, undefined, gate(null))).not.toThrow();
   });
   it('summariseAudit reads sha, MISMATCH count and coverage; malformed counts as an issue', async () => {

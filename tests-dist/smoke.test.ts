@@ -10,6 +10,8 @@ const htmlFiles = all.filter((f) => f.endsWith('.html'));
 const read = (f: string) => readFileSync(join('dist', f), 'utf8');
 const codes = data.codes.map((c) => c.code);
 const slugs = data.provinces.map((p) => p.slug);
+// The build reflects whatever state the data is in: draft (any verified:false) or approved.
+const draft = [...data.codes, ...data.provinces].some((r) => !r.verified);
 const limitsEsc = LIMITS.replace(/&/g, '&amp;');
 
 describe('page count', () => {
@@ -48,8 +50,14 @@ describe('every code page', () => {
     expect(h).toContain(`/og/${c}.png`);
     expect(h).toContain('twitter:card');
     expect(h).toContain('BreadcrumbList');
-    expect(h).toContain('noindex'); // draft data
-    expect(h).toContain('đang đối chiếu bản gốc'); // draft note on the source line
+    if (draft) {
+      expect(h).toMatch(/name="robots" content="noindex,follow"/);
+      expect(h).toContain('đang đối chiếu bản gốc'); // draft note on the source line
+    } else {
+      expect(h).toMatch(/name="robots" content="index,follow"/);
+      expect(h).not.toContain('noindex');
+      expect(h).not.toContain('đang đối chiếu bản gốc');
+    }
     expect(h).not.toContain('DỮ LIỆU NHÁP'); // the red banner is gone
   });
   it('shows the same card pieces as the home search (badge + meta line)', () => {

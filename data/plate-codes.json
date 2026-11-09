@@ -36,7 +36,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "hai-phong",
@@ -57,7 +57,7 @@
       "adminCenter": null,
       "areaKm2": 3194.72,
       "population": 4664124,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "quang-ninh",
@@ -71,7 +71,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "bac-ninh",
@@ -91,7 +91,7 @@
       "adminCenter": null,
       "areaKm2": 4718.6,
       "population": 3619433,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "hung-yen",
@@ -111,7 +111,7 @@
       "adminCenter": null,
       "areaKm2": 2514.81,
       "population": 3567943,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "ninh-binh",
@@ -134,7 +134,7 @@
       "adminCenter": null,
       "areaKm2": 3942.62,
       "population": 4412264,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "phu-tho",
@@ -157,7 +157,7 @@
       "adminCenter": null,
       "areaKm2": 9361.38,
       "population": 4022638,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "thai-nguyen",
@@ -177,7 +177,7 @@
       "adminCenter": null,
       "areaKm2": 8375.21,
       "population": 1799489,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "tuyen-quang",
@@ -197,7 +197,7 @@
       "adminCenter": null,
       "areaKm2": 13795.5,
       "population": 1865270,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "lao-cai",
@@ -217,7 +217,7 @@
       "adminCenter": null,
       "areaKm2": 13256.92,
       "population": 1778785,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "cao-bang",
@@ -231,7 +231,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "lang-son",
@@ -245,7 +245,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "dien-bien",
@@ -259,7 +259,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "lai-chau",
@@ -273,7 +273,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "son-la",
@@ -287,7 +287,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "thanh-hoa",
@@ -301,7 +301,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "nghe-an",
@@ -315,7 +315,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "ha-tinh",
@@ -329,7 +329,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "quang-tri",
@@ -349,7 +349,7 @@
       "adminCenter": null,
       "areaKm2": 12700,
       "population": 1870845,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "hue",
@@ -363,7 +363,7 @@
       "adminCenter": null,
       "areaKm2": null,
       "population": null,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "da-nang",
@@ -383,7 +383,7 @@
       "adminCenter": null,
       "areaKm2": 11859.59,
       "population": 3065628,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "quang-ngai",
@@ -403,7 +403,7 @@
       "adminCenter": null,
       "areaKm2": 14832.55,
       "population": 2161755,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "gia-lai",
@@ -423,7 +423,7 @@
       "adminCenter": null,
       "areaKm2": 21576.53,
       "population": 3583693,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "dak-lak",
@@ -443,7 +443,7 @@
       "adminCenter": null,
       "areaKm2": 18096.4,
       "population": 3346853,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "khanh-hoa",
@@ -463,7 +463,7 @@
       "adminCenter": null,
       "areaKm2": 8555.86,
       "population": 2243554,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "lam-dong",
@@ -486,7 +486,7 @@
       "adminCenter": null,
       "areaKm2": 24233.07,
       "population": 3872999,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "ho-chi-minh",
@@ -519,7 +519,7 @@
       "adminCenter": null,
       "areaKm2": 6772.59,
       "population": 14002598,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "dong-nai",
@@ -540,7 +540,7 @@
       "adminCenter": null,
       "areaKm2": 12737.18,
       "population": 4491408,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "tay-ninh",
@@ -560,7 +560,7 @@
       "adminCenter": null,
       "areaKm2": 8536.44,
       "population": 3254170,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "can-tho",
@@ -583,7 +583,7 @@
       "adminCenter": null,
       "areaKm2": 6360.83,
       "population": 4199824,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "vinh-long",
@@ -606,7 +606,7 @@
       "adminCenter": null,
       "areaKm2": 6296.2,
       "population": 4257581,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "dong-thap",
@@ -626,7 +626,7 @@
       "adminCenter": null,
       "areaKm2": 5938.64,
       "population": 4370046,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "an-giang",
@@ -646,7 +646,7 @@
       "adminCenter": null,
       "areaKm2": 9888.91,
       "population": 4952238,
-      "verified": false
+      "verified": true
     },
     {
       "slug": "ca-mau",
@@ -666,7 +666,7 @@
       "adminCenter": null,
       "areaKm2": 7942.39,
       "population": 2606672,
-      "verified": false
+      "verified": true
     }
   ],
   "codes": [
@@ -675,196 +675,196 @@
       "type": "province",
       "currentProvince": "cao-bang",
       "formerProvince": "Cao Bằng",
-      "verified": false
+      "verified": true
     },
     {
       "code": "12",
       "type": "province",
       "currentProvince": "lang-son",
       "formerProvince": "Lạng Sơn",
-      "verified": false
+      "verified": true
     },
     {
       "code": "14",
       "type": "province",
       "currentProvince": "quang-ninh",
       "formerProvince": "Quảng Ninh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "15",
       "type": "province",
       "currentProvince": "hai-phong",
       "formerProvince": "Hải Phòng",
-      "verified": false
+      "verified": true
     },
     {
       "code": "16",
       "type": "province",
       "currentProvince": "hai-phong",
       "formerProvince": "Hải Phòng",
-      "verified": false
+      "verified": true
     },
     {
       "code": "17",
       "type": "province",
       "currentProvince": "hung-yen",
       "formerProvince": "Thái Bình",
-      "verified": false
+      "verified": true
     },
     {
       "code": "18",
       "type": "province",
       "currentProvince": "ninh-binh",
       "formerProvince": "Nam Định",
-      "verified": false
+      "verified": true
     },
     {
       "code": "19",
       "type": "province",
       "currentProvince": "phu-tho",
       "formerProvince": "Phú Thọ",
-      "verified": false
+      "verified": true
     },
     {
       "code": "20",
       "type": "province",
       "currentProvince": "thai-nguyen",
       "formerProvince": "Thái Nguyên",
-      "verified": false
+      "verified": true
     },
     {
       "code": "21",
       "type": "province",
       "currentProvince": "lao-cai",
       "formerProvince": "Yên Bái",
-      "verified": false
+      "verified": true
     },
     {
       "code": "22",
       "type": "province",
       "currentProvince": "tuyen-quang",
       "formerProvince": "Tuyên Quang",
-      "verified": false
+      "verified": true
     },
     {
       "code": "23",
       "type": "province",
       "currentProvince": "tuyen-quang",
       "formerProvince": "Hà Giang",
-      "verified": false
+      "verified": true
     },
     {
       "code": "24",
       "type": "province",
       "currentProvince": "lao-cai",
       "formerProvince": "Lào Cai",
-      "verified": false
+      "verified": true
     },
     {
       "code": "25",
       "type": "province",
       "currentProvince": "lai-chau",
       "formerProvince": "Lai Châu",
-      "verified": false
+      "verified": true
     },
     {
       "code": "26",
       "type": "province",
       "currentProvince": "son-la",
       "formerProvince": "Sơn La",
-      "verified": false
+      "verified": true
     },
     {
       "code": "27",
       "type": "province",
       "currentProvince": "dien-bien",
       "formerProvince": "Điện Biên",
-      "verified": false
+      "verified": true
     },
     {
       "code": "28",
       "type": "province",
       "currentProvince": "phu-tho",
       "formerProvince": "Hòa Bình",
-      "verified": false
+      "verified": true
     },
     {
       "code": "29",
       "type": "province",
       "currentProvince": "ha-noi",
       "formerProvince": "Hà Nội",
-      "verified": false
+      "verified": true
     },
     {
       "code": "30",
       "type": "province",
       "currentProvince": "ha-noi",
       "formerProvince": "Hà Nội",
-      "verified": false
+      "verified": true
     },
     {
       "code": "31",
       "type": "province",
       "currentProvince": "ha-noi",
       "formerProvince": "Hà Nội",
-      "verified": false
+      "verified": true
     },
     {
       "code": "32",
       "type": "province",
       "currentProvince": "ha-noi",
       "formerProvince": "Hà Nội",
-      "verified": false
+      "verified": true
     },
     {
       "code": "33",
       "type": "province",
       "currentProvince": "ha-noi",
       "formerProvince": "Hà Nội",
-      "verified": false
+      "verified": true
     },
     {
       "code": "34",
       "type": "province",
       "currentProvince": "hai-phong",
       "formerProvince": "Hải Dương",
-      "verified": false
+      "verified": true
     },
     {
       "code": "35",
       "type": "province",
       "currentProvince": "ninh-binh",
       "formerProvince": "Ninh Bình",
-      "verified": false
+      "verified": true
     },
     {
       "code": "36",
       "type": "province",
       "currentProvince": "thanh-hoa",
       "formerProvince": "Thanh Hóa",
-      "verified": false
+      "verified": true
     },
     {
       "code": "37",
       "type": "province",
       "currentProvince": "nghe-an",
       "formerProvince": "Nghệ An",
-      "verified": false
+      "verified": true
     },
     {
       "code": "38",
       "type": "province",
       "currentProvince": "ha-tinh",
       "formerProvince": "Hà Tĩnh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "39",
       "type": "province",
       "currentProvince": "dong-nai",
       "formerProvince": "Đồng Nai",
-      "verified": false,
+      "verified": true,
       "note": "Mã 39 được bổ sung cho Đồng Nai trước 2025 (không phải mã của tỉnh cũ khác)."
     },
     {
@@ -872,175 +872,175 @@
       "type": "province",
       "currentProvince": "ha-noi",
       "formerProvince": "Hà Nội",
-      "verified": false
+      "verified": true
     },
     {
       "code": "41",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "43",
       "type": "province",
       "currentProvince": "da-nang",
       "formerProvince": "Đà Nẵng",
-      "verified": false
+      "verified": true
     },
     {
       "code": "47",
       "type": "province",
       "currentProvince": "dak-lak",
       "formerProvince": "Đắk Lắk",
-      "verified": false
+      "verified": true
     },
     {
       "code": "48",
       "type": "province",
       "currentProvince": "lam-dong",
       "formerProvince": "Đắk Nông",
-      "verified": false
+      "verified": true
     },
     {
       "code": "49",
       "type": "province",
       "currentProvince": "lam-dong",
       "formerProvince": "Lâm Đồng",
-      "verified": false
+      "verified": true
     },
     {
       "code": "50",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "51",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "52",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "53",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "54",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "55",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "56",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "57",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "58",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "59",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "TP. Hồ Chí Minh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "60",
       "type": "province",
       "currentProvince": "dong-nai",
       "formerProvince": "Đồng Nai",
-      "verified": false
+      "verified": true
     },
     {
       "code": "61",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "Bình Dương",
-      "verified": false
+      "verified": true
     },
     {
       "code": "62",
       "type": "province",
       "currentProvince": "tay-ninh",
       "formerProvince": "Long An",
-      "verified": false
+      "verified": true
     },
     {
       "code": "63",
       "type": "province",
       "currentProvince": "dong-thap",
       "formerProvince": "Tiền Giang",
-      "verified": false
+      "verified": true
     },
     {
       "code": "64",
       "type": "province",
       "currentProvince": "vinh-long",
       "formerProvince": "Vĩnh Long",
-      "verified": false
+      "verified": true
     },
     {
       "code": "65",
       "type": "province",
       "currentProvince": "can-tho",
       "formerProvince": "Cần Thơ",
-      "verified": false
+      "verified": true
     },
     {
       "code": "66",
       "type": "province",
       "currentProvince": "dong-thap",
       "formerProvince": "Đồng Tháp",
-      "verified": false
+      "verified": true
     },
     {
       "code": "67",
       "type": "province",
       "currentProvince": "an-giang",
       "formerProvince": "An Giang",
-      "verified": false
+      "verified": true
     },
     {
       "code": "68",
       "type": "province",
       "currentProvince": "an-giang",
       "formerProvince": "Kiên Giang",
-      "verified": false,
+      "verified": true,
       "note": "Tỉnh An Giang mới hợp nhất An Giang và Kiên Giang; Phụ lục ghi 68 trước 67."
     },
     {
@@ -1048,49 +1048,49 @@
       "type": "province",
       "currentProvince": "ca-mau",
       "formerProvince": "Cà Mau",
-      "verified": false
+      "verified": true
     },
     {
       "code": "70",
       "type": "province",
       "currentProvince": "tay-ninh",
       "formerProvince": "Tây Ninh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "71",
       "type": "province",
       "currentProvince": "vinh-long",
       "formerProvince": "Bến Tre",
-      "verified": false
+      "verified": true
     },
     {
       "code": "72",
       "type": "province",
       "currentProvince": "ho-chi-minh",
       "formerProvince": "Bà Rịa – Vũng Tàu",
-      "verified": false
+      "verified": true
     },
     {
       "code": "73",
       "type": "province",
       "currentProvince": "quang-tri",
       "formerProvince": "Quảng Bình",
-      "verified": false
+      "verified": true
     },
     {
       "code": "74",
       "type": "province",
       "currentProvince": "quang-tri",
       "formerProvince": "Quảng Trị",
-      "verified": false
+      "verified": true
     },
     {
       "code": "75",
       "type": "province",
       "currentProvince": "hue",
       "formerProvince": "Huế",
-      "verified": false,
+      "verified": true,
       "note": "Thành phố Huế trực thuộc TW từ 01/01/2025 (trước đó: tỉnh Thừa Thiên Huế). Kiểm tra tên ghi trong Phụ lục 02 TT51/2025."
     },
     {
@@ -1098,28 +1098,28 @@
       "type": "province",
       "currentProvince": "quang-ngai",
       "formerProvince": "Quảng Ngãi",
-      "verified": false
+      "verified": true
     },
     {
       "code": "77",
       "type": "province",
       "currentProvince": "gia-lai",
       "formerProvince": "Bình Định",
-      "verified": false
+      "verified": true
     },
     {
       "code": "78",
       "type": "province",
       "currentProvince": "dak-lak",
       "formerProvince": "Phú Yên",
-      "verified": false
+      "verified": true
     },
     {
       "code": "79",
       "type": "province",
       "currentProvince": "khanh-hoa",
       "formerProvince": "Khánh Hòa",
-      "verified": false
+      "verified": true
     },
     {
       "code": "80",
@@ -1127,7 +1127,7 @@
       "currentProvince": null,
       "formerProvince": null,
       "label": "Cục Cảnh sát giao thông (Bộ Công an)",
-      "verified": false,
+      "verified": true,
       "note": "Mã đăng ký tại Cục CSGT, không gắn với tỉnh/thành nào."
     },
     {
@@ -1135,112 +1135,112 @@
       "type": "province",
       "currentProvince": "gia-lai",
       "formerProvince": "Gia Lai",
-      "verified": false
+      "verified": true
     },
     {
       "code": "82",
       "type": "province",
       "currentProvince": "quang-ngai",
       "formerProvince": "Kon Tum",
-      "verified": false
+      "verified": true
     },
     {
       "code": "83",
       "type": "province",
       "currentProvince": "can-tho",
       "formerProvince": "Sóc Trăng",
-      "verified": false
+      "verified": true
     },
     {
       "code": "84",
       "type": "province",
       "currentProvince": "vinh-long",
       "formerProvince": "Trà Vinh",
-      "verified": false
+      "verified": true
     },
     {
       "code": "85",
       "type": "province",
       "currentProvince": "khanh-hoa",
       "formerProvince": "Ninh Thuận",
-      "verified": false
+      "verified": true
     },
     {
       "code": "86",
       "type": "province",
       "currentProvince": "lam-dong",
       "formerProvince": "Bình Thuận",
-      "verified": false
+      "verified": true
     },
     {
       "code": "88",
       "type": "province",
       "currentProvince": "phu-tho",
       "formerProvince": "Vĩnh Phúc",
-      "verified": false
+      "verified": true
     },
     {
       "code": "89",
       "type": "province",
       "currentProvince": "hung-yen",
       "formerProvince": "Hưng Yên",
-      "verified": false
+      "verified": true
     },
     {
       "code": "90",
       "type": "province",
       "currentProvince": "ninh-binh",
       "formerProvince": "Hà Nam",
-      "verified": false
+      "verified": true
     },
     {
       "code": "92",
       "type": "province",
       "currentProvince": "da-nang",
       "formerProvince": "Quảng Nam",
-      "verified": false
+      "verified": true
     },
     {
       "code": "93",
       "type": "province",
       "currentProvince": "dong-nai",
       "formerProvince": "Bình Phước",
-      "verified": false
+      "verified": true
     },
     {
       "code": "94",
       "type": "province",
       "currentProvince": "ca-mau",
       "formerProvince": "Bạc Liêu",
-      "verified": false
+      "verified": true
     },
     {
       "code": "95",
       "type": "province",
       "currentProvince": "can-tho",
       "formerProvince": "Hậu Giang",
-      "verified": false
+      "verified": true
     },
     {
       "code": "97",
       "type": "province",
       "currentProvince": "thai-nguyen",
       "formerProvince": "Bắc Kạn",
-      "verified": false
+      "verified": true
     },
     {
       "code": "98",
       "type": "province",
       "currentProvince": "bac-ninh",
       "formerProvince": "Bắc Giang",
-      "verified": false
+      "verified": true
     },
     {
       "code": "99",
       "type": "province",
       "currentProvince": "bac-ninh",
       "formerProvince": "Bắc Ninh",
-      "verified": false
+      "verified": true
     }
   ]
 }

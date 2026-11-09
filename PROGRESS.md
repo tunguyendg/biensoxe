@@ -107,3 +107,6 @@
 
 ## Audit: --check mode
 - `verify` now runs `node scripts/audit-data.mjs --check` (writes nothing; fails on MISMATCH/coverage, or audit-result.json missing/stale by sha or content → "chạy npm run data:audit"). `npm run data:audit` writes docs/DATA_AUDIT.md + data/audit-result.json only when content differs (auditedAt ignored). Tests: 3 new (missing/stale/no-rewrite); two consecutive verifies leave `git status` clean of audit files.
+
+## Post-approval test fix
+- Founder approved all 115 records (verified:true) + data/DECISIONS.json. 7 unit tests and 1 dist test assumed production data is draft → now use all-unverified / all-verified fixtures (clones of the data) for draft behaviour; dist smoke test follows the data's state (noindex + note when draft, index + no note when approved). No production logic changed; strict/audit gates, noindex and draft-note mechanism untouched. Strict build (SITE_URL=https://bienso.org) passes: 119 pages, robots index,follow, /75 and /tinh/hue show the appendix-name note.

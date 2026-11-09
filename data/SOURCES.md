@@ -28,3 +28,5 @@ Status values:
 2. Compare it row by row with `data/plate-codes.json`, `provinces[].codes`.
 3. Note the exact name written for code 75 and for code 80.
 4. Approve the change of `verified:false` → `true`, and update row 1 to VERIFIED-PRIMARY.
+
+- 2026-11-09: Founder duyệt 115 bản ghi (audit sha a457d0984fad); đối chiếu PDF Công báo 887+888 (TT 51/2025/TT-BCA, Phụ lục 02). Quyết định: {"code:75":"Hiển thị 'Huế'; ghi chú tên trong Phụ lục là 'Thừa Thiên Huế'","province:hue":"Hiển thị 'Huế'"}
