@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import data from '../data/plate-codes.json';
 import nq202 from '../data/sources/nq202-2025.json';
@@ -18,7 +18,9 @@ const title = (h: string) => text(/<title>([\s\S]*?)<\/title>/.exec(h)?.[1] ?? '
 const desc = (h: string) => un(/<meta name="description" content="([^"]*)"/.exec(h)?.[1] ?? '');
 const codes = new Set(data.codes.map((c) => c.code));
 const OLD = ['kien-thuc/bien-so-xe-sau-sap-nhap-2025', 'kien-thuc/cach-doc-ma-bien-so-xe'];
-const ARTICLES = [...OLD, 'kien-thuc/bang-doi-chieu-63-tinh-cu-34-tinh-moi', 'kien-thuc/tinh-thanh-giu-nguyen-sau-sap-nhap-2025', 'kien-thuc/tinh-co-nhieu-ma-bien-so'];
+const V11 = ['kien-thuc/bang-doi-chieu-63-tinh-cu-34-tinh-moi', 'kien-thuc/tinh-thanh-giu-nguyen-sau-sap-nhap-2025', 'kien-thuc/tinh-co-nhieu-ma-bien-so'];
+const V12 = ['mau-bien-so-xe', 'ky-hieu-seri-bien-so-xe', 'bien-so-ng-qt-cv-nn', 'bien-so-dinh-danh', 'khi-nao-phai-doi-bien-so-xe', 'bien-so-3-so-4-so-con-dung-duoc-khong', 'dau-gia-bien-so-xe'].map((x) => `kien-thuc/${x}`);
+const ARTICLES = [...OLD, ...V11, ...V12];
 const KB = ['kien-thuc', ...ARTICLES];
 
 describe('home block', () => {
@@ -144,7 +146,7 @@ describe('/kien-thuc', () => {
       }
     }
   });
-  it('all 5 articles carry Article JSON-LD (no FAQPage), datePublished = publishedAt, dateModified = max(publishedAt, lastReviewed), and a Nguồn section with real URLs', () => {
+  it('all 12 articles carry Article JSON-LD (no FAQPage), datePublished = publishedAt, dateModified = max(publishedAt, lastReviewed), and a Nguồn section with real URLs', () => {
     for (const f of ARTICLES) {
       const h = read(`${f}.html`);
       const art = ld(h).find((x) => x['@type'] === 'Article') as Record<string, unknown>;
@@ -153,18 +155,19 @@ describe('/kien-thuc', () => {
       const modified = data.meta.lastReviewed > '2026-11-09' ? data.meta.lastReviewed : '2026-11-09';
       expect(art.dateModified).toBe(modified);
       expect(text(main(h))).toContain('Đăng ngày 09/11/2026');
-      expect(text(main(h)).includes('Cập nhật')).toBe(modified !== '2026-11-09');
+      expect(text(main(h)).includes('· Cập nhật')).toBe(modified !== '2026-11-09');
       expect(art.headline).toBe(text(/<h1[\s\S]*?<\/h1>/.exec(h)?.[0] ?? ''));
       expect(art.publisher).toEqual({ '@id': `${new URL(String(art.mainEntityOfPage && (art.mainEntityOfPage as { '@id': string })['@id'])).origin}/#organization` });
       expect(art.author).toEqual(art.publisher);
       expect(ld(h).some((x) => x['@type'] === 'FAQPage')).toBe(false);
-      for (const url of [tt51.meta.gazetteUrl, tt51.meta.transcribedFrom, nq202.meta.pdf, tt79.meta.transcribedFrom]) expect(h, `${f} ${url}`).toContain(`href="${url}"`);
+      if (!V12.includes(f)) for (const url of [tt51.meta.gazetteUrl, tt51.meta.transcribedFrom, nq202.meta.pdf, tt79.meta.transcribedFrom]) expect(h, `${f} ${url}`).toContain(`href="${url}"`);
+      else expect([...(/<section[^>]*class="sources"[\s\S]*?<\/section>/.exec(h)?.[0] ?? '').matchAll(/href="https:\/\/[^"]+"/g)].length, f).toBeGreaterThanOrEqual(1);
       expect(h).toContain('<h2 id="sources-h">Nguồn</h2>');
       expect(h).toContain('datetime="2026-11-09"');
     }
   });
   it('articles cross-link each other, /bang-ma and ≥ 5 code/province pages; no ads on /kien-thuc/*', () => {
-    for (const f of ARTICLES) {
+    for (const f of [...OLD, ...V11]) {
       const h = read(`${f}.html`);
       const others = ARTICLES.filter((x) => x !== f);
       expect(others.some((o) => h.includes(`href="/${o}`)), `${f} links no other article`).toBe(true);
@@ -181,12 +184,18 @@ describe('/kien-thuc', () => {
       expect(h, f).not.toContain('class="featured');
     }
   });
-  it('no affirmative "bắt buộc đổi biển"; the default sentence is used', () => {
-    const DEFAULT = 'Chưa thấy quy định bắt buộc đổi biển; hỏi công an nơi đăng ký để chắc chắn.';
+  it('no affirmative "bắt buộc đổi biển"; /sáp nhập uses the F19 sentence + "hỏi công an nơi đăng ký để chắc chắn"', () => {
+    const F19 = 'Điều 18 TT 79/2024/TT-BCA không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh; hỏi công an nơi đăng ký để chắc chắn.';
     const a = text(main(read(`${ARTICLES[0]}.html`)));
-    expect(a).toContain(DEFAULT);
+    expect(a).toContain(F19);
+    expect(a).not.toContain('Chưa thấy quy định');
+    expect(read(`${ARTICLES[0]}.html`)).toContain(`href="/${V12[4]}"`); // link to "khi nào phải đổi biển"
     for (const f of ARTICLES) {
-      const t = text(main(read(`${f}.html`))).replace(DEFAULT, '').replace(/không, tự nó, buộc phải đổi biển/g, '');
+      const t = text(main(read(`${f}.html`)))
+        .replace(/không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh/g, '')
+        .replace(/không, tự nó, buộc phải đổi biển/g, '')
+        .replace(/khi nào phải đổi biển số xe\??/gi, '')
+        .replace(/có phải đổi biển không\??/gi, '');
       expect(t, f).not.toMatch(/bắt buộc đổi biển|phải đổi biển|cần đổi biển|thủ tục đổi biển/i);
     }
   });
@@ -213,7 +222,7 @@ describe('/kien-thuc', () => {
 });
 
 describe('new articles (V1.1)', () => {
-  const NEW = ARTICLES.slice(2);
+  const NEW = V11;
   const rowsOf = (h: string) => [...h.matchAll(/<tr[^>]*>[\s\S]*?<\/tr>/g)].map((m) => m[0]).filter((r) => r.includes('<td'));
   const bySlug = new Map(data.provinces.map((p) => [p.slug, p]));
 
@@ -301,16 +310,25 @@ describe('new articles (V1.1)', () => {
     }
   });
 
-  it('/kien-thuc: new intro (no "Hai bài ngắn"), cards with title, one-sentence description, date, newest first', () => {
+  it('/kien-thuc: grouped cards (title, description, date), newest first inside each group, no "Hai bài ngắn"', () => {
     const h = read('kien-thuc.html');
     expect(text(h)).not.toContain('Hai bài ngắn');
-    const cards = [...h.matchAll(/<li><a href="(\/kien-thuc\/[^"]+)"><strong>([\s\S]*?)<\/strong><\/a><p>([\s\S]*?)<\/p><p class="meta">Đăng ngày <time datetime="([^"]+)">/g)];
-    expect(cards).toHaveLength(5);
-    const dates = cards.map((c) => c[4] as string);
-    expect([...dates].sort().reverse()).toEqual(dates);
-    for (const c of cards) expect((c[3] as string).length).toBeGreaterThan(40);
+    const groups = [...h.matchAll(/<section aria-labelledby="g\d+"><h2 id="g\d+">([^<]+)<\/h2><ul class="kb-list">([\s\S]*?)<\/ul><\/section>/g)];
+    expect(groups.map((g) => g[1])).toEqual(['Sáp nhập 2025', 'Đọc biển số', 'Thủ tục và đấu giá']);
+    let total = 0;
+    for (const g of groups) {
+      const cards = [...(g[2] as string).matchAll(/<li><a href="(\/kien-thuc\/[^"]+)"><strong>([\s\S]*?)<\/strong><\/a><p>([\s\S]*?)<\/p><p class="meta">Đăng ngày <time datetime="([^"]+)">/g)];
+      total += cards.length;
+      const dates = cards.map((c) => c[4] as string);
+      expect([...dates].sort().reverse(), g[1]).toEqual(dates);
+      for (const c of cards) expect((c[3] as string).length).toBeGreaterThan(40);
+    }
+    expect(total).toBe(12);
   });
-
+  it('list has no default indent: the .kb-list / .plain rules out-rank ".prose ul"', () => {
+    const css = read('kien-thuc.html'); // component and page CSS is inlined
+    expect(css).toMatch(/\.prose \.kb-list,\.prose \.plain\{[^}]*padding:0/);
+  });
   it('links from existing pages: /bang-ma → bài đối chiếu + nhiều mã; changed code pages and merged/multi-code province pages link the new articles', () => {
     const bm = read('bang-ma.html');
     expect(bm).toContain(`href="/${NEW[0]}"`);
@@ -322,5 +340,116 @@ describe('new articles (V1.1)', () => {
     expect(ct).toContain(`href="/${NEW[2]}"`);
     expect(read('tinh/dien-bien.html')).not.toContain('/kien-thuc/');
     expect(read(`${ARTICLES[0]}.html`)).toContain(`href="/${NEW[0]}"`);
+  });
+});
+
+describe('V1.2 articles (docs/CONTENT_SOURCES_V1_2.md)', () => {
+  const html = (slug: string) => read(`kien-thuc/${slug}.html`);
+  const body = (slug: string) => text(main(html(slug)));
+  const rowsOf = (h: string) => [...h.matchAll(/<tr[^>]*>[\s\S]*?<\/tr>/g)].map((m) => m[0]).filter((r) => r.includes('<td'));
+
+  it('each article: direct answer first, Nguồn with ≥ 1 URL, "Cập nhật theo văn bản", ≥ 4 internal links, no ads, Article schema, breadcrumb', () => {
+    for (const f of V12) {
+      const h = read(`${f}.html`);
+      const m = main(h);
+      expect(/<p class="intro">/.test(m), f).toBe(true);
+      expect(m.indexOf('class="intro"'), f).toBeLessThan(m.indexOf('<h2'));
+      expect(m, f).toContain('<h2 id="status-h">Cập nhật theo văn bản</h2>');
+      expect(text(m), f).toContain('chưa đối chiếu với Công báo');
+      expect(m, f).toContain('<h2 id="sources-h">Nguồn</h2>');
+      expect([...(/<section[^>]*class="sources"[\s\S]*?<\/section>/.exec(m)?.[0] ?? '').matchAll(/href="https:\/\/[^"]+"/g)].length, f).toBeGreaterThanOrEqual(1);
+      expect(/Điều \d+/.test(/<section[^>]*class="sources"[\s\S]*?<\/section>/.exec(m)?.[0] ?? ''), `${f} clause`).toBe(true);
+      expect([...m.matchAll(/href="\/[^"]*"/g)].length, f).toBeGreaterThanOrEqual(4);
+      expect(h, f).not.toContain('Quảng cáo');
+      expect(ld(h).some((x) => x['@type'] === 'Article'), f).toBe(true);
+      expect(ld(h).some((x) => x['@type'] === 'BreadcrumbList'), f).toBe(true);
+      expect(h, f).toContain('href="/bang-ma"'); // /bang-ma linked from every article
+    }
+  });
+  it('no forbidden topics: no red military plates, no meanings for LD/DA/MĐ/MK/TĐ/R/CT/LB; "quân đội" only in the KT seri line', () => {
+    for (const f of V12) {
+      const t = body(f.replace('kien-thuc/', ''));
+      expect(t, f).not.toMatch(/biển (nền )?đỏ|biển quân đội|biển của quân đội|Bộ Tổng tham mưu/i);
+      for (const sym of ['LD', 'DA', 'MĐ', 'MK', 'TĐ', 'CT', 'LB']) expect(t, `${f} ${sym}`).not.toMatch(new RegExp(`(?<![A-Za-zÀ-ỹ])${sym}\\s*(là|:|\\(|nghĩa|viết tắt|=|–|-)`));
+      expect(t, f).not.toMatch(/(?<![A-Za-zÀ-ỹ])R\s*(là|:|\(|nghĩa|viết tắt)/);
+      for (const m of t.matchAll(/quân đội/g)) expect(t.slice(Math.max(0, (m.index ?? 0) - 13), (m.index ?? 0) + 8), f).toContain('doanh nghiệp quân đội');
+    }
+    // the exception list is only ever a list, in the three articles that cite F14
+    for (const slug of ['ky-hieu-seri-bien-so-xe', 'bien-so-dinh-danh', 'bien-so-3-so-4-so-con-dung-duoc-khong']) expect(body(slug)).toContain('MK, TĐ, LD, DA, MĐ, R, CT, LB, CD');
+  });
+  it('/mau-bien-so-xe: xanh / trắng / vàng table, tem đấu giá and tem xe xanh, 2 biển ô tô; links to seri, NG/QT, đấu giá', () => {
+    const h = html('mau-bien-so-xe');
+    const rows = rowsOf(h).map((r) => text(r));
+    expect(rows).toHaveLength(3);
+    expect(rows[0]).toMatch(/^Nền xanh Trắng .*sự nghiệp công lập/);
+    expect(rows[1]).toMatch(/^Nền trắng Đen /);
+    expect(rows[2]).toMatch(/^Nền vàng Đen Ô tô kinh doanh vận tải/);
+    const t = body('mau-bien-so-xe');
+    expect(t).toContain('tem nhận diện nền đỏ và vàng, chữ xanh');
+    expect(t).toContain('tem nhận diện màu xanh lá cây');
+    expect(t).toContain('Rơmoóc gắn 1 biển phía sau');
+    for (const s of ['ky-hieu-seri-bien-so-xe', 'bien-so-ng-qt-cv-nn', 'dau-gia-bien-so-xe']) expect(h).toContain(`href="/kien-thuc/${s}"`);
+  });
+  it('/ky-hieu-seri: 11 + 20 letters, mô tô cặp 2 chữ cái, CD/RM/HC/KT table (4 rows)', () => {
+    const h = html('ky-hieu-seri-bien-so-xe');
+    const t = text(main(h));
+    expect(t).toContain('A, B, C, D, E, F, G, H, K, L, M');
+    expect(t).toContain('A, B, C, D, E, F, G, H, K, L, M, N, P, S, T, U, V, X, Y, Z');
+    expect(t).toContain('Cặp hai chữ cái');
+    const rows = rowsOf(h).map((r) => text(r));
+    expect(rows).toHaveLength(9); // 5 + 4
+    for (const s of ['CD', 'RM', 'HC', 'KT']) expect(rows.some((r) => r.startsWith(`${s} `)), s).toBe(true);
+    expect(t).toContain('Cục Xe – Máy, Bộ Quốc phòng');
+  });
+  it('/bien-so-ng-qt-cv-nn: 4 rows; NG and QT red letters, CV and NN black; Đại sứ/Tổng Lãnh sự 01 + gạch đỏ ngang', () => {
+    const rows = rowsOf(html('bien-so-ng-qt-cv-nn')).map((r) => text(r));
+    expect(rows).toHaveLength(4);
+    expect(rows[0]).toMatch(/^NG Nền trắng, chữ đỏ, số đen; ký hiệu NG màu đỏ/);
+    expect(rows[1]).toMatch(/^QT Nền trắng, chữ đỏ, số đen/);
+    expect(rows[2]).toMatch(/^CV Nền trắng, chữ và số đen/);
+    expect(rows[3]).toMatch(/^NN Nền trắng, chữ và số đen/);
+    expect(body('bien-so-ng-qt-cv-nn')).toContain('số thứ tự 01 và gạch đỏ ngang');
+  });
+  it('/bien-so-dinh-danh: 3 kinds of ID, 5 năm, kho số, not for auction plates, TT 37/2026 from the LSVN summary', () => {
+    const t = body('bien-so-dinh-danh');
+    for (const k of ['số định danh cá nhân', 'mã số thuế hoặc số quyết định thành lập', 'trong 5 năm', 'kho số', 'xe gắn biển trúng đấu giá', 'VNeID và VNeTraffic', 'bài tóm tắt của LSVN']) expect(t, k).toContain(k);
+    expect(t).toContain('hỏi công an nơi đăng ký để chắc chắn'.replace('hỏi', 'Hỏi'));
+  });
+  it('/khi-nao-phai-doi-bien-so-xe: exactly the 6 cases of Điều 18, ĐKX13/ĐKX14, 30 ngày rule removed from 01/01/2025, F19 sentence', () => {
+    const h = html('khi-nao-phai-doi-bien-so-xe');
+    expect(rowsOf(h)).toHaveLength(6);
+    const t = text(main(h));
+    for (const k of ['ĐKX13', 'ĐKX14', '30 ngày', 'Từ 01/01/2025, Thông tư 79/2024 bỏ yêu cầu này', 'Điều 18 TT 79/2024/TT-BCA không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh', 'chuyển nơi cư trú không nằm trong các trường hợp bắt buộc đổi; chủ xe có thể đổi theo địa chỉ mới nếu có nhu cầu']) expect(t, k).toContain(k);
+    expect(t.match(/hỏi công an nơi đăng ký để chắc chắn/gi)?.length ?? 0).toBeGreaterThanOrEqual(2);
+  });
+  it('/bien-so-3-so-4-so: still usable (Điều 39 khoản 3), changed when the owner does the procedure', () => {
+    const t = body('bien-so-3-so-4-so-con-dung-duoc-khong');
+    expect(t).toContain('vẫn được tiếp tục tham gia giao thông');
+    expect(t).toContain('đổi, cấp lại chứng nhận đăng ký xe, biển số xe hoặc đăng ký sang tên');
+  });
+  it('/dau-gia-bien-so-xe: exact figures (40 triệu / 5 triệu / 500.000 / 30 ngày / 12 tháng / 6 tháng), no results or winning prices', () => {
+    const h = html('dau-gia-bien-so-xe');
+    const t = text(main(h));
+    for (const k of ['40 triệu đồng', '5 triệu đồng', '500.000 đồng', '30 ngày', '12 tháng', 'tối đa 6 tháng', 'kiểm tra thông báo của phiên đấu giá']) expect(t.toLowerCase(), k).toContain(k.toLowerCase());
+    expect(t).toContain('Biển số riêng thì không được chuyển nhượng, tặng cho hay để thừa kế');
+    expect(t).not.toMatch(/giá trúng|trúng với giá|kết quả phiên|tỷ đồng|500 triệu|50 triệu/);
+    const rows = rowsOf(h).map((r) => text(r));
+    expect(rows[0]).toBe('Giá khởi điểm 40 triệu đồng 5 triệu đồng');
+    expect(rows[2]).toBe('Bước giá 5 triệu đồng 500.000 đồng');
+  });
+  it('mobile-safe tables on all V1.2 pages (wrapper + data-label), no raw "BIEN SO" text anywhere on the site', () => {
+    for (const f of V12) {
+      const h = read(`${f}.html`);
+      if (h.includes('<table')) {
+        expect(h, f).toContain('class="tbl-wrap"');
+        expect(h, f).toMatch(/<td data-label=/);
+      }
+    }
+    for (const f of readdirSync('dist', { recursive: true, encoding: 'utf8' }).filter((x) => x.endsWith('.html'))) expect(text(read(f)), f).not.toContain('BIEN SO');
+  });
+  it('/nguon FAQ uses the F19 sentence, not the old default', () => {
+    const t = text(read('nguon.html'));
+    expect(t).toContain('Điều 18 TT 79/2024/TT-BCA không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh; hỏi công an nơi đăng ký để chắc chắn.');
+    expect(t).not.toContain('Chưa thấy quy định bắt buộc đổi biển');
   });
 });

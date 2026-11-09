@@ -1,0 +1,33 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { LEGAL, withClause } from '../../lib/content';
+import { ARTICLE_BIEN34 as A, ARTICLE_DINHDANH, ARTICLE_DOIBIEN, ARTICLE_SERI } from '../../lib/knowledge';
+
+const sources = [withClause(LEGAL.tt79, 'Điều 39 khoản 1 và 3'), LEGAL.vbhn41];
+---
+
+<ArticleFrame article={A} sources={sources} status={{ kind: 'tt79' }}>
+  <p class="intro">
+    Còn. Theo Điều 39 khoản 3 Thông tư 79/2024/TT-BCA, xe biển 3 số, 4 số, hoặc biển 5 số có ký hiệu cũ vẫn được tiếp tục tham gia giao thông. Hỏi công an nơi đăng ký để chắc chắn.
+  </p>
+
+  <section aria-labelledby="doi">
+    <h2 id="doi">Khi nào đổi sang biển mới?</h2>
+    <p>
+      Khi chủ xe làm thủ tục đổi, cấp lại chứng nhận đăng ký xe, biển số xe hoặc đăng ký sang tên thì đổi sang biển theo Thông tư 79/2024/TT-BCA.
+      Các trường hợp đổi chứng nhận đăng ký và biển số nói chung nằm ở bài <a href={ARTICLE_DOIBIEN.path}>{ARTICLE_DOIBIEN.h1.toLowerCase()}</a>.
+    </p>
+  </section>
+
+  <section aria-labelledby="nam">
+    <h2 id="nam">Biển 5 số đã cấp trước 01/01/2025</h2>
+    <p>
+      Theo Điều 39 khoản 1, xe đã đăng ký biển 5 số trước ngày Thông tư có hiệu lực (01/01/2025), chưa bị thu hồi, thì số biển đó được xác định là biển số định danh của chủ xe.
+      Ngoại lệ là biển có các ký hiệu MK, TĐ, LD, DA, MĐ, R, CT, LB, CD.
+    </p>
+    <p>
+      Biển số định danh là gì, xem bài <a href={ARTICLE_DINHDANH.path}>{ARTICLE_DINHDANH.h1.toLowerCase()}</a>. Cấu tạo phần chữ của biển mới ở bài <a href={ARTICLE_SERI.path}>{ARTICLE_SERI.h1.toLowerCase()}</a>.
+      Hai số đầu của biển cũ vẫn tra được ở <a href="/bang-ma">bảng biển số xe 34 tỉnh thành</a>.
+    </p>
+  </section>
+</ArticleFrame>

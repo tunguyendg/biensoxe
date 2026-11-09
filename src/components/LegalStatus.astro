@@ -1,0 +1,27 @@
+---
+// "Cập nhật theo văn bản": states what the page was read from and that it has not been checked against the gazette.
+// Wording follows docs/CONTENT_SOURCES_V1_2.md ("Trạng thái nguồn").
+interface Props {
+  kind: 'tt79' | 'auction';
+  /** Extra sentence(s) specific to the article. */
+  extra?: string | undefined;
+}
+const { kind, extra } = Astro.props;
+---
+
+<section aria-labelledby="status-h" class="status">
+  <h2 id="status-h">Cập nhật theo văn bản</h2>
+  {
+    kind === 'tt79' ? (
+      <p>
+        Bài dựa trên bản toàn văn Thông tư 79/2024/TT-BCA đăng trên LuatVietnam, đọc ngày 09/11/2026, chưa đối chiếu với Công báo. Thông tư này đã được sửa bởi TT 13/2025, TT 51/2025, TT 37/2026 (hiệu lực 08/06/2026) và TT 62/2026 (sửa khoản 2 Điều 7); bản toàn văn đã đọc là bản gốc TT 79/2024.
+        {extra && ` ${extra}`} Khi cần làm thủ tục, hỏi công an nơi đăng ký để chắc chắn.
+      </p>
+    ) : (
+      <p>
+        Bài dựa trên bản toàn văn Luật Trật tự, an toàn giao thông đường bộ 2024 (Điều 38) và Nghị định 156/2024/NĐ-CP trên hethongphapluat.com và vbpl.vn, đọc ngày 09/11/2026, chưa đối chiếu với Công báo.
+        {extra && ` ${extra}`} Hãy kiểm tra thông báo của phiên đấu giá và hỏi công an nơi đăng ký để chắc chắn.
+      </p>
+    )
+  }
+</section>

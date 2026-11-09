@@ -1,0 +1,60 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { LEGAL, withClause } from '../../lib/content';
+import { ARTICLE_BIEN34, ARTICLE_DINHDANH, ARTICLE_MAU, ARTICLE_SERI as A } from '../../lib/knowledge';
+
+const sources = [withClause(LEGAL.tt79, 'Điều 37 khoản 5; Điều 39 khoản 1'), LEGAL.vbhn41];
+---
+
+<ArticleFrame article={A} sources={sources} status={{ kind: 'tt79' }}>
+  <p class="intro">
+    Theo Thông tư 79/2024/TT-BCA, seri của biển ô tô là một chữ cái, còn mô tô nền trắng có seri là <strong>cặp hai chữ cái</strong>. CD, RM, HC và KT là các seri riêng cho một số loại xe.
+  </p>
+
+  <section aria-labelledby="bang">
+    <h2 id="bang">Seri theo loại biển</h2>
+    <p>Màu nền của từng loại biển được giải thích ở bài <a href={ARTICLE_MAU.path}>{ARTICLE_MAU.h1.toLowerCase()}</a>.</p>
+    <div class="tbl-wrap">
+      <table class="xtable">
+        <caption class="sr-only">Seri của từng loại biển số</caption>
+        <thead><tr><th scope="col">Loại biển</th><th scope="col">Seri</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-label="Loại biển">Ô tô, nền xanh</th><td data-label="Seri">Một trong 11 chữ A, B, C, D, E, F, G, H, K, L, M.</td></tr>
+          <tr><th scope="row" data-label="Loại biển">Mô tô, nền xanh</th><td data-label="Seri">Một trong 11 chữ cái nêu trên, cộng một chữ số từ 1 đến 9.</td></tr>
+          <tr><th scope="row" data-label="Loại biển">Ô tô, nền trắng</th><td data-label="Seri">Một trong 20 chữ A, B, C, D, E, F, G, H, K, L, M, N, P, S, T, U, V, X, Y, Z.</td></tr>
+          <tr><th scope="row" data-label="Loại biển">Mô tô, nền trắng</th><td data-label="Seri">Cặp hai chữ cái, mỗi chữ lấy từ 20 chữ cái nêu trên.</td></tr>
+          <tr><th scope="row" data-label="Loại biển">Ô tô kinh doanh vận tải, nền vàng</th><td data-label="Seri">Một trong 20 chữ cái nêu trên.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="rieng">
+    <h2 id="rieng">Các seri riêng: CD, RM, HC, KT</h2>
+    <div class="tbl-wrap">
+      <table class="xtable">
+        <caption class="sr-only">Seri riêng và loại xe tương ứng</caption>
+        <thead><tr><th scope="col">Seri</th><th scope="col">Dùng cho</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-label="Seri">CD</th><td data-label="Dùng cho">Xe máy chuyên dùng.</td></tr>
+          <tr><th scope="row" data-label="Seri">RM</th><td data-label="Dùng cho">Rơmoóc, sơ mi rơmoóc.</td></tr>
+          <tr><th scope="row" data-label="Seri">HC</th><td data-label="Dùng cho">Ô tô có phạm vi hoạt động hạn chế, xe chở người hoặc chở hàng bốn bánh có gắn động cơ.</td></tr>
+          <tr><th scope="row" data-label="Seri">KT</th><td data-label="Dùng cho">Xe của doanh nghiệp quân đội, do Cục Xe – Máy, Bộ Quốc phòng đề nghị đăng ký.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Màu của các seri riêng theo đối tượng sử dụng xe, tức là nền xanh hoặc nền trắng.</p>
+  </section>
+
+  <section aria-labelledby="cu">
+    <h2 id="cu">Biển 5 số đã cấp và các ký hiệu ngoại lệ</h2>
+    <p>
+      Theo Điều 39 khoản 1, xe đã đăng ký biển 5 số trước ngày Thông tư có hiệu lực (01/01/2025), chưa bị thu hồi, thì số biển đó được xác định là biển số định danh của chủ xe.
+      Ngoại lệ là biển có các ký hiệu MK, TĐ, LD, DA, MĐ, R, CT, LB, CD. Bài này không giải nghĩa các ký hiệu đó vì chưa có nguồn.
+    </p>
+    <p>
+      Biển số định danh là gì, xem bài <a href={ARTICLE_DINHDANH.path}>{ARTICLE_DINHDANH.h1.toLowerCase()}</a>; biển 3 số, 4 số xem bài <a href={ARTICLE_BIEN34.path}>{ARTICLE_BIEN34.h1.toLowerCase()}</a>.
+      Hai số đầu của biển là ký hiệu địa phương, tra ở <a href="/bang-ma">bảng biển số xe 34 tỉnh thành</a>.
+    </p>
+  </section>
+</ArticleFrame>

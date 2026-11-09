@@ -1,0 +1,63 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { LEGAL, withClause } from '../../lib/content';
+import { ARTICLE_DINHDANH, ARTICLE_DOIBIEN as A, ARTICLE_MAU, ARTICLE_SAPNHAP } from '../../lib/knowledge';
+
+const sources = [
+  withClause(LEGAL.tt79, 'Điều 3 khoản 2; Điều 18; Điều 19 khoản 4 điểm đ; Điều 20 khoản 3'),
+  LEGAL.cutru,
+  LEGAL.vbhn41,
+];
+const cases = [
+  'Chứng nhận đăng ký hoặc biển số bị mờ, hỏng.',
+  'Xe cải tạo, xe thay đổi màu sơn.',
+  'Đổi biển nền trắng sang nền vàng (kinh doanh vận tải) hoặc ngược lại.',
+  'Thay đổi thông tin chủ xe (tên, số định danh), hoặc chủ xe có nhu cầu đổi chứng nhận đăng ký theo địa chỉ mới.',
+  'Chứng nhận đăng ký hết thời hạn sử dụng.',
+  'Đổi chứng nhận hoặc biển cũ sang mẫu mới, hoặc đổi biển ngắn sang biển dài và ngược lại.',
+];
+---
+
+<ArticleFrame article={A} sources={sources} status={{ kind: 'tt79' }}>
+  <p class="intro">
+    Theo Điều 18 Thông tư 79/2024/TT-BCA, chuyển nơi cư trú không nằm trong các trường hợp bắt buộc đổi; chủ xe có thể đổi theo địa chỉ mới nếu có nhu cầu.
+    Điều 18 cũng không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh. Hỏi công an nơi đăng ký để chắc chắn.
+  </p>
+
+  <section aria-labelledby="sau">
+    <h2 id="sau">Sáu trường hợp đổi chứng nhận đăng ký, biển số theo Điều 18</h2>
+    <div class="tbl-wrap">
+      <table class="xtable">
+        <caption class="sr-only">Các trường hợp đổi chứng nhận đăng ký xe, biển số xe theo Điều 18</caption>
+        <thead><tr><th scope="col">Số</th><th scope="col">Trường hợp</th></tr></thead>
+        <tbody>
+          {cases.map((c, i) => <tr><th scope="row" data-label="Số">{i + 1}</th><td data-label="Trường hợp">{c}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>Màu nền biển và loại xe ở trường hợp 3 được giải thích ở bài <a href={ARTICLE_MAU.path}>{ARTICLE_MAU.h1.toLowerCase()}</a>.</p>
+  </section>
+
+  <section aria-labelledby="cutru">
+    <h2 id="cutru">Chuyển nơi cư trú sang tỉnh khác</h2>
+    <p>
+      Chủ xe đăng ký tại cơ quan đăng ký xe nơi có trụ sở hoặc nơi cư trú (Điều 3 khoản 2). Theo Điều 18 TT 79/2024/TT-BCA, chuyển nơi cư trú không nằm trong các trường hợp bắt buộc đổi; chủ xe có thể đổi theo địa chỉ mới nếu có nhu cầu.
+    </p>
+    <p>
+      Nếu địa chỉ mới thuộc cơ quan đăng ký khác, chủ xe xin xác nhận hồ sơ xe tại nơi cũ (mẫu ĐKX13), rồi đăng ký tại nơi mới (Điều 20 khoản 3; Điều 19 khoản 4 điểm đ, mẫu ĐKX14).
+      Hỏi công an nơi đăng ký để chắc chắn về hồ sơ cụ thể.
+    </p>
+    <p>
+      Trước đây, theo bài tóm tắt của LSVN, Thông tư 24/2023 (Điều 6 khoản 3) bắt buộc làm thủ tục trong 30 ngày khi chuyển sang tỉnh khác. Từ 01/01/2025, Thông tư 79/2024 bỏ yêu cầu này.
+    </p>
+  </section>
+
+  <section aria-labelledby="sapnhap">
+    <h2 id="sapnhap">Sáp nhập tỉnh có phải đổi biển không?</h2>
+    <p>
+      Điều 18 TT 79/2024/TT-BCA không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh. Hỏi công an nơi đăng ký để chắc chắn.
+      Tổng quan về sáp nhập ở bài <a href={ARTICLE_SAPNHAP.path}>{ARTICLE_SAPNHAP.h1.toLowerCase()}</a>; biển gắn với chủ xe thế nào ở bài <a href={ARTICLE_DINHDANH.path}>{ARTICLE_DINHDANH.h1.toLowerCase()}</a>.
+      Mã biển của từng tỉnh nằm ở <a href="/bang-ma">bảng biển số xe 34 tỉnh thành</a>.
+    </p>
+  </section>
+</ArticleFrame>

@@ -4,7 +4,7 @@ import { FORMER_COUNT, MERGED_COUNT, SOURCE_DATES, UNCHANGED_COUNT } from '../..
 import { LIMITS, SOURCE_NAME } from '../../lib/copy';
 import { data } from '../../lib/data';
 import { formatDate } from '../../lib/format';
-import { ARTICLE_BANGDOICHIEU, ARTICLE_DOCMA, ARTICLE_GIUNGUYEN, ARTICLE_SAPNHAP as A } from '../../lib/knowledge';
+import { ARTICLE_BANGDOICHIEU, ARTICLE_DOCMA, ARTICLE_DOIBIEN, ARTICLE_GIUNGUYEN, ARTICLE_SAPNHAP as A } from '../../lib/knowledge';
 import { lookup } from '../../lib/lookup';
 
 const tt = data.meta.legalBasis.find((b) => b.id === 'tt51-2025');
@@ -33,7 +33,7 @@ const examples = ['83', '61', '92', '27'].flatMap((c) => {
       <h2 id="s2">Bảng ký hiệu biển số được thay</h2>
       <p>
         {tt ? tt.title : SOURCE_NAME} được ban hành ngày {tt ? formatDate(tt.issued) : ''} và có hiệu lực từ {tt ? formatDate(tt.effective) : since}.
-        Phụ lục 02 của Thông tư này thay bảng ký hiệu của Thông tư 79/2024/TT-BCA, vốn xếp theo {FORMER_COUNT} tỉnh cũ. Trên BIEN SO, bảng mới nằm ở <a href="/bang-ma">bảng biển số xe {data.provinces.length} tỉnh thành</a>.
+        Phụ lục 02 của Thông tư này thay bảng ký hiệu của Thông tư 79/2024/TT-BCA, vốn xếp theo {FORMER_COUNT} tỉnh cũ. Trên Biển Số, bảng mới nằm ở <a href="/bang-ma">bảng biển số xe {data.provinces.length} tỉnh thành</a>.
       </p>
     </section>
 
@@ -55,7 +55,7 @@ const examples = ['83', '61', '92', '27'].flatMap((c) => {
 
     <section aria-labelledby="s4">
       <h2 id="s4">Biển đã cấp có phải đổi không?</h2>
-      <p>Chưa thấy quy định bắt buộc đổi biển; hỏi công an nơi đăng ký để chắc chắn.</p>
+      <p>Điều 18 TT 79/2024/TT-BCA không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh; hỏi công an nơi đăng ký để chắc chắn. Chi tiết ở bài <a href={ARTICLE_DOIBIEN.path}>{ARTICLE_DOIBIEN.h1.toLowerCase()}</a>.</p>
       <p>
         Riêng việc chuyển nơi cư trú: theo Thông tư 79/2024/TT-BCA (từ 01/01/2025), chuyển nơi cư trú sang tỉnh khác không, tự nó, buộc phải đổi biển. Đây là thông tin từ nguồn thứ cấp, chưa đối chiếu với văn bản gốc.
       </p>

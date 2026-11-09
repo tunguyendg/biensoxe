@@ -3,14 +3,15 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import Base from '../../layouts/Base.astro';
 import type { Crumb } from '../../lib/crumbs';
 import { formatDate } from '../../lib/format';
-import { articlesByDate, KB_INDEX } from '../../lib/knowledge';
+import { articleGroups, KB_INDEX } from '../../lib/knowledge';
 import { itemListNode, pageGraph } from '../../lib/schema';
 import '../../styles/home.css';
 import '../../styles/pages.css';
 
 // No offers on /kien-thuc/*, same as /nguon.
 const site = Astro.site as URL;
-const list = articlesByDate();
+const groups = articleGroups();
+const list = groups.flatMap((g) => g.items); // display order, used for the ItemList
 const crumbs: Crumb[] = [{ name: 'Trang chủ', path: '/' }, { name: 'Kiến thức', path: KB_INDEX.path }];
 const listId = `${new URL(KB_INDEX.path, site).href}#itemlist`;
 const graph = pageGraph({
@@ -30,18 +31,23 @@ const graph = pageGraph({
     <Breadcrumb crumbs={crumbs} />
     <h1>{KB_INDEX.h1}</h1>
     <p class="intro">
-      Giải thích biển số xe sau sáp nhập tỉnh 2025 bằng số liệu từ bảng mã của BIEN SO, mỗi bài có mục nguồn ở cuối. Muốn tra một mã cụ thể, dùng <a href="/">ô tra cứu biển số xe</a> hoặc <a href="/bang-ma">bảng biển số xe theo tỉnh thành</a>.
+      Biển số xe sau sáp nhập tỉnh 2025, cách đọc màu biển và seri, biển định danh, đổi biển và đấu giá biển số. Mỗi bài có mục nguồn ở cuối. Muốn tra một mã cụ thể, dùng <a href="/">ô tra cứu biển số xe</a> hoặc <a href="/bang-ma">bảng biển số xe theo tỉnh thành</a>.
     </p>
-    <ul class="kb-list">
-      {
-        list.map((a) => (
-          <li>
-            <a href={a.path}><strong>{a.h1}</strong></a>
-            <p>{a.description}</p>
-            <p class="meta">Đăng ngày <time datetime={a.publishedAt}>{formatDate(a.publishedAt)}</time></p>
-          </li>
-        ))
-      }
-    </ul>
+    {
+      groups.map((g, i) => (
+        <section aria-labelledby={`g${i}`}>
+          <h2 id={`g${i}`}>{g.title}</h2>
+          <ul class="kb-list">
+            {g.items.map((a) => (
+              <li>
+                <a href={a.path}><strong>{a.h1}</strong></a>
+                <p>{a.description}</p>
+                <p class="meta">Đăng ngày <time datetime={a.publishedAt}>{formatDate(a.publishedAt)}</time></p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
   </main>
 </Base>

@@ -1,0 +1,61 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { LEGAL, withClause } from '../../lib/content';
+import { LIMITS } from '../../lib/copy';
+import { ARTICLE_DOCMA, ARTICLE_MAU, ARTICLE_NGQT as A } from '../../lib/knowledge';
+
+const sources = [withClause(LEGAL.tt79, 'Điều 37 khoản 6'), LEGAL.vbhn41];
+---
+
+<ArticleFrame article={A} sources={sources} status={{ kind: 'tt79' }}>
+  <p class="intro">
+    Theo Thông tư 79/2024/TT-BCA, NG và QT là biển của cơ quan đại diện ngoại giao, lãnh sự và tổ chức quốc tế; CV dành cho nhân viên hành chính kỹ thuật mang chứng minh thư công vụ; NN dành cho tổ chức, văn phòng đại diện, cá nhân nước ngoài còn lại.
+  </p>
+
+  <section aria-labelledby="bang">
+    <h2 id="bang">Bảng biển NG, QT, CV, NN</h2>
+    <div class="tbl-wrap">
+      <table class="xtable">
+        <caption class="sr-only">Ký hiệu, màu biển và đối tượng của biển số xe nước ngoài</caption>
+        <thead><tr><th scope="col">Ký hiệu</th><th scope="col">Màu biển</th><th scope="col">Dùng cho</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row" data-label="Ký hiệu">NG</th>
+            <td data-label="Màu biển">Nền trắng, chữ đỏ, số đen; ký hiệu NG màu đỏ.</td>
+            <td data-label="Dùng cho">Cơ quan đại diện ngoại giao, cơ quan lãnh sự và nhân viên mang chứng minh thư ngoại giao.</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Ký hiệu">QT</th>
+            <td data-label="Màu biển">Nền trắng, chữ đỏ, số đen.</td>
+            <td data-label="Dùng cho">Cơ quan đại diện tổ chức quốc tế và nhân viên mang chứng minh thư ngoại giao của tổ chức đó.</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Ký hiệu">CV</th>
+            <td data-label="Màu biển">Nền trắng, chữ và số đen.</td>
+            <td data-label="Dùng cho">Nhân viên hành chính kỹ thuật mang chứng minh thư công vụ.</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Ký hiệu">NN</th>
+            <td data-label="Màu biển">Nền trắng, chữ và số đen.</td>
+            <td data-label="Dùng cho">Tổ chức, văn phòng đại diện, cá nhân nước ngoài còn lại.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Biển của Đại sứ và Tổng Lãnh sự có số thứ tự 01 và gạch đỏ ngang.</p>
+  </section>
+
+  <section aria-labelledby="tra">
+    <h2 id="tra">Tra biển có chữ cái trên Biển Số</h2>
+    <p>
+      Biển bắt đầu bằng chữ cái không tra được theo 2 số đầu, và Biển Số không đoán tỉnh cho các biển này. Với biển có hai chữ số đầu, hãy dùng <a href="/">ô tra cứu biển số xe</a>;
+      cách đọc hai chữ số đầu ở bài <a href={ARTICLE_DOCMA.path}>{ARTICLE_DOCMA.h1.toLowerCase()}</a>.
+    </p>
+  </section>
+
+  <section aria-labelledby="gioihan">
+    <h2 id="gioihan">Biển trong nước thì sao?</h2>
+    <p>Màu biển của xe trong nước (nền xanh, trắng, vàng) được giải thích ở bài <a href={ARTICLE_MAU.path}>{ARTICLE_MAU.h1.toLowerCase()}</a>.</p>
+    <p class="limits">{LIMITS}</p>
+  </section>
+</ArticleFrame>

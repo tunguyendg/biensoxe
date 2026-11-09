@@ -32,8 +32,8 @@ export const FAQ: Faq[] = [
   },
   {
     q: 'Biển cũ có bắt buộc phải đổi sau khi sáp nhập không?',
-    a: 'Chưa thấy quy định bắt buộc đổi biển; hỏi công an nơi đăng ký để chắc chắn. Trang này không khẳng định biển cũ được giữ nguyên.',
-    source: 'Mục 5 (chưa xác định)',
+    a: 'Điều 18 TT 79/2024/TT-BCA không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh; hỏi công an nơi đăng ký để chắc chắn. Trang này không khẳng định biển cũ được giữ nguyên.',
+    source: 'Mục 5, 13 (F19)',
   },
   {
     q: 'Bảng mã có thay đổi sau này không?',

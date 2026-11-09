@@ -134,3 +134,9 @@
 ## V1.1 approved (0aac2db)
 - Founder approved: bài 2 topic change, og:site_name "Biển Số", publishedAt 09/11/2026.
 - Mục E (/tinh-cu/*) quyết lại khoảng 30/11/2026 theo dữ liệu Search Console: truy vấn chứa tên tỉnh cũ có impressions nhưng vị trí > 10 thì làm, không có thì bỏ.
+
+## V1.2: 7 knowledge articles from docs/CONTENT_SOURCES_V1_2.md
+- Articles (all publishedAt 2026-11-09): mau-bien-so-xe, ky-hieu-seri-bien-so-xe, bien-so-ng-qt-cv-nn, bien-so-dinh-danh, khi-nao-phai-doi-bien-so-xe, bien-so-3-so-4-so-con-dung-duoc-khong, dau-gia-bien-so-xe. Each: direct answer, "Cập nhật theo văn bản" (source status, not checked against Công báo), Nguồn with clause + URL. Nothing from F09b.
+- data/SOURCES.md: rows 11–15 (F01–F27 by group, SECONDARY_FULLTEXT) + Founder note (check Điều 3, 18, 37 TT 79/2024 on the latest consolidated text before release); row 5 now F19.
+- Sáp nhập 2025 article + /nguon FAQ: old default "Chưa thấy quy định bắt buộc đổi biển…" replaced by the F19 sentence + "hỏi công an nơi đăng ký để chắc chắn" (CLAUDE.md rule 3 still names the old wording as default; left untouched).
+- /kien-thuc: grouped by topic, list indent fixed (.prose ul specificity), "BIEN SO" → "Biển Số" in all visible text; cách-đọc article no longer says colour/letters are out of scope (links to the new articles).

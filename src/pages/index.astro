@@ -52,7 +52,7 @@ const sample = lookup('83');
     <section class="about" aria-labelledby="about-h">
       <h2 id="about-h">Tra mã biển số theo 34 tỉnh, thành hiện hành</h2>
       <p>
-        BIEN SO tra mã biển số xe theo {data.provinces.length} tỉnh, thành hiện hành từ 01/07/2025 và hiện cả tỉnh cũ trước sáp nhập{sample.kind === 'province' && sample.changed ? `: biển ${sample.code} nay là ${sample.province.name}, trước là ${sample.former}` : ''}.
+        Biển Số tra mã biển số xe theo {data.provinces.length} tỉnh, thành hiện hành từ 01/07/2025 và hiện cả tỉnh cũ trước sáp nhập{sample.kind === 'province' && sample.changed ? `: biển ${sample.code} nay là ${sample.province.name}, trước là ${sample.former}` : ''}.
         Dữ liệu lấy từ {SOURCE_NAME}.
         Xem <a href="/bang-ma">bảng biển số xe theo tỉnh thành</a>, bài <a href={ARTICLE_SAPNHAP.path}>{ARTICLE_SAPNHAP.h1.toLowerCase()}</a> hoặc bài <a href={ARTICLE_DOCMA.path}>{ARTICLE_DOCMA.h1.toLowerCase()}</a>.
       </p>

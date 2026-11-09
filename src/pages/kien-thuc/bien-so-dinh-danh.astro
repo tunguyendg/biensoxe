@@ -1,0 +1,53 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { LEGAL, withClause } from '../../lib/content';
+import { ARTICLE_BIEN34, ARTICLE_DAUGIA, ARTICLE_DINHDANH as A, ARTICLE_DOIBIEN } from '../../lib/knowledge';
+
+const sources = [withClause(LEGAL.tt79, 'Điều 3 khoản 3 (điểm d); Điều 39 khoản 1'), LEGAL.tt37, LEGAL.vbhn41];
+---
+
+<ArticleFrame article={A} sources={sources} status={{ kind: 'tt79', extra: 'Theo bài tóm tắt của LSVN, TT 37/2026 sửa Điều 3 nhưng vẫn giữ quy tắc biển số định danh và giữ số trong 5 năm.' }}>
+  <p class="intro">
+    Biển số định danh là biển số được quản lý theo mã định danh của chủ xe. Khi xe hết niên hạn, hỏng không sử dụng được hoặc chuyển quyền sở hữu (ví dụ bán xe), cơ quan đăng ký thu hồi biển và giữ số biển cho chủ xe trong 5 năm. Hỏi công an nơi đăng ký để chắc chắn.
+  </p>
+
+  <section aria-labelledby="ma">
+    <h2 id="ma">Mã định danh của chủ xe</h2>
+    <p>Theo Thông tư 79/2024/TT-BCA, mã định danh dùng để quản lý biển số là:</p>
+    <ul>
+      <li><strong>Công dân Việt Nam:</strong> số định danh cá nhân.</li>
+      <li><strong>Người nước ngoài:</strong> số định danh trên hệ thống định danh điện tử, hoặc thẻ thường trú, giấy tờ tùy thân.</li>
+      <li><strong>Tổ chức:</strong> mã định danh điện tử; nếu chưa có thì mã số thuế hoặc số quyết định thành lập.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="ban">
+    <h2 id="ban">Bán xe có mất biển không?</h2>
+    <p>
+      Theo Điều 3 khoản 3 điểm d, khi xe chuyển quyền sở hữu, cơ quan đăng ký thu hồi biển và giữ số biển định danh cho chủ xe trong 5 năm, để cấp lại khi chủ xe đăng ký một xe khác của mình.
+      Quá 5 năm mà chủ xe không đăng ký xe mới thì số biển được chuyển vào kho số để cấp cho người khác.
+    </p>
+    <p>
+      Quy định giữ số này không áp dụng cho trường hợp chuyển quyền sở hữu xe gắn biển trúng đấu giá; xem bài <a href={ARTICLE_DAUGIA.path}>{ARTICLE_DAUGIA.h1.toLowerCase()}</a>.
+      Hỏi công an nơi đăng ký để chắc chắn về thủ tục cụ thể.
+    </p>
+  </section>
+
+  <section aria-labelledby="cu">
+    <h2 id="cu">Biển 5 số đã cấp trước 01/01/2025</h2>
+    <p>
+      Theo Điều 39 khoản 1, xe đã đăng ký biển 5 số trước ngày Thông tư có hiệu lực (01/01/2025), chưa bị thu hồi, thì số biển đó được xác định là biển số định danh của chủ xe.
+      Ngoại lệ là biển có các ký hiệu MK, TĐ, LD, DA, MĐ, R, CT, LB, CD. Với xe biển 3 số, 4 số, xem bài <a href={ARTICLE_BIEN34.path}>{ARTICLE_BIEN34.h1.toLowerCase()}</a>.
+    </p>
+  </section>
+
+  <section aria-labelledby="tt37">
+    <h2 id="tt37">Thông tư 37/2026</h2>
+    <p>
+      Theo bài tóm tắt của LSVN, Thông tư 37/2026/TT-BCA giữ nguyên quy tắc biển gắn với số định danh và giữ số 5 năm. Từ 08/06/2026, chứng nhận đăng ký xe điện tử được tích hợp trên VNeID và VNeTraffic.
+    </p>
+    <p>
+      Các trường hợp đổi biển hoặc chứng nhận đăng ký nằm ở bài <a href={ARTICLE_DOIBIEN.path}>{ARTICLE_DOIBIEN.h1.toLowerCase()}</a>; mã tỉnh của biển ở <a href="/bang-ma">bảng biển số xe 34 tỉnh thành</a>.
+    </p>
+  </section>
+</ArticleFrame>

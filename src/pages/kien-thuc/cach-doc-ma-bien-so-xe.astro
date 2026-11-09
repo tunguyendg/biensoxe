@@ -4,7 +4,7 @@ import { special80 } from '../../lib/content';
 import { LIMITS, SOURCE_NAME } from '../../lib/copy';
 import { data } from '../../lib/data';
 import { formatDate } from '../../lib/format';
-import { ARTICLE_DOCMA as A, ARTICLE_SAPNHAP } from '../../lib/knowledge';
+import { ARTICLE_DOCMA as A, ARTICLE_MAU, ARTICLE_SAPNHAP, ARTICLE_SERI } from '../../lib/knowledge';
 import { lookup } from '../../lib/lookup';
 
 const since = formatDate(data.meta.dataVersion);
@@ -22,9 +22,9 @@ const multiProvince = multi.kind === 'province' ? multi.province : null;
     </p>
 
     <section aria-labelledby="s1">
-      <h2 id="s1">Cách tra trên BIEN SO</h2>
+      <h2 id="s1">Cách tra trên Biển Số</h2>
       <p>
-        Gõ 2 số đầu, hoặc cả biển số, vào <a href="/">ô tra cứu biển số xe</a>. BIEN SO lấy hai chữ số đầu và cho biết tỉnh, thành hiện hành, tỉnh cũ trước {since} và các mã khác của cùng tỉnh.
+        Gõ 2 số đầu, hoặc cả biển số, vào <a href="/">ô tra cứu biển số xe</a>. Biển Số lấy hai chữ số đầu và cho biết tỉnh, thành hiện hành, tỉnh cũ trước {since} và các mã khác của cùng tỉnh.
         Mọi tra cứu chạy trong trình duyệt của bạn, biển số không được gửi đi.
       </p>
     </section>
@@ -55,7 +55,7 @@ const multiProvince = multi.kind === 'province' ? multi.province : null;
     <section aria-labelledby="s4">
       <h2 id="s4">Mã biển không cho biết gì</h2>
       <p class="limits">{LIMITS}</p>
-      <p>Bài này chỉ nói về hai chữ số đầu. Phần chữ cái và màu biển chưa có nguồn trong bảng mã của BIEN SO nên chưa được đề cập.</p>
+      <p>Bài này chỉ nói về hai chữ số đầu. Màu biển được giải thích ở bài <a href={ARTICLE_MAU.path}>{ARTICLE_MAU.h1.toLowerCase()}</a>, phần chữ ở bài <a href={ARTICLE_SERI.path}>{ARTICLE_SERI.h1.toLowerCase()}</a>.</p>
       <p>Mã đổi theo sáp nhập thế nào, xem bài <a href={ARTICLE_SAPNHAP.path}>{ARTICLE_SAPNHAP.h1.toLowerCase()}</a>.</p>
     </section>
 </ArticleFrame>

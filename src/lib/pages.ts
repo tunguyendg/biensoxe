@@ -99,6 +99,6 @@ export const BANGMA_DESC =
 export const NGUON_TITLE = 'Nguồn và giới hạn của dữ liệu biển số xe';
 export const NGUON_DESC =
   'Căn cứ pháp lý của bảng mã biển số xe, biển số cho biết và không cho biết gì, câu hỏi thường gặp, ngày kiểm tra dữ liệu và thông tin về quảng cáo.';
-export const NOTFOUND_TITLE = 'Không tìm thấy trang — BIEN SO';
+export const NOTFOUND_TITLE = 'Không tìm thấy trang — Biển Số';
 export const NOTFOUND_DESC =
   'Trang bạn tìm không tồn tại hoặc mã biển chưa được cấp cho tỉnh nào. Nhập 2 số đầu của biển để tra lại hoặc xem bảng mã biển số xe đầy đủ.';

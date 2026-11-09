@@ -61,6 +61,8 @@ export function specialAnswer(code: string): string | null {
 
 export interface SourceDoc {
   name: string;
+  /** Article / clause the page relies on, e.g. "Điều 37 khoản 5". */
+  clause?: string;
   links: { label: string; url: string }[];
 }
 
@@ -139,3 +141,29 @@ export function multiCodeProvinces(min = 3): MultiCodeRow[] {
     })
     .sort((a, b) => b.province.codes.length - a.province.codes.length || vi(a.province.name, b.province.name));
 }
+
+// ---- Legal documents behind the V1.2 articles (docs/CONTENT_SOURCES_V1_2.md) ----
+const doc = (name: string, links: SourceDoc['links']): SourceDoc => ({ name, links });
+export const LEGAL = {
+  tt79: doc('Thông tư 79/2024/TT-BCA (15/11/2024, hiệu lực 01/01/2025)', [
+    { label: 'Toàn văn trên LuatVietnam', url: 'https://luatvietnam.vn/giao-thong/thong-tu-79-2024-tt-bca-cap-thu-hoi-chung-nhan-dang-ky-xe-bien-so-xe-co-gioi-xe-may-chuyen-dung-377888-d1.html' },
+  ]),
+  vbhn41: doc('Văn bản hợp nhất 41/VBHN-BCA (11/09/2025), để đối chiếu bản đã sửa đổi', [
+    { label: 'Văn bản hợp nhất', url: 'https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-thong-tu-quy-dinh-ve-cap-thu-hoi-chung-nhan-dang-ky-xe-bien-so-xe-co-gioi-xe-may-chuyen-dung-119251114070809667.htm' },
+  ]),
+  tt37: doc('Thông tư 37/2026/TT-BCA (hiệu lực 08/06/2026), bài tóm tắt', [
+    { label: 'Bài tóm tắt trên LSVN', url: 'https://lsvn.vn/mot-so-thay-doi-moi-ve-dang-ky-xe-tu-hom-nay-a173933.html' },
+  ]),
+  cutru: doc('Quy định trước 01/01/2025 về chuyển nơi cư trú (TT 24/2023, Điều 6 khoản 3), bài tóm tắt', [
+    { label: 'Bài tóm tắt trên LSVN', url: 'https://lsvn.vn/se-bo-quy-dinh-chu-xe-phai-doi-dang-ky-bien-so-khi-thay-doi-noi-cu-tru-a151376.html' },
+  ]),
+  l36: doc('Luật Trật tự, an toàn giao thông đường bộ 2024 (Luật 36/2024/QH15)', [
+    { label: 'Điều 38 trên hethongphapluat.com', url: 'https://hethongphapluat.com/luat-trat-tu-an-toan-giao-thong-duong-bo-2024/dieu-38' },
+  ]),
+  nd156: doc('Nghị định 156/2024/NĐ-CP (10/12/2024, hiệu lực 01/01/2025)', [
+    { label: 'Chương 1', url: 'https://hethongphapluat.com/nghi-dinh-156-2024-nd-cp-nam-2024-quy-dinh-ve-dau-gia-bien-so-xe/chuong-1' },
+    { label: 'Chương 2', url: 'https://hethongphapluat.com/nghi-dinh-156-2024-nd-cp-nam-2024-quy-dinh-ve-dau-gia-bien-so-xe/chuong-2' },
+    { label: 'Bản .doc trên vbpl.vn', url: 'https://vbpl.vn/TW/Lists/vbpq/Attachments/180301/156_2024_ND-CP_635371.doc' },
+  ]),
+};
+export const withClause = (d: SourceDoc, clause: string): SourceDoc => ({ ...d, clause });

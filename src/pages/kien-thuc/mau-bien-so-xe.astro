@@ -1,0 +1,72 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { LEGAL, withClause } from '../../lib/content';
+import { LIMITS } from '../../lib/copy';
+import { ARTICLE_DAUGIA, ARTICLE_DOCMA, ARTICLE_MAU as A, ARTICLE_NGQT, ARTICLE_SERI } from '../../lib/knowledge';
+
+const sources = [withClause(LEGAL.tt79, 'Điều 37 khoản 3, 4 và 5'), LEGAL.vbhn41];
+---
+
+<ArticleFrame article={A} sources={sources} status={{ kind: 'tt79' }}>
+  <p class="intro">
+    Theo Thông tư 79/2024/TT-BCA, biển số xe trong nước có ba nền màu chính: <strong>nền xanh</strong> cho xe của các cơ quan như cơ quan Đảng, Quốc hội, UBND các cấp, Công an, Tòa án, Viện kiểm sát;
+    <strong>nền trắng</strong> cho tổ chức, cá nhân trong nước còn lại; <strong>nền vàng</strong> cho ô tô kinh doanh vận tải.
+  </p>
+
+  <section aria-labelledby="bang">
+    <h2 id="bang">Bảng màu biển số xe</h2>
+    <div class="tbl-wrap">
+      <table class="xtable">
+        <caption class="sr-only">Màu nền, màu chữ và đối tượng dùng của biển số xe</caption>
+        <thead><tr><th scope="col">Màu biển</th><th scope="col">Chữ và số</th><th scope="col">Dùng cho</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row" data-label="Màu biển">Nền xanh</th>
+            <td data-label="Chữ và số">Trắng</td>
+            <td data-label="Dùng cho">Ô tô và mô tô của cơ quan Đảng, Văn phòng Chủ tịch nước, Quốc hội, HĐND các cấp; Công an, Tòa án, Viện kiểm sát; bộ, cơ quan ngang bộ; UBND các cấp và cơ quan chuyên môn; tổ chức chính trị – xã hội; đơn vị sự nghiệp công lập (trừ cơ sở đào tạo, sát hạch lái xe).</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Màu biển">Nền trắng</th>
+            <td data-label="Chữ và số">Đen</td>
+            <td data-label="Dùng cho">Ô tô và mô tô của tổ chức, cá nhân trong nước không thuộc nhóm nền xanh.</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Màu biển">Nền vàng</th>
+            <td data-label="Chữ và số">Đen</td>
+            <td data-label="Dùng cho">Ô tô kinh doanh vận tải.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="tem">
+    <h2 id="tem">Tem nhận diện trên biển</h2>
+    <ul>
+      <li>Biển trúng đấu giá có tem nhận diện nền đỏ và vàng, chữ xanh. Xem thêm bài <a href={ARTICLE_DAUGIA.path}>{ARTICLE_DAUGIA.h1.toLowerCase()}</a>.</li>
+      <li>Xe năng lượng sạch, xanh, thân thiện môi trường có tem nhận diện màu xanh lá cây.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="loai">
+    <h2 id="loai">Ô tô, mô tô và số biển gắn trên xe</h2>
+    <p>
+      Mô tô cũng dùng nền xanh chữ trắng hoặc nền trắng chữ đen, theo cùng nhóm đối tượng với ô tô. Điểm khác nằm ở phần chữ, xem bài <a href={ARTICLE_SERI.path}>{ARTICLE_SERI.h1.toLowerCase()}</a>.
+    </p>
+    <p>Ô tô và xe máy chuyên dùng gắn 2 biển (một biển ngắn, một biển dài). Rơmoóc gắn 1 biển phía sau. Mô tô gắn 1 biển phía sau.</p>
+  </section>
+
+  <section aria-labelledby="khac">
+    <h2 id="khac">Biển của tổ chức, cá nhân nước ngoài</h2>
+    <p>Biển NG, QT, CV, NN có màu và đối tượng riêng, xem bài <a href={ARTICLE_NGQT.path}>{ARTICLE_NGQT.h1.toLowerCase()}</a>.</p>
+  </section>
+
+  <section aria-labelledby="gioihan">
+    <h2 id="gioihan">Màu biển không cho biết gì</h2>
+    <p class="limits">{LIMITS}</p>
+    <p>
+      Màu biển cũng vậy: không cho biết chủ xe là ai, đang ở đâu hay tình trạng của xe. Nơi đăng ký xe nằm ở hai số đầu của biển, xem bài <a href={ARTICLE_DOCMA.path}>{ARTICLE_DOCMA.h1.toLowerCase()}</a>,
+      ví dụ <a href="/83">biển số 83</a>; toàn bộ mã ở <a href="/bang-ma">bảng biển số xe 34 tỉnh thành</a>.
+    </p>
+  </section>
+</ArticleFrame>

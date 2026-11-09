@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import data from '../data/plate-codes.json';
 
-// SEO audit over every built page (125). Runs after `npm run build`.
+// SEO audit over every built page (132). Runs after `npm run build`.
 const all = readdirSync('dist', { recursive: true, encoding: 'utf8' });
 const files = all.filter((f) => f.endsWith('.html'));
 const read = (f: string) => readFileSync(join('dist', f), 'utf8');
@@ -183,12 +183,12 @@ describe('5. robots.txt & sitemap.xml', () => {
     expect(r).not.toMatch(/^Disallow: \/\s*$/m);
     expect(r).toContain(`Sitemap: ${SITE}/sitemap.xml`);
   });
-  it('sitemap: 124 absolute URLs, lastmod = meta.lastReviewed, no 404, no duplicates', () => {
-    expect(locs).toHaveLength(124);
-    expect(new Set(locs).size).toBe(124);
+  it('sitemap: 131 absolute URLs, lastmod = meta.lastReviewed, no 404, no duplicates', () => {
+    expect(locs).toHaveLength(131);
+    expect(new Set(locs).size).toBe(131);
     for (const l of locs) expect(l.startsWith('http')).toBe(true);
     const mods = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((m) => m[1]);
-    expect(mods).toHaveLength(124);
+    expect(mods).toHaveLength(131);
     expect(new Set(mods)).toEqual(new Set([data.meta.lastReviewed]));
     expect(sitemap).not.toContain('404');
   });
@@ -244,7 +244,7 @@ describe('6. technical', () => {
 describe('7. /nguon advertising section', () => {
   it('explains the "Quảng cáo" label and carries no offers', () => {
     const h = read('nguon.html');
-    expect(h).toContain('Quảng cáo trên BIEN SO');
+    expect(h).toContain('Quảng cáo trên Biển Số');
     expect(strip(h)).toContain('Khu có nhãn "Quảng cáo" là liên kết tiếp thị');
     expect(strip(h)).toContain('có thể nhận hoa hồng');
     expect(strip(h)).toContain('Quảng cáo không ảnh hưởng đến dữ liệu tra cứu');

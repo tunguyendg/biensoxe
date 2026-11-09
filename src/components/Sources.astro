@@ -1,14 +1,19 @@
 ---
-import { SOURCE_DOCS } from '../lib/content';
+import { SOURCE_DOCS, type SourceDoc } from '../lib/content';
+
+interface Props {
+  docs?: SourceDoc[] | undefined;
+}
+const { docs = SOURCE_DOCS } = Astro.props;
 ---
 
 <section aria-labelledby="sources-h" class="sources">
   <h2 id="sources-h">Nguồn</h2>
   <ul>
     {
-      SOURCE_DOCS.map((d) => (
+      docs.map((d) => (
         <li>
-          {d.name}.{' '}
+          {d.name}{d.clause ? `, ${d.clause}` : ''}.{' '}
           {d.links.map((l, i) => (
             <>
               {i > 0 && ' · '}

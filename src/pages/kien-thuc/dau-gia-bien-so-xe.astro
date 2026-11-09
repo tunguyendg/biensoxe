@@ -1,0 +1,72 @@
+---
+import ArticleFrame from '../../components/ArticleFrame.astro';
+import { LEGAL, withClause } from '../../lib/content';
+import { ARTICLE_DAUGIA as A, ARTICLE_DINHDANH, ARTICLE_MAU } from '../../lib/knowledge';
+
+const sources = [
+  withClause(LEGAL.nd156, 'Điều 3, 4, 6, 7, 14 và 19'),
+  withClause(LEGAL.l36, 'Điều 38'),
+];
+---
+
+<ArticleFrame article={A} sources={sources} status={{ kind: 'auction' }}>
+  <p class="intro">
+    Theo Nghị định 156/2024/NĐ-CP (hiệu lực 01/01/2025), biển số xe được đấu giá trực tuyến theo phương thức trả giá lên. Giá khởi điểm là <strong>40 triệu đồng</strong> với biển ô tô và <strong>5 triệu đồng</strong> với biển mô tô, xe gắn máy.
+    Mức này là mức cơ sở: hãy kiểm tra thông báo của phiên đấu giá.
+  </p>
+
+  <section aria-labelledby="so">
+    <h2 id="so">Các con số cơ bản</h2>
+    <div class="tbl-wrap">
+      <table class="xtable">
+        <caption class="sr-only">Giá khởi điểm, tiền đặt trước và bước giá khi đấu giá biển số</caption>
+        <thead><tr><th scope="col">Hạng mục</th><th scope="col">Biển ô tô</th><th scope="col">Biển mô tô, xe gắn máy</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-label="Hạng mục">Giá khởi điểm</th><td data-label="Biển ô tô">40 triệu đồng</td><td data-label="Biển mô tô, xe gắn máy">5 triệu đồng</td></tr>
+          <tr><th scope="row" data-label="Hạng mục">Tiền đặt trước</th><td data-label="Biển ô tô">Bằng giá khởi điểm của 1 biển</td><td data-label="Biển mô tô, xe gắn máy">Bằng giá khởi điểm của 1 biển</td></tr>
+          <tr><th scope="row" data-label="Hạng mục">Bước giá</th><td data-label="Biển ô tô">5 triệu đồng</td><td data-label="Biển mô tô, xe gắn máy">500.000 đồng</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Nghị định có cơ chế tăng giá khởi điểm định kỳ 3 năm một lần, tính từ 01/01/2025, nên hãy kiểm tra thông báo của phiên đấu giá thay vì chỉ dựa vào bảng này.</p>
+  </section>
+
+  <section aria-labelledby="ai">
+    <h2 id="ai">Ai được tham gia, đấu giá thế nào?</h2>
+    <p>
+      Người tham gia là tổ chức, cá nhân Việt Nam đăng ký hợp lệ và nộp tiền đặt trước. Đấu giá diễn ra trực tuyến, theo phương thức trả giá lên, và được chọn biển của bất kỳ tỉnh, thành nào.
+      Mã tỉnh của biển xem ở <a href="/bang-ma">bảng biển số xe 34 tỉnh thành</a>.
+    </p>
+  </section>
+
+  <section aria-labelledby="sau">
+    <h2 id="sau">Sau khi trúng đấu giá</h2>
+    <div class="tbl-wrap">
+      <table class="xtable">
+        <caption class="sr-only">Thời hạn sau khi trúng đấu giá biển số</caption>
+        <thead><tr><th scope="col">Việc phải làm</th><th scope="col">Thời hạn</th><th scope="col">Nếu không thực hiện</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row" data-label="Việc phải làm">Nộp đủ tiền trúng đấu giá (chưa gồm lệ phí đăng ký)</th>
+            <td data-label="Thời hạn">30 ngày kể từ khi có thông báo kết quả</td>
+            <td data-label="Nếu không thực hiện">Không được hoàn tiền; bị cấm tham gia đấu giá biển số trong 12 tháng</td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Việc phải làm">Đăng ký xe gắn biển trúng đấu giá</th>
+            <td data-label="Thời hạn">12 tháng kể từ ngày được cấp quyết định xác nhận; gia hạn tối đa 6 tháng nếu có sự kiện bất khả kháng hoặc trở ngại khách quan</td>
+            <td data-label="Nếu không thực hiện">Hỏi công an nơi đăng ký để chắc chắn</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="chuyen">
+    <h2 id="chuyen">Chuyển nhượng và nhận biết biển trúng đấu giá</h2>
+    <p>
+      Xe gắn với biển trúng đấu giá được chuyển nhượng, trao đổi, tặng cho hoặc để thừa kế. Biển số riêng thì không được chuyển nhượng, tặng cho hay để thừa kế.
+      Biển trúng đấu giá có tem nhận diện nền đỏ và vàng, chữ xanh, xem thêm bài <a href={ARTICLE_MAU.path}>{ARTICLE_MAU.h1.toLowerCase()}</a>.
+      Quy định giữ số biển 5 năm không áp dụng khi chuyển quyền sở hữu xe gắn biển trúng đấu giá, xem bài <a href={ARTICLE_DINHDANH.path}>{ARTICLE_DINHDANH.h1.toLowerCase()}</a>.
+    </p>
+  </section>
+</ArticleFrame>

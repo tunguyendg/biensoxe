@@ -1,8 +1,10 @@
 ---
 import Breadcrumb from './Breadcrumb.astro';
+import LegalStatus from './LegalStatus.astro';
 import Sources from './Sources.astro';
 import Base from '../layouts/Base.astro';
 import type { Crumb } from '../lib/crumbs';
+import type { SourceDoc } from '../lib/content';
 import { data } from '../lib/data';
 import { formatDate } from '../lib/format';
 import { articleDates, KB_INDEX, type Article } from '../lib/knowledge';
@@ -13,8 +15,12 @@ import '../styles/pages.css';
 // Shared frame for /kien-thuc/* articles: breadcrumb, H1, dates, Nguồn. No ads here, same as /nguon.
 interface Props {
   article: Article;
+  /** Legal sources of this article; default = the data sources (NQ 202, TT 51, TT 79). */
+  sources?: SourceDoc[];
+  /** Adds the "Cập nhật theo văn bản" section. */
+  status?: { kind: 'tt79' | 'auction'; extra?: string };
 }
-const { article: a } = Astro.props;
+const { article: a, sources, status } = Astro.props;
 const site = Astro.site as URL;
 const dates = articleDates(a, data.meta.lastReviewed);
 const crumbs: Crumb[] = [
@@ -41,6 +47,7 @@ const graph = pageGraph({
       {dates.showModified && <> · Cập nhật <time datetime={dates.modified}>{formatDate(dates.modified)}</time></>}
     </p>
     <slot />
-    <Sources />
+    {status && <LegalStatus kind={status.kind} extra={status.extra} />}
+    <Sources docs={sources} />
   </main>
 </Base>

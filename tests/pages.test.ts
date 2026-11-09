@@ -91,7 +91,8 @@ describe('FAQ & JSON-LD', () => {
   });
   it('never states the OPEN claim as fact (no "biển cũ không phải đổi")', () => {
     for (const f of FAQ) expect(f.a).not.toMatch(/không phải đổi/i);
-    expect(FAQ.some((f) => f.a.includes('Chưa thấy quy định bắt buộc đổi biển; hỏi công an nơi đăng ký để chắc chắn.'))).toBe(true);
+    expect(FAQ.some((f) => f.a.includes('Điều 18 TT 79/2024/TT-BCA không liệt kê trường hợp phải đổi biển do sáp nhập tỉnh; hỏi công an nơi đăng ký để chắc chắn.'))).toBe(true);
+    expect(FAQ.some((f) => f.a.includes('Chưa thấy quy định'))).toBe(false);
   });
   it('JSON-LD shapes and script-safe escaping', () => {
     const b = breadcrumbNode('https://x/b#breadcrumb', [{ name: 'A', url: 'https://x/' }, { name: 'B', url: 'https://x/b' }]);
